@@ -1,0 +1,93 @@
+/* Enterprise-Grade Dual-Layer Header Spacing */
+.header-height-fix {
+  height: 72px;
+}
+
+@media (min-width: 1024px) {
+  .header-height-fix {
+    height: 120px;
+  }
+}
+
+.header {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: 0;
+  z-index: 50;
+  background-color: #fef6e8;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(254, 96, 25, 0.08);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.01);
+}
+
+.header-sticky {
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+}
+
+.header.unpinned {
+  transform: translateY(-100%);
+}
+
+// navbar items
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+}
+
+.navbar-brand image {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 15px;
+  font-weight: 800;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: #fe6019;
+}
+
+.nav-link.active {
+  color: #fe6019;
+}
+
+// Custom Premium Light Dropdown List
+.glass-dropdown {
+  background-color: #fafaf9;
+  border: 1px solid rgba(254, 96, 25, 0.1);
+  border-radius: 1.25rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+// Micro-animations
+@keyframes floatUp {
+  0% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-float-up {
+  animation: floatUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

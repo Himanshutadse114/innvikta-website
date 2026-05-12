@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  @import "base";
+}
+
+@layer components {
+  @import "components";
+  @import "navigation";
+  @import "buttons";
+}
+
+@layer utilities {
+  @import "utilities";
+}
+
+@layer swiper {
+  @import './swiper.scss';
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes wave-flow {
+  0% { transform: translateX(0) scaleX(1); }
+  50% { transform: translateX(-1%) scaleX(1.02); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-wave {
+  animation: wave-flow 10s ease-in-out infinite;
+}
+
+.ticker-swiper {
+  .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+}
