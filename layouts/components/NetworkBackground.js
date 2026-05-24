@@ -42,14 +42,14 @@ const NetworkBackground = () => {
               distance: 120,
               links: {
                 opacity: 0.6,
-                color: "#fe6019"
+                color: "#f15a24"
               }
             },
           },
         },
         particles: {
           color: {
-            value: ["#fe6019", "#cbd5e1"],
+            value: ["#f15a24", "#cbd5e1"],
           },
           links: {
             color: "#e2e8f0",

@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-function Circle({ className, width, height, fill = true, ...props }) {
+function Circle({ className, width, height, fill = true, fillValue, ...props }) {
   const size = width || height || 64;
   const [delay, setDelay] = useState("0");
+  const color = fillValue || "#f97316";
 
   useEffect(() => {
     setDelay((Math.random() * 5).toFixed(2));
@@ -30,15 +31,15 @@ function Circle({ className, width, height, fill = true, ...props }) {
       >
         <path
           d="M12 2L4 5v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V5l-8-3z"
-          fill="#f97316"
-          stroke="#f97316"
+          fill={color}
+          stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M9 12l2 2 4-4"
-          stroke="#f97316"
+          stroke={color}
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -1,49 +1,38 @@
 {
   "main": [
     {
-      "name": "Home",
-      "url": "/"
+      "name": "Solutions",
+      "url": "#"
     },
     {
-      "name": "About",
-      "url": "/about"
+      "name": "Resources",
+      "url": "#"
     },
     {
-      "name": "Blog",
-      "url": "/posts"
+      "name": "Free Tools",
+      "url": "#"
     },
     {
-      "name": "Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Elements",
-          "url": "/elements"
-        },
-        {
-          "name": "Terms & Conditions",
-          "url": "/terms-policy"
-        }
-      ]
+      "name": "Innvikta Arcade",
+      "url": "#"
     },
     {
-      "name": "Contact",
-      "url": "/contact"
+      "name": "Partners",
+      "url": "#"
+    },
+    {
+      "name": "Company",
+      "url": "#"
     }
   ],
   "footer": [
     {
-      "name": "About",
+      "name": "About Us",
       "url": "/about"
     },
     {
-      "name": "Blog",
-      "url": "/blog"
-    },
-    {
-      "name": "Terms & Conditions",
-      "url": "/terms-policy"
+      "name": "Contact Sales",
+      "url": "/contact"
     }
   ]
 }

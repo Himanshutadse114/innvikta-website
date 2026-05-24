@@ -56,7 +56,7 @@ const Challenges = ({ challenges }) => {
                             <div className="h-20 w-full bg-gradient-to-t from-orange-50 to-transparent relative overflow-hidden rounded-lg">
                               <svg viewBox="0 0 100 40" className="w-full h-full preserve-aspect-ratio-none">
                                 <path d="M0 10 Q 25 15, 50 25 T 100 35 L 100 40 L 0 40 Z" fill="rgba(254, 96, 25, 0.1)" />
-                                <path d="M0 10 Q 25 15, 50 25 T 100 35" fill="none" stroke="#FE6019" strokeWidth="2" />
+                                <path d="M0 10 Q 25 15, 50 25 T 100 35" fill="none" stroke="#f15a24" strokeWidth="2" />
                               </svg>
                             </div>
                           </div>

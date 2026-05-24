@@ -7,7 +7,7 @@ banner:
     label: Book a Demo
     href: "#"
   link_secondary:
-    label: Start Free- Up to 50 Users
+    label: Start Free
     href: "#"
 
 ##brands
@@ -139,6 +139,7 @@ metrics:
   list:
     - value: "500,000+"
       label: "employees trained"
+
     - value: "94%"
       label: "engagement rate"
     - value: "72%"
@@ -146,7 +147,7 @@ metrics:
 
 challenges:
   title: "90% of breaches start with a human. Your firewall is ready. Is your team?"
-  stats_summary: "<span class='text-primary'>$4.88M</span> average breach cost | <span class='text-primary'>74%</span> involve human element"
+  stats_summary: "<span class='text-primary'>$4.88M</span> average breach cost"
   cards:
     - title: "Engagement Gap"
       content: "Employees tune out generic awareness modules that feel disconnected from their daily work."
