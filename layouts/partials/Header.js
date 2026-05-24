@@ -940,7 +940,7 @@ const Header = () => {
                   className="h-full flex items-center"
                   onMouseEnter={() => handleMenuHover(menuKey)}
                 >
-                  <button className={`nav-link h-full flex items-center gap-1 text-[14.5px] font-bold text-slate-700 hover:text-[#f15a24] transition-colors focus:outline-none ${
+                  <button className={`nav-link h-full flex items-center gap-1 text-[14.5px] font-bold text-slate-900 hover:text-[#f15a24] transition-colors focus:outline-none ${
                     activeMegaMenu === menuKey ? "text-[#f15a24]" : ""
                   }`}>
                     {menuKey === "arcade" && <IoGameControllerOutline className="text-lg text-[#f15a24]" />}
