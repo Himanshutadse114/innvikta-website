@@ -1,0 +1,10 @@
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Book/Education cap representing LMS -->
+  <g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linejoin="round">
+    <path d="M15 32L28 38L41 32" />
+    <path d="M28 20L15 26L28 32L41 26L28 20Z" fill="#FFFFFF" fill-opacity="0.2" />
+    <path d="M20 28.5V36C20 38 28 40 28 40C28 40 36 38 36 36V28.5" />
+  </g>
+  <!-- Text -->
+  <text x="52" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">LMS</text>
+</svg>

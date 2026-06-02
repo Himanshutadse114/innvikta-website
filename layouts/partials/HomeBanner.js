@@ -386,21 +386,25 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
                   )}
                 </div>
               </div>
-              <div className="col-12 md:col-10 relative mt-10">
-                <div className="banner-img relative w-full min-h-[400px] md:min-h-[600px] rounded-[32px] overflow-hidden shadow-2xl shadow-orange-500/10 group">
-                  <ImageFallback
-                    src="/images/banner-app.png"
-                    className="w-full h-auto object-cover relative z-0 group-hover:blur-[2px] transition-all duration-700"
-                    width={1200}
-                    height={600}
-                    alt="banner image"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* End-to-end full page width image */}
+      <div className="w-full relative mt-10 px-0">
+        <div className="banner-img relative w-full min-h-[400px] md:min-h-[600px] overflow-hidden shadow-2xl shadow-orange-500/10 group">
+          <ImageFallback
+            src="/images/banner-app.png"
+            className="w-full h-auto object-cover relative z-0 group-hover:blur-[2px] transition-all duration-700"
+            width={1920}
+            height={600}
+            alt="banner image"
+          />
+        </div>
+      </div>
 
+      <div className="container-xl relative z-20">
         <div className="row border-y border-border py-10">
           <div className="col-12 text-center mb-8">
             <span className="text-sm font-bold uppercase tracking-[0.2em] text-slate-400">Trusted By Companies</span>

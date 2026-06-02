@@ -1,0 +1,10 @@
+<svg width="110" height="60" viewBox="0 0 110 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Shield with threat waves representing SIEM -->
+  <g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linejoin="round">
+    <path d="M28 16C28 16 20 18 16 22V32C16 38 28 44 28 44C28 44 40 38 40 32V22C36 18 28 16 28 16Z" fill="#FFFFFF" fill-opacity="0.2" />
+    <path d="M24 26.5H32" />
+    <path d="M24 31.5H32" />
+  </g>
+  <!-- Text -->
+  <text x="52" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">SIEM</text>
+</svg>

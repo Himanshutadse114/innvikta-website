@@ -1,0 +1,11 @@
+<svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Users connection representing HRMS -->
+  <g fill="#FFFFFF">
+    <circle cx="20" cy="22" r="5" />
+    <path d="M10 37C10 32 14.5 29 20 29C25.5 29 30 32 30 37H10Z" />
+    <circle cx="34" cy="25" r="4" fill-opacity="0.6" />
+    <path d="M28 37C28 33 31 31.5 35 31.5C39 31.5 42 33 42 37H28Z" fill-opacity="0.6" />
+  </g>
+  <!-- Text -->
+  <text x="52" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">HRMS</text>
+</svg>

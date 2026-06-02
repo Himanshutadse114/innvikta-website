@@ -1,0 +1,11 @@
+<svg width="130" height="60" viewBox="0 0 130 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Teams-like double shield / people shapes -->
+  <g fill="#FFFFFF">
+    <circle cx="28" cy="20" r="5" />
+    <path d="M18 38C18 31.4 23.4 28 30 28C36.6 28 42 31.4 42 38H18Z" opacity="0.8"/>
+    <circle cx="16" cy="24" r="4" />
+    <path d="M8 38C8 33 12 30.5 17 30.5V38H8Z" opacity="0.5"/>
+  </g>
+  <!-- Text -->
+  <text x="54" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">Teams</text>
+</svg>

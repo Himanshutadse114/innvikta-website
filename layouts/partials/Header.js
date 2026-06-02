@@ -258,53 +258,55 @@ const menuData = {
       {
         id: "insat",
         label: "InSAT",
+        href: "/solutions/insat",
         icon: FiCpu,
         headline: "Build everyday secure behaviour across your workforce with Innvikta’s unified Security Awareness Training platform.",
         cells: [
           { 
             name: "Security Awareness Training", 
             desc: "Cinematic, role-based courses that engage employees and satisfy audits.", 
-            href: "#",
-            chips: [{ label: "AI Adaptive Learning" }, { label: "Microlearning" }, { label: "Role-Based Modules" }, { label: "Story-Based Simulations" }]
+            href: "/solutions/insat",
+            chips: [{ label: "Role-Based Modules" }, { label: "Story-Based Simulations" }]
           },
           { 
             name: "Interactive Gamified Arcade", 
             desc: "Bite-sized microlearning games and quizzes that motivate participation.", 
-            href: "#",
-            chips: [{ label: "Gamified / Interactive Modules" }, { label: "Policy Reinforcement" }, { label: "Phishing Simulations" }]
+            href: "/solutions/insat",
+            chips: [{ label: "Gamified / Interactive Modules" }, { label: "Policy Reinforcement" }]
           },
           { 
             name: "AI Adaptive Learning", 
             desc: "Personalized paths adjusted dynamically to user risk profiles.", 
-            href: "#",
-            chips: [{ label: "Personalized Learning Paths" }, { label: "Dynamic User Risk Profiling" }]
+            href: "/solutions/insat",
+            chips: [{ label: "Personalized Learning Paths" }, { label: "Dynamic Risk Profiling" }]
           },
           { 
             name: "Microlearning", 
-            desc: "Deliver bite-sized, targeted training modules to reinforce key security concepts efficiently.", 
-            href: "#",
-            chips: [{ label: "Bite-sized Training" }, { label: "Reinforcement Campaigns" }]
+            desc: "Deliver bite-sized, targeted modules to reinforce key security concepts.", 
+            href: "/solutions/insat",
+            chips: [{ label: "Bite-sized Training" }, { label: "Just-in-Time Learning" }]
           }
         ],
         cta: {
           title: "Launch modern awareness training",
           desc: "Deliver personalized learning built for active participation and defensible compliance evidence.",
           label: "Explore Training Platform",
-          href: "#",
+          href: "/solutions/insat",
+          image: "/images/insat_featured.png",
           svgType: "platform"
         }
       },
       {
         id: "user_risk_simulation",
-        label: "User Risk Simulation",
+        label: "Phishing Simulation",
         icon: FiMail,
         headline: "Personalized phishing simulations that teach, test, and strengthen workforce response.",
         cells: [
           { 
-            name: "Phishing Simulation", 
-            desc: "Simulate and track phishing, WhatsApp, smishing, and QR code attacks.", 
+            name: "Multi Vector Attack", 
+            desc: "Simulate and track phishing, attachment, and QR code attacks.", 
             href: "#",
-            chips: [{ label: "Attachment Simulation" }, { label: "Smishing Simulation" }, { label: "WhatsApp Simulation" }]
+            chips: [{ label: "Smishing Simulation" }, { label: "WhatsApp Simulation" }]
           },
           { 
             name: "Vishing Simulation", 
@@ -479,7 +481,6 @@ const menuData = {
           label: "Get Immediate Help",
           href: "#"
         },
-        layout: "three-column",
         cells: [
           { name: "Incident Reporting Guide", desc: "Step-by-step assistance for victims to understand, document, and report cyber incidents effectively.", href: "#" },
           { name: "Complaint Filing Support", desc: "Guided NCRP complaint filing walkthroughs with actionable reporting instructions and support resources.", href: "#" },
@@ -598,7 +599,7 @@ const menuData = {
       },
       {
         id: "cyber_tools",
-        label: "Free Cyber Tools",
+        label: "Free Cybersecurity Tools",
         icon: FiMonitor,
         headline: "Immediate security utilities for IT and security administration teams.",
         cells: [
@@ -873,21 +874,21 @@ const Header = () => {
             LAYER 1: UTILITY STRIP (Enterprise Alignment, Minimal Spacing)
             ========================================================= */}
         <div className="hidden lg:block w-full bg-[#f15a24] border-b border-[#e14a14] h-[40px] transition-all duration-300">
-          <div className="container-xl h-full flex items-center justify-between text-[11px] font-bold text-white/90">
+          <div className="container-xl h-full flex items-center justify-between text-[13px] font-bold text-white/90">
             <div className="flex items-center gap-3">
-              <span className="bg-white/20 text-white border border-white/30 font-extrabold px-2 py-0.5 rounded text-[9px] uppercase tracking-wider">NEW</span>
+              <span className="bg-white/20 text-white border border-white/30 font-extrabold px-2 py-0.5 rounded text-[11px] uppercase tracking-wider">NEW</span>
               <Link href="#" className="hover:text-white transition-colors flex items-center gap-1">
-                InSAT Platform Release 2026: Human Behavior Analytics <FiArrowRight className="text-[10px]" />
+                InSAT Platform Release 2026: Human Behavior Analytics <FiArrowRight className="text-[12px]" />
               </Link>
             </div>
 
             <div className="flex items-center gap-4">
               <Link href="#" className="hover:text-white transition-colors flex items-center gap-1.5">
-                <FiSearch className="text-xs" /> Search
+                <FiSearch className="text-[14px]" /> Search
               </Link>
               <span className="h-3 w-[1px] bg-white/30"></span>
               <Link href="#" className="hover:text-white transition-colors flex items-center gap-1.5">
-                <FiHelpCircle className="text-xs" /> Support
+                <FiHelpCircle className="text-[14px]" /> Support
               </Link>
               <span className="h-3 w-[1px] bg-white/30"></span>
 
@@ -897,7 +898,7 @@ const Header = () => {
                   onBlur={() => setTimeout(() => setLangOpen(false), 200)}
                   className="hover:text-white transition-colors flex items-center gap-1 focus:outline-none"
                 >
-                  <FiGlobe className="text-xs" /> English <FiChevronDown className="text-[9px]" />
+                  <FiGlobe className="text-[14px]" /> English <FiChevronDown className="text-[11px]" />
                 </button>
                 {langOpen && (
                   <div className="absolute right-0 top-full mt-1.5 w-[140px] bg-slate-900 border border-slate-800 rounded-lg shadow-xl py-1 z-50 text-slate-400">
@@ -924,7 +925,7 @@ const Header = () => {
                 <img 
                   src="/images/logo-main.png" 
                   alt="Innvikta" 
-                  className="h-8 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
               </Link>
             </div>
@@ -937,7 +938,7 @@ const Header = () => {
                   className="h-full flex items-center"
                   onMouseEnter={() => handleMenuHover(menuKey)}
                 >
-                  <button className={`nav-link h-full flex items-center gap-1 text-[14.5px] font-bold text-slate-900 hover:text-[#f15a24] transition-colors focus:outline-none ${
+                  <button className={`nav-link h-full flex items-center gap-1 text-[16.5px] font-bold text-slate-900 hover:text-[#f15a24] transition-colors focus:outline-none ${
                     activeMegaMenu === menuKey ? "text-[#f15a24]" : ""
                   }`}>
                     {menuKey === "arcade" && <IoGameControllerOutline className="text-lg text-[#f15a24]" />}
@@ -992,27 +993,29 @@ const Header = () => {
                 onMouseEnter={() => handleMenuHover(activeMegaMenu)}
                 onMouseLeave={handleMenuLeave}
               >
-                <div className="max-w-[1440px] mx-auto flex min-h-[480px] w-full">
+                <div className="w-full mx-auto flex min-h-[480px] w-full">
                   {/* 1. LEFT TAB RAIL (Persistent skeleton anchor) */}
-                  <div className="w-[280px] bg-slate-50 border-r border-slate-100 p-6 flex flex-col gap-1.5 shrink-0">
+                  <div className="w-[320px] bg-slate-50 border-r border-slate-100 pt-6 pb-12 px-6 flex flex-col gap-1.5 shrink-0">
                     {menuData[activeMegaMenu].tabs.map((tab) => {
                       const isActive = activeTabs[activeMegaMenu] === tab.id;
                       return (
-                        <button
+                        <Link
                           key={tab.id}
+                          href={tab.href || "#"}
                           onMouseEnter={() => handleTabHover(activeMegaMenu, tab.id)}
-                          className={`w-full flex items-center justify-between text-left px-4 py-3 rounded-lg text-[13.5px] font-bold transition-all duration-200 ${
+                          onClick={handleMenuLeave}
+                          className={`w-full flex items-center justify-between text-left px-4 py-3 rounded-lg text-[15px] font-bold transition-all duration-200 ${
                             isActive
                               ? "bg-[#f15a24]/10 text-[#f15a24] shadow-sm"
                               : "text-slate-600 hover:bg-slate-100/70 hover:text-[#f15a24]"
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <tab.icon className={`text-base text-[#f15a24]`} />
-                            <span>{tab.label}</span>
+                            <tab.icon className={`text-base text-[#f15a24] shrink-0`} />
+                            <span className="whitespace-nowrap">{tab.label}</span>
                           </div>
-                          <FiArrowRight className={`text-xs transition-transform duration-200 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`} />
-                        </button>
+                          <FiArrowRight className={`text-xs shrink-0 transition-transform duration-200 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`} />
+                        </Link>
                       );
                     })}
                   </div>
@@ -1032,10 +1035,10 @@ const Header = () => {
                           className="flex flex-1 w-full"
                         >
                           {/* 2. CENTER WORKSPACE (Strict 2x2 grid, visually populated) */}
-                          <div className="flex-1 py-10 px-12 flex flex-col justify-start">
+                          <div className="flex-1 pt-6 pb-12 px-12 flex flex-col justify-start">
                             {currentTab.headline && (
-                              <div className={`mb-8 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
-                                <h3 className="text-2xl font-semibold text-slate-800 tracking-tight leading-snug">
+                              <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
+                                <h3 className="text-[20px] font-semibold text-slate-800 tracking-tight leading-snug">
                                   {currentTab.headline}
                                 </h3>
                                 {currentTab.headlineCta && (
@@ -1059,26 +1062,26 @@ const Header = () => {
                                     onClick={handleMenuLeave}
                                     className="block py-0.5"
                                   >
-                                    <span className="text-[#f15a24] group-hover/item:text-orange-600 text-[15px] font-bold transition-colors inline-flex items-center gap-1">
+                                    <span className="text-[#f15a24] group-hover/item:text-orange-600 text-[16px] font-bold transition-colors inline-flex items-center gap-1">
                                       {cell.name}
-                                      <FiArrowRight className="text-[10px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
+                                      <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
                                     </span>
                                     {cell.desc && (
-                                      <p className="text-[12px] text-slate-500 font-semibold leading-normal mt-1 group-hover/item:text-slate-700 transition-colors">
+                                      <p className="text-[13px] text-slate-700 font-semibold leading-normal mt-1 group-hover/item:text-slate-900 transition-colors">
                                         {cell.desc}
                                       </p>
                                     )}
                                     
                                     {/* Chips rendering */}
                                     {cell.chips && (
-                                      <div className="flex flex-wrap gap-2 mt-3.5">
+                                      <div className={`flex ${currentTab.id === 'customized_solutions' ? 'flex-wrap' : 'flex-col'} gap-2 mt-3.5 items-start`}>
                                         {cell.chips.map((chip, i) => (
-                                          <span key={i} className={`text-[11px] font-bold border rounded-md flex items-center gap-1.5 transition-colors px-2 py-0.5 ${
+                                          <span key={i} className={`text-[12px] font-bold border rounded-md flex items-center gap-1.5 transition-colors px-2 py-0.5 ${
                                             chip.isMore 
                                               ? 'bg-transparent text-slate-400 border-transparent hover:text-[#f15a24]' 
                                               : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-orange-200 hover:text-[#f15a24] hover:bg-orange-50/50'
                                           }`}>
-                                            {chip.icon && <chip.icon className="text-[11px] opacity-60" />}
+                                            {chip.icon && <chip.icon className="text-[12px] opacity-60" />}
                                             {chip.label}
                                           </span>
                                         ))}
@@ -1094,27 +1097,36 @@ const Header = () => {
 
                           {/* 3. FEATURED CARD (Integrated conversion card) */}
                           {currentTab.cta && (
-                            <div className="w-[360px] p-8 border-l border-slate-100 bg-slate-50/40 shrink-0 flex flex-col justify-between">
-                              <div className="flex flex-col gap-4">
-                                <div className="w-full bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden p-3 mb-2">
-                                  <RenderSvgIllustration type={currentTab.cta.svgType} />
+                            <div className="w-[360px] pt-6 pb-12 px-6 border-l border-slate-100 bg-transparent shrink-0 flex flex-col justify-start">
+                              <div className="bg-slate-50 rounded-2xl p-5 flex flex-col gap-5 shadow-sm border border-slate-100 relative">
+                                <div className="flex flex-col gap-3">
+                                  <div className="w-full bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden mb-2 relative group-hover/card:shadow-md transition-shadow">
+                                    {currentTab.cta.image && (
+                                      <div className="absolute top-3 left-3 bg-[#10b981] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm z-10">
+                                        Featured
+                                      </div>
+                                    )}
+                                    {currentTab.cta.image ? (
+                                      <img src={currentTab.cta.image} alt={currentTab.cta.title} className="w-full h-auto object-cover aspect-[4/3] transform hover:scale-105 transition-transform duration-500" />
+                                    ) : (
+                                      <div className="p-3">
+                                        <RenderSvgIllustration type={currentTab.cta.svgType} />
+                                      </div>
+                                    )}
+                                  </div>
+                                  <h5 className="text-[15px] font-medium text-slate-800 leading-snug">
+                                    {currentTab.cta.title}
+                                  </h5>
+                                  {/* Description removed to reduce text as requested */}
                                 </div>
-                                <h5 className="text-[15px] font-extrabold text-slate-800 leading-snug">
-                                  {currentTab.cta.title}
-                                </h5>
-                                {currentTab.cta.desc && (
-                                  <p className="text-[12.5px] text-slate-400 leading-relaxed font-semibold">
-                                    {currentTab.cta.desc}
-                                  </p>
-                                )}
+                                <Link 
+                                  href={currentTab.cta.href}
+                                  onClick={handleMenuLeave}
+                                  className="w-full justify-center text-center py-3 bg-[#f15a24] hover:bg-orange-600 text-white font-extrabold rounded-lg text-xs transition-colors flex items-center gap-1.5 uppercase tracking-wider shadow-md shadow-orange-500/10"
+                                >
+                                  {currentTab.cta.label} <FiArrowRight className="text-xs" />
+                                </Link>
                               </div>
-                              <Link 
-                                href={currentTab.cta.href}
-                                onClick={handleMenuLeave}
-                                className="w-full justify-center text-center py-3 bg-[#f15a24] hover:bg-orange-600 text-white font-extrabold rounded-lg text-xs transition-colors flex items-center gap-1.5 uppercase tracking-wider shadow-md shadow-orange-500/10 mt-6"
-                              >
-                                {currentTab.cta.label} <FiArrowRight className="text-xs" />
-                              </Link>
                             </div>
                           )}
                         </motion.div>
