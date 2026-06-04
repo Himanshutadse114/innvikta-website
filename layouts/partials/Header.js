@@ -299,6 +299,7 @@ const menuData = {
       {
         id: "user_risk_simulation",
         label: "Phishing Simulation",
+        href: "/solutions/phishing-simulation",
         icon: FiMail,
         headline: "Personalized phishing simulations that teach, test, and strengthen workforce response.",
         cells: [
@@ -331,13 +332,14 @@ const menuData = {
           title: "Simulate modern attacks and reinforce behavior",
           desc: "Test your team across multiple vectors including SMS, QR codes, and voice to verify click resilience.",
           label: "Explore Phishing Simulations",
-          href: "#",
+          href: "/solutions/phishing-simulation",
           svgType: "phishing"
         }
       },
       {
         id: "human_risk_intelligence",
         label: "Human Risk Intelligence",
+        href: "/solutions/human-risk-intelligence",
         icon: FiActivity,
         headline: "Turn awareness data into measurable, board-ready human risk visibility.",
         cells: [
@@ -370,7 +372,7 @@ const menuData = {
           title: "Provide leaders with clear behavior metrics",
           desc: "Identify security gaps and track behavioral improvements across your entire organization automatically.",
           label: "Explore Dashboard",
-          href: "#",
+          href: "/solutions/human-risk-intelligence",
           svgType: "analytics"
         }
       },
@@ -998,23 +1000,39 @@ const Header = () => {
                   <div className="w-[320px] bg-slate-50 border-r border-slate-100 pt-6 pb-12 px-6 flex flex-col gap-1.5 shrink-0">
                     {menuData[activeMegaMenu].tabs.map((tab) => {
                       const isActive = activeTabs[activeMegaMenu] === tab.id;
-                      return (
-                        <Link
-                          key={tab.id}
-                          href={tab.href || "#"}
-                          onMouseEnter={() => handleTabHover(activeMegaMenu, tab.id)}
-                          onClick={handleMenuLeave}
-                          className={`w-full flex items-center justify-between text-left px-4 py-3 rounded-lg text-[15px] font-bold transition-all duration-200 ${
-                            isActive
-                              ? "bg-[#f15a24]/10 text-[#f15a24] shadow-sm"
-                              : "text-slate-600 hover:bg-slate-100/70 hover:text-[#f15a24]"
-                          }`}
-                        >
+                      const isPlaceholder = !tab.href || tab.href === "#";
+                      const tabContent = (
+                        <>
                           <div className="flex items-center gap-3">
-                            <tab.icon className={`text-base text-[#f15a24] shrink-0`} />
+                            <tab.icon className="text-base text-[#f15a24] shrink-0" />
                             <span className="whitespace-nowrap">{tab.label}</span>
                           </div>
                           <FiArrowRight className={`text-xs shrink-0 transition-transform duration-200 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`} />
+                        </>
+                      );
+                      const baseClass = `w-full flex items-center justify-between text-left px-4 py-3 rounded-lg text-[15px] font-bold transition-all duration-200 ${
+                        isActive
+                          ? "bg-[#f15a24]/10 text-[#f15a24] shadow-sm"
+                          : "text-slate-600 hover:bg-slate-100/70 hover:text-[#f15a24]"
+                      }`;
+
+                      return isPlaceholder ? (
+                        <div
+                          key={tab.id}
+                          onMouseEnter={() => handleTabHover(activeMegaMenu, tab.id)}
+                          className={`${baseClass} cursor-pointer`}
+                        >
+                          {tabContent}
+                        </div>
+                      ) : (
+                        <Link
+                          key={tab.id}
+                          href={tab.href}
+                          onMouseEnter={() => handleTabHover(activeMegaMenu, tab.id)}
+                          onClick={handleMenuLeave}
+                          className={baseClass}
+                        >
+                          {tabContent}
                         </Link>
                       );
                     })}
@@ -1037,11 +1055,11 @@ const Header = () => {
                           {/* 2. CENTER WORKSPACE (Strict 2x2 grid, visually populated) */}
                           <div className="flex-1 pt-6 pb-12 px-12 flex flex-col justify-start">
                             {currentTab.headline && (
-                              <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
+                              <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta && currentTab.headlineCta.href !== "#" ? 'flex flex-col items-start gap-4' : ''}`}>
                                 <h3 className="text-[20px] font-semibold text-slate-800 tracking-tight leading-snug">
                                   {currentTab.headline}
                                 </h3>
-                                {currentTab.headlineCta && (
+                                {currentTab.headlineCta && currentTab.headlineCta.href !== "#" && (
                                   <Link 
                                     href={currentTab.headlineCta.href}
                                     onClick={handleMenuLeave}
@@ -1055,19 +1073,16 @@ const Header = () => {
 
                             {/* Strictly 2-column or 3-column layout based on tab config */}
                             <div className={`grid ${currentTab.layout === 'three-column' ? 'grid-cols-3' : 'grid-cols-2'} gap-x-10 gap-y-6 items-start content-start w-full mt-1`}>
-                              {currentTab.cells && currentTab.cells.map((cell, idx) => (
-                                <div key={idx} className="group/item flex flex-col justify-start">
-                                  <Link 
-                                    href={cell.href}
-                                    onClick={handleMenuLeave}
-                                    className="block py-0.5"
-                                  >
-                                    <span className="text-[#f15a24] group-hover/item:text-orange-600 text-[16px] font-bold transition-colors inline-flex items-center gap-1">
+                              {currentTab.cells && currentTab.cells.map((cell, idx) => {
+                                const isCellPlaceholder = !cell.href || cell.href === "#";
+                                const cellContent = (
+                                  <>
+                                    <span className={`text-[#f15a24] text-[16px] font-bold inline-flex items-center gap-1 ${!isCellPlaceholder ? "group-hover/item:text-orange-600 transition-colors" : ""}`}>
                                       {cell.name}
-                                      <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
+                                      {!isCellPlaceholder && <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />}
                                     </span>
                                     {cell.desc && (
-                                      <p className="text-[13px] text-slate-700 font-semibold leading-normal mt-1 group-hover/item:text-slate-900 transition-colors">
+                                      <p className={`text-[13px] text-slate-700 font-semibold leading-normal mt-1 ${!isCellPlaceholder ? "group-hover/item:text-slate-900 transition-colors" : ""}`}>
                                         {cell.desc}
                                       </p>
                                     )}
@@ -1076,10 +1091,12 @@ const Header = () => {
                                     {cell.chips && (
                                       <div className={`flex ${currentTab.id === 'customized_solutions' ? 'flex-wrap' : 'flex-col'} gap-2 mt-3.5 items-start`}>
                                         {cell.chips.map((chip, i) => (
-                                          <span key={i} className={`text-[12px] font-bold border rounded-md flex items-center gap-1.5 transition-colors px-2 py-0.5 ${
-                                            chip.isMore 
-                                              ? 'bg-transparent text-slate-400 border-transparent hover:text-[#f15a24]' 
-                                              : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-orange-200 hover:text-[#f15a24] hover:bg-orange-50/50'
+                                          <span key={i} className={`text-[12px] font-bold border rounded-md flex items-center gap-1.5 px-2 py-0.5 ${
+                                            isCellPlaceholder 
+                                              ? 'bg-slate-50 text-slate-500 border-slate-100'
+                                              : chip.isMore 
+                                                ? 'bg-transparent text-slate-400 border-transparent hover:text-[#f15a24] transition-colors' 
+                                                : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-orange-200 hover:text-[#f15a24] hover:bg-orange-50/50 transition-colors'
                                           }`}>
                                             {chip.icon && <chip.icon className="text-[12px] opacity-60" />}
                                             {chip.label}
@@ -1087,9 +1104,27 @@ const Header = () => {
                                         ))}
                                       </div>
                                     )}
-                                  </Link>
-                                </div>
-                              ))}
+                                  </>
+                                );
+
+                                return (
+                                  <div key={idx} className="group/item flex flex-col justify-start">
+                                    {isCellPlaceholder ? (
+                                      <div className="block py-0.5 cursor-default">
+                                        {cellContent}
+                                      </div>
+                                    ) : (
+                                      <Link 
+                                        href={cell.href}
+                                        onClick={handleMenuLeave}
+                                        className="block py-0.5"
+                                      >
+                                        {cellContent}
+                                      </Link>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
 
 
@@ -1119,13 +1154,21 @@ const Header = () => {
                                   </h5>
                                   {/* Description removed to reduce text as requested */}
                                 </div>
-                                <Link 
-                                  href={currentTab.cta.href}
-                                  onClick={handleMenuLeave}
-                                  className="w-full justify-center text-center py-3 bg-[#f15a24] hover:bg-orange-600 text-white font-extrabold rounded-lg text-xs transition-colors flex items-center gap-1.5 uppercase tracking-wider shadow-md shadow-orange-500/10"
-                                >
-                                  {currentTab.cta.label} <FiArrowRight className="text-xs" />
-                                </Link>
+                                {!currentTab.cta.href || currentTab.cta.href === "#" ? (
+                                  <div 
+                                    className="w-full justify-center text-center py-3 bg-[#f15a24]/80 text-white font-extrabold rounded-lg text-xs flex items-center gap-1.5 uppercase tracking-wider cursor-default"
+                                  >
+                                    {currentTab.cta.label}
+                                  </div>
+                                ) : (
+                                  <Link 
+                                    href={currentTab.cta.href}
+                                    onClick={handleMenuLeave}
+                                    className="w-full justify-center text-center py-3 bg-[#f15a24] hover:bg-orange-600 text-white font-extrabold rounded-lg text-xs transition-colors flex items-center gap-1.5 uppercase tracking-wider shadow-md shadow-orange-500/10"
+                                  >
+                                    {currentTab.cta.label} <FiArrowRight className="text-xs" />
+                                  </Link>
+                                )}
                               </div>
                             </div>
                           )}
@@ -1179,13 +1222,10 @@ const Header = () => {
 
                             <div className={`transition-all duration-300 overflow-hidden pl-4 ${isSubTabOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
                               <ul className="space-y-3 py-1 border-l border-slate-100 pl-3">
-                                {tab.cells && tab.cells.map((cell, idx) => (
-                                  <li key={idx}>
-                                    <Link 
-                                      href={cell.href} 
-                                      onClick={() => setShowMenu(false)}
-                                      className="block py-1"
-                                    >
+                                {tab.cells && tab.cells.map((cell, idx) => {
+                                  const isCellPlaceholder = !cell.href || cell.href === "#";
+                                  const cellContent = (
+                                    <>
                                       <span className="text-slate-700 hover:text-[#f15a24] text-xs font-bold block">
                                         {cell.name}
                                       </span>
@@ -1203,9 +1243,27 @@ const Header = () => {
                                           ))}
                                         </div>
                                       )}
-                                    </Link>
-                                  </li>
-                                ))}
+                                    </>
+                                  );
+
+                                  return (
+                                    <li key={idx}>
+                                      {isCellPlaceholder ? (
+                                        <div className="block py-1 cursor-default">
+                                          {cellContent}
+                                        </div>
+                                      ) : (
+                                        <Link 
+                                          href={cell.href} 
+                                          onClick={() => setShowMenu(false)}
+                                          className="block py-1"
+                                        >
+                                          {cellContent}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             </div>
                           </div>

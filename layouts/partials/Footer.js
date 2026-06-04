@@ -8,8 +8,8 @@ const Footer = () => {
   const footerData = {
     product: [
       { name: "Security Awareness Training", url: "/security-awareness-training" },
-      { name: "Phishing Simulations", url: "#" },
-      { name: "Human Risk Dashboard", url: "#" },
+      { name: "Phishing Simulations", url: "/solutions/phishing-simulation" },
+      { name: "Human Risk Dashboard", url: "/solutions/human-risk-intelligence" },
       { name: "AI Adaptive Learning", url: "#" },
       { name: "Gamified Learning", url: "#" },
       { name: "Executive Reporting", url: "#" },
