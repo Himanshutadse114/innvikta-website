@@ -1011,10 +1011,6 @@ const Header = () => {
                       const tabContent = (
                         <>
                           <div className="flex items-center gap-3">
-                            {/* Absolute indicator for active state */}
-                            {isActive && (
-                              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[16px] bg-[#f15a24] rounded-r-full" />
-                            )}
                             <div className="w-5 h-5 flex items-center justify-center shrink-0">
                               <tab.icon className="text-[17px] shrink-0 text-[#f15a24]" />
                             </div>
