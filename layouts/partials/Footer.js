@@ -13,7 +13,7 @@ const Footer = () => {
       { name: "AI Adaptive Learning", url: "#" },
       { name: "Gamified Learning", url: "#" },
       { name: "Executive Reporting", url: "#" },
-      { name: "Compliance Training", url: "#" },
+      { name: "Compliance Training", url: "/solutions/compliance-training" },
       { name: "Integrations", url: "#" },
       { name: "Innvikta CyberHelp", url: "#" }
     ],

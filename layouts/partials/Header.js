@@ -379,31 +379,32 @@ const menuData = {
       {
         id: "compliance_training",
         label: "Compliance Training",
+        href: "/solutions/compliance-training",
         icon: FiCheckCircle,
         headline: "Meet regulatory mandates and reinforce critical privacy policies.",
         cells: [
           { 
             name: "Compliance Learning Suite", 
             desc: "Satisfy GDPR, HIPAA, PCI-DSS, and India's DPDP Act requirements.", 
-            href: "#",
+            href: "/solutions/compliance-training",
             chips: [{ label: "GDPR Awareness" }, { label: "HIPAA Awareness" }]
           },
           { 
             name: "Acknowledgement Tracking", 
             desc: "Track and log employee policy agreements and corporate code sign-offs.", 
-            href: "#",
+            href: "/solutions/compliance-training",
             chips: [{ label: "Completion Logs" }, { label: "Audit Records" }]
           },
           { 
             name: "Refresher Campaigns", 
             desc: "Automatically deploy compliance courses to specific high-risk user groups.", 
-            href: "#",
+            href: "/solutions/compliance-training",
             chips: [{ label: "Governance Reinforcement" }, { label: "Ongoing Compliance Education" }]
           },
           { 
             name: "Audit-Ready Evidence", 
             desc: "Generate automated training completion records to satisfy security framework audits.", 
-            href: "#",
+            href: "/solutions/compliance-training",
             chips: [{ label: "Automated Records" }, { label: "Auditor Reports" }]
           }
         ],
@@ -411,7 +412,7 @@ const menuData = {
           title: "Close the awareness gap in compliance",
           desc: "Audit-ready training modules built to satisfy global frameworks, privacy rules, and internal audits.",
           label: "See Compliance Solutions",
-          href: "#",
+          href: "/solutions/compliance-training",
           svgType: "compliance"
         }
       },
