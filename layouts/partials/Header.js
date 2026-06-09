@@ -934,7 +934,7 @@ const Header = () => {
                 <img 
                   src="/images/logo-main.png" 
                   alt="Innvikta" 
-                  className="h-10 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                 />
               </Link>
             </div>
@@ -947,7 +947,7 @@ const Header = () => {
                   className="h-full flex items-center"
                   onMouseEnter={() => handleMenuHover(menuKey)}
                 >
-                  <button className={`nav-link h-full flex items-center gap-1 text-[16.5px] font-bold text-slate-900 hover:text-[#f15a24] transition-colors focus:outline-none ${
+                  <button className={`nav-link h-full flex items-center gap-1 text-[15.5px] font-bold text-slate-900 hover:text-[#f15a24] transition-colors focus:outline-none ${
                     activeMegaMenu === menuKey ? "text-[#f15a24]" : ""
                   }`}>
                     {menuKey === "arcade" && <IoGameControllerOutline className="text-lg text-[#f15a24]" />}
@@ -1016,17 +1016,17 @@ const Header = () => {
                               <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[16px] bg-[#f15a24] rounded-r-full" />
                             )}
                             <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                              <tab.icon className={`text-[17px] shrink-0 transition-colors duration-200 ${isActive ? "text-[#f15a24]" : "text-slate-400 group-hover/tab:text-slate-600"}`} />
+                              <tab.icon className={`text-[17px] shrink-0 transition-colors duration-200 ${isActive ? "text-[#f15a24]" : "text-slate-400 group-hover/tab:text-[#f15a24]"}`} />
                             </div>
                             <span className="whitespace-nowrap transition-colors">{tab.label}</span>
                           </div>
-                          <FiArrowRight className={`text-xs shrink-0 transition-all duration-200 ${isActive ? "opacity-100 translate-x-0 text-[#f15a24]" : "opacity-0 -translate-x-1"}`} />
+                          <FiArrowRight className={`text-xs shrink-0 transition-all duration-200 ${isActive ? "opacity-100 translate-x-0 text-[#f15a24]" : "opacity-0 -translate-x-1 group-hover/tab:opacity-100 group-hover/tab:translate-x-0 group-hover/tab:text-[#f15a24]"}`} />
                         </>
                       );
-                      const baseClass = `relative w-full flex items-center justify-between text-left pl-6 pr-3 py-2.5 rounded-lg text-[14px] font-semibold transition-all duration-200 group/tab ${
+                      const baseClass = `relative w-full flex items-center justify-between text-left pl-6 pr-3 py-2.5 rounded-lg text-[14px] font-bold transition-all duration-200 group/tab ${
                         isActive
-                          ? "bg-slate-200/50 text-slate-900"
-                          : "text-slate-600 hover:bg-slate-100/70 hover:text-slate-900"
+                          ? "bg-[#FFEFEA] text-[#f15a24]"
+                          : "text-slate-700 hover:bg-[#FFEFEA]/50 hover:text-[#f15a24]"
                       }`;
 
                       return isPlaceholder ? (
@@ -1069,7 +1069,7 @@ const Header = () => {
                           <div className="flex-1 pt-6 pb-12 px-12 flex flex-col justify-start">
                             {currentTab.headline && (
                               <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta && currentTab.headlineCta.href !== "#" ? 'flex flex-col items-start gap-4' : ''}`}>
-                                <h3 className="text-[20px] font-semibold text-slate-800 tracking-tight leading-snug">
+                                <h3 className="text-[18px] font-semibold text-slate-800 tracking-tight leading-snug">
                                   {currentTab.headline}
                                 </h3>
                                 {currentTab.headlineCta && currentTab.headlineCta.href !== "#" && (
@@ -1078,7 +1078,7 @@ const Header = () => {
                                     onClick={handleMenuLeave}
                                     className="group px-6 py-2.5 bg-[#f15a24] hover:bg-orange-600 text-white font-extrabold rounded-full text-[13px] transition-colors flex items-center gap-1.5 mt-1 hover:shadow-none"
                                   >
-                                    {currentTab.headlineCta.label} <FiArrowRight className="text-[14px] transition-transform duration-200 group-hover:translate-x-1" />
+                                    {currentTab.headlineCta.label} <FiArrowRight className="text-[13px] transition-transform duration-200 group-hover:translate-x-1" />
                                   </Link>
                                 )}
                               </div>
@@ -1090,7 +1090,7 @@ const Header = () => {
                                 const isCellPlaceholder = !cell.href || cell.href === "#";
                                 const cellContent = (
                                   <>
-                                    <span className={`text-[#f15a24] text-[16px] font-bold inline-flex items-center gap-1 ${!isCellPlaceholder ? "group-hover/item:text-orange-600 transition-colors" : ""}`}>
+                                    <span className={`text-[#f15a24] text-[15px] font-bold inline-flex items-center gap-1 ${!isCellPlaceholder ? "group-hover/item:text-orange-600 transition-colors" : ""}`}>
                                       {cell.name}
                                       {!isCellPlaceholder && <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />}
                                     </span>
@@ -1162,7 +1162,7 @@ const Header = () => {
                                       </div>
                                     )}
                                   </div>
-                                  <h5 className="text-[15px] font-medium text-slate-800 leading-snug">
+                                  <h5 className="text-[14px] font-medium text-slate-800 leading-snug">
                                     {currentTab.cta.title}
                                   </h5>
                                   {/* Description removed to reduce text as requested */}
