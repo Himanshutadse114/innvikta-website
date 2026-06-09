@@ -8,15 +8,80 @@ import { gsap } from "@lib/gsap";
 import Circle from "@layouts/components/Circle";
 import ImageFallback from "@layouts/components/ImageFallback";
 
+const coreCards = [
+  {
+    title: "Risk Scoring",
+    desc: "AI-assisted user and team risk scores based on clicks, reports, quiz results, and repeated risky behaviour.",
+    image: "/images/features-01.png",
+    icon: (active) => (
+      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2a10 10 0 0 0-10 10c0 2.2.72 4.23 1.94 5.86L6.5 15.3A6 6 0 0 1 12 8a6 6 0 0 1 5.5 7.3l2.56 2.56A10 10 0 0 0 12 2z" />
+        <line className="meter-needle" x1="12" y1="14" x2="16" y2="10" stroke="#f15a24" strokeWidth="2" />
+        <circle cx="12" cy="14" r="2" fill="currentColor" />
+      </svg>
+    )
+  },
+  {
+    title: "Department Heatmaps",
+    desc: "Spot vulnerable teams, weak locations, and training gaps at a glance.",
+    image: "/images/features-02.png",
+    icon: (active) => (
+      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle className="heatmap-dot dot-1" cx="12" cy="6" r="3" fill="#f15a24" />
+        <path d="M12 9v3M6 12h12M6 12v5M18 12v5" />
+        <circle className="heatmap-dot dot-2" cx="6" cy="18" r="3" fill="#f15a24" />
+        <circle className="heatmap-dot dot-3" cx="18" cy="18" r="3" fill="#f15a24" />
+      </svg>
+    )
+  },
+  {
+    title: "Executive Reporting",
+    desc: "Generate clear, board-ready reports for CISOs, leadership, and compliance teams.",
+    image: "/images/features-01.png",
+    icon: (active) => (
+      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path className="report-doc" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line className="report-line line-1" x1="8" y1="13" x2="16" y2="13" />
+        <line className="report-line line-2" x1="8" y1="17" x2="14" y2="17" />
+      </svg>
+    )
+  },
+  {
+    title: "Pre/Post Analysis",
+    desc: "Compare risk before and after campaigns to show training impact and improvement.",
+    image: "/images/features-02.png",
+    icon: (active) => (
+      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10" />
+        <line x1="12" y1="20" x2="12" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="14" />
+        <path className="analysis-arrow" d="M3 10l9-6 9 6" stroke="#f15a24" />
+      </svg>
+    )
+  }
+];
+
 const HumanRiskIntelligencePage = () => {
   const [activeFaq, setActiveFaq] = useState(null);
   const heroRef = useRef(null);
   
-  // Testimonials Slider state & refs
-  const sliderWrapperRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [prevDisabled, setPrevDisabled] = useState(true);
-  const [nextDisabled, setNextDisabled] = useState(false);
+  // Interactive core cards states
+  const [activeCoreCard, setActiveCoreCard] = useState(0);
+  const [coreCardImages, setCoreCardImages] = useState({
+    current: "/images/features-01.png",
+    prev: null
+  });
+
+  useEffect(() => {
+    const nextImg = activeCoreCard !== null ? coreCards[activeCoreCard].image : "/images/features-01.png";
+    if (nextImg !== coreCardImages.current) {
+      setCoreCardImages((prev) => ({
+        prev: prev.current,
+        current: nextImg
+      }));
+    }
+  }, [activeCoreCard]);
 
   const faqData = [
     {
@@ -36,36 +101,6 @@ const HumanRiskIntelligencePage = () => {
       answer: "InSAT compiles comprehensive, audit-ready compliance records and human risk telemetry matching global frameworks, including SOC 2 Type II, ISO 27001, GDPR, and India's DPDP Act."
     }
   ];
-  
-  const updateSlider = () => {
-    const wrapper = sliderWrapperRef.current;
-    if (!wrapper) return;
-    const slides = wrapper.children;
-    if (slides.length === 0) return;
-    
-    const spacing = 12;
-    let offset = 0;
-    for (let i = 0; i < currentIndex; i++) {
-      offset += slides[i].offsetWidth + spacing;
-    }
-    wrapper.style.transform = `translate3d(${-offset}px, 0, 0)`;
-    
-    setPrevDisabled(currentIndex === 0);
-    
-    const containerWidth = wrapper.parentElement.offsetWidth;
-    let totalRemainingWidth = 0;
-    for (let i = currentIndex + 1; i < slides.length; i++) {
-      totalRemainingWidth += slides[i].offsetWidth + spacing;
-    }
-    setNextDisabled(totalRemainingWidth <= containerWidth);
-  };
-  
-  useEffect(() => {
-    updateSlider();
-    const handleResize = () => updateSlider();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [currentIndex]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -233,7 +268,7 @@ const HumanRiskIntelligencePage = () => {
 
                 <div className="container">
                     <div className="hero-content">
-                        <span className="text-subheading">AI-Powered Human Risk Intelligence</span>
+                        <span className="text-subheading">HUMAN BEHAVIOUR & RISK ANALYTICS</span>
                         <h1 className="text-96-heading">AI-Powered Human Risk Intelligence</h1>
 
                         <div className="hero-text-wrapper">
@@ -268,569 +303,639 @@ const HumanRiskIntelligencePage = () => {
             </div>
         </section>
 
-        {/* 2. STATS/CHECKLIST ROW */}
-        <section className="bg-white">
-            <div className="container two-col-grid">
-                <div className="two-col-content-block animate from-left">
-                    <h2 className="text-52-heading">Human Risk Is Still the Weakest Link</h2>
+        {/* 2. STATS ROW */}
+        <section className="bg-white stats-section">
+            <div className="container">
+                <div className="stats-grid">
+                    <div className="stats-content-block animate from-left">
+                        <h2 className="text-52-heading"><span className="text-orange">Human Risk</span> Is Still the Weakest Link</h2>
 
-                    <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
-                        <p className="text-18-content">
-                            Traditional training stops at completions — InSAT converts training, simulation, quiz, and behaviour signals into AI-assisted insights your teams can act on.
-                        </p>
+                        <div className="stats-subheading">
+                            <p className="text-18-content">
+                                Most security programs track completion. Effective security programs track behaviour. InSAT helps organizations measure human risk, improve engagement, and turn awareness efforts into measurable outcomes.
+                            </p>
+                        </div>
+
+                        <div style={{ marginTop: "2rem" }}>
+                            <Link className="btn btn-primary btn-cta" href="/demo">
+                                <span>Book a Demo</span>
+                                <div className="arrow-wrapper">
+                                    <svg className="arrow-icon" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.29985 4.50047L0 1.20062L0.942813 0.257812L5.18545 4.50047L0.942813 8.74306L0 7.80027L3.29985 4.50047Z" fill="currentColor" />
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
 
-                    <ul className="check-list">
-                        <li className="check-item">
-                            <div className="check-icon-wrapper">
-                                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.12482 5.50058L0 1.37577L1.17852 0.197266L6.48182 5.50058L1.17852 10.8038L0 9.62533L4.12482 5.50058Z" fill="var(--color-emerald)" />
+                    <div className="stats-cards-block animate from-right">
+                        {/* Card 1: Human Element */}
+                        <div className="stats-card">
+                            <div className="card-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#f15a24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="#f15a24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
                             </div>
-                            <span className="check-text"><strong>68%</strong> of breaches involve a non-malicious human element (Verizon DBIR)</span>
-                        </li>
-                        <li className="check-item">
-                            <div className="check-icon-wrapper">
-                                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.12482 5.50058L0 1.37577L1.17852 0.197266L6.48182 5.50058L1.17852 10.8038L0 9.62533L4.12482 5.50058Z" fill="var(--color-emerald)" />
-                                </svg>
+                            <div className="card-number">68%</div>
+                            <div className="card-divider"></div>
+                            <h3 className="card-title">Human Element in Breaches</h3>
+                            <p className="card-description">of breaches involve a non-malicious human element</p>
+                            <span className="card-source">Source: Verizon DBIR</span>
+                            <div className="card-chart">
+                                <div className="bar-chart">
+                                    <div className="bar" style={{height: '40%'}}></div>
+                                    <div className="bar" style={{height: '90%'}}></div>
+                                    <div className="bar" style={{height: '60%'}}></div>
+                                    <div className="bar" style={{height: '100%'}}></div>
+                                    <div className="bar" style={{height: '75%'}}></div>
+                                    <div className="bar" style={{height: '50%'}}></div>
+                                </div>
                             </div>
-                            <span className="check-text"><strong>71%</strong> of employees admit to taking risky actions online (Proofpoint)</span>
-                        </li>
-                        <li className="check-item">
-                            <div className="check-icon-wrapper">
-                                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.12482 5.50058L0 1.37577L1.17852 0.197266L6.48182 5.50058L1.17852 10.8038L0 9.62533L4.12482 5.50058Z" fill="var(--color-emerald)" />
-                                </svg>
-                            </div>
-                            <span className="check-text"><strong>$4.44M</strong> average global cost of a data breach (IBM)</span>
-                        </li>
-                        <li className="check-item">
-                            <div className="check-icon-wrapper">
-                                <svg width="7" height="11" viewBox="0 0 7 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4.12482 5.50058L0 1.37577L1.17852 0.197266L6.48182 5.50058L1.17852 10.8038L0 9.62533L4.12482 5.50058Z" fill="var(--color-emerald)" />
-                                </svg>
-                            </div>
-                            <span className="check-text">Automate human risk intelligence and compliance updates</span>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
 
-                <div className="two-col-visual-block aspect-square animate from-right">
-                    <img alt="Human risk overview" loading="lazy" src="/insat/images/section2.png" />
+                        {/* Card 2: Risky Actions */}
+                        <div className="stats-card">
+                            <div className="card-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="#f15a24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <div className="card-number">71%</div>
+                            <div className="card-divider"></div>
+                            <h3 className="card-title">Risky Actions Online</h3>
+                            <p className="card-description">of employees admit to taking risky actions online</p>
+                            <span className="card-source">Source: Proofpoint</span>
+                            <div className="card-chart">
+                                <div className="progress-circle">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="32" stroke="#FFF0E4" strokeWidth="6" fill="transparent" />
+                                        <circle cx="40" cy="40" r="32" stroke="#f15a24" strokeWidth="6" fill="transparent" 
+                                                strokeDasharray="201" strokeDashoffset="58" strokeLinecap="round" transform="rotate(-90 40 40)"/>
+                                    </svg>
+                                    <span className="progress-text">71%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Card 3: Global Cost */}
+                        <div className="stats-card">
+                            <div className="card-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="12" y1="1" x2="12" y2="23" stroke="#f15a24" strokeWidth="2" strokeLinecap="round"/>
+                                    <path d="M17 5H9.5C8.11929 5 7 6.11929 7 7.5C7 8.88071 8.11929 10 9.5 10H14.5C15.8807 10 17 11.1193 17 12.5C17 13.8807 15.8807 15 14.5 15H7" stroke="#f15a24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <div className="card-number">$4.44M</div>
+                            <div className="card-divider"></div>
+                            <h3 className="card-title">Average Global Breach Cost</h3>
+                            <p className="card-description">average global cost of a data breach</p>
+                            <span className="card-source">Source: IBM</span>
+                            <div className="card-chart">
+                                <svg className="wave-chart" width="100%" height="60" viewBox="0 0 200 60">
+                                    <path d="M 0 45 Q 25 50 50 38 T 100 28 T 150 45 T 200 12" fill="none" stroke="#f15a24" strokeWidth="2.5" strokeLinecap="round" />
+                                    <path d="M 0 45 Q 25 50 50 38 T 100 28 T 150 45 T 200 12 L 200 60 L 0 60 Z" fill="rgba(241, 90, 36, 0.06)" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        {/* 3. FEATURES GRID */}
+        {/* 2b. SOLUTION SECTION (Interactive Accordion Layout) */}
+        <section className="bg-white">
+            <div className="container">
+                <div className="animate mb-12">
+                    <span className="text-subheading">RISK INTELLIGENCE CAPABILITIES</span>
+                    <h2 className="text-52-heading">Turn Awareness Data into Actionable Risk Intelligence</h2>
+                    <div style={{ marginTop: "1rem", opacity: "0.7" }}>
+                        <p className="text-18-content">
+                            InSAT converts training, simulation, quiz, and behaviour signals into AI-assisted insights your teams can act on.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="modern-simulations-grid" style={{ marginTop: "3.5rem" }}>
+                    {/* Left Accordion Column */}
+                    <div className="simulation-accordion-list animate from-left">
+                        {coreCards.map((vector, index) => {
+                            const active = activeCoreCard === index;
+                            return (
+                                <button
+                                    key={index}
+                                    type="button"
+                                    onClick={() => setActiveCoreCard(index)}
+                                    className={`simulation-accordion-item ${active ? "active" : ""}`}
+                                >
+                                    <div className="sim-icon-container">
+                                        {vector.icon(active)}
+                                    </div>
+                                    <div className="sim-text-content">
+                                        <h3 className="sim-title">{vector.title}</h3>
+                                        <div 
+                                            className="sim-desc-wrapper" 
+                                            style={{ 
+                                                maxHeight: active ? "120px" : "0px",
+                                                opacity: active ? 1 : 0
+                                            }}
+                                        >
+                                            <p className="sim-desc">{vector.desc}</p>
+                                        </div>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Right Bezel Frame Column */}
+                    <div className="animate from-right">
+                        <div className="platform-bezel-frame">
+                            <div className="frame-inner" style={{ position: "relative", width: "100%", aspectRatio: "16/10", overflow: "hidden" }}>
+                                {coreCardImages.prev && (
+                                    <img 
+                                        key={coreCardImages.prev + "_prev"}
+                                        src={coreCardImages.prev} 
+                                        alt="Previous simulation screenshot"
+                                        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                                        className="animate-image-fade-out"
+                                    />
+                                )}
+                                <img 
+                                    key={coreCardImages.current + "_current"}
+                                    src={coreCardImages.current} 
+                                    alt={activeCoreCard !== null ? coreCards[activeCoreCard].title : "Actionable Risk Intelligence"} 
+                                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                                    className="animate-image-fade-in"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* 3. AI-GENERATED REPORTS SECTION */}
         <section className="bg-grey-5">
             <div className="container">
-                <div className="section-intro animate">
-                    <span className="text-subheading">Turn Awareness Data into Actionable Risk Intelligence</span>
-                    <h2 className="text-52-heading">Turn Awareness Data into Actionable Risk Intelligence</h2>
-                </div>
-
-                <div className="features-grid">
-                    
-                    <div className="feature-card animate">
-                        <div className="feature-visual">
-                            <img alt="Workforce Risk Scoring" loading="lazy" src="/insat/images/awareness-section3.png" />
-                        </div>
-                        <div className="feature-content">
-                            <h3 className="feature-title">AI Risk Scoring</h3>
-                            <p className="feature-desc">
-                                AI-assisted user and team risk scores calculated from simulations, clicks, and quiz performance telemetry.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="feature-card animate">
-                        <div className="feature-visual bg-grey-30">
-                            <img alt="Department risk heatmap" loading="lazy" src="/insat/images/Risk-Scoring-1.jpg" />
-                        </div>
-                        <div className="feature-content">
-                            <h3 className="feature-title">Department Heatmaps</h3>
-                            <p className="feature-desc">
-                                Spot vulnerable departments, weak office locations, and compliance training gaps at a glance.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="feature-card animate">
-                        <div className="feature-visual bg-aquamarine">
-                            <img alt="Audit-ready compliance reports" loading="lazy" src="/insat/images/api-new-static.jpg" />
-                        </div>
-                        <div className="feature-content">
-                            <h3 className="feature-title">Executive & Board Reports</h3>
-                            <p className="feature-desc">
-                                Generate clear, structured logs and human risk telemetry suited for internal reviews and compliance audits.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 4. ALTERNATING GRID SECTIONS */}
-        <section className="bg-white">
-            <div className="container">
-                <div className="section-intro animate" style={{textAlign: "center"}}>
-                    <h2 className="text-64-heading">See and Prioritize Risk in Real Time</h2>
-                </div>
-
-                {/* Grid 1 */}
-                <div className="two-col-grid" style={{marginTop: "4rem"}}>
+                <div className="two-col-grid">
                     <div className="two-col-content-block animate from-left">
-                        <h2 className="text-40-heading">Departmental & Manager Reports</h2>
-                        <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
-                            <p className="text-18-content">
-                                Generate structured records of threat susceptibility tailored specifically to individual business units and manager scopes.
-                            </p>
-                        </div>
-
-                        <Link className="arrow-link" href="/solutions/insat">
-                            <div className="arrow-circle">
-                                <span className="arrow-circle-bg"></span>
-                                <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                </svg>
-                            </div>
-                            <span>Explore Reporting Features</span>
-                        </Link>
-                    </div>
-                    <div className="two-col-visual-block aspect-628-517 bg-grey animate from-right">
-                        <img alt="Department risk telemetry charts" loading="lazy" src="/insat/images/Transfers.jpg" />
-                    </div>
-                </div>
-
-                {/* Grid 2 */}
-                <div className="two-col-grid reverse" style={{marginTop: "6rem"}}>
-                    <div className="two-col-content-block animate from-right">
-                        <h2 className="text-40-heading">AI Action Recommendations</h2>
-                        <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
-                            <p className="text-18-content">
-                                Receive automated, prioritised suggestions to deploy specific targeted reinforcement or phishing courses based on department click spikes.
-                            </p>
-                        </div>
-
-                        <Link className="arrow-link" href="/solutions/insat">
-                            <div className="arrow-circle">
-                                <span className="arrow-circle-bg"></span>
-                                <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                </svg>
-                            </div>
-                            <span>View Recommended Actions</span>
-                        </Link>
-                    </div>
-                    <div className="two-col-visual-block aspect-628-517 bg-midnight animate from-left">
-                        <img alt="Monitor threats and recommendations" loading="lazy" src="/insat/images/Monitor-Paymentsmidnight.jpg" />
-                    </div>
-                </div>
-
-                {/* Grid 3 */}
-                <div className="two-col-grid" style={{marginTop: "6rem"}}>
-                    <div className="two-col-content-block animate from-left">
-                        <h2 className="text-40-heading">SOC 2 & ISO Compliance Verification</h2>
-                        <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
-                            <p className="text-18-content">
-                                Keep track of all mandatory compliance attestations, security awareness completions, and DPDP logs in a central dashboard.
-                            </p>
-                        </div>
-
-                        <Link className="arrow-link" href="/solutions/insat">
-                            <div className="arrow-circle">
-                                <span className="arrow-circle-bg"></span>
-                                <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                </svg>
-                            </div>
-                            <span>Explore Compliance Ready Data</span>
-                        </Link>
-                    </div>
-                    <div className="two-col-visual-block aspect-628-517 bg-plum animate from-right">
-                        <img alt="SOC 2 framework verification logs" loading="lazy" src="/insat/images/Protection-1.jpg" />
-                    </div>
-                </div>
-
-                {/* Grid 4 */}
-                <div className="two-col-grid reverse" style={{marginTop: "6rem"}}>
-                    <div className="two-col-content-block animate from-right">
-                        <h2 className="text-40-heading">Campaign Impact Analytics</h2>
-                        <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
-                            <p className="text-18-content">
-                                Analyze click rates and response times before and after campaigns to measure security awareness improvement and risk reduction ROI.
-                            </p>
-                        </div>
-
-                        <Link className="arrow-link" href="/solutions/insat">
-                            <div className="arrow-circle">
-                                <span className="arrow-circle-bg"></span>
-                                <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                </svg>
-                            </div>
-                            <span>Explore Threat Telemetry</span>
-                        </Link>
-                    </div>
-                    <div className="two-col-visual-block aspect-628-517 bg-midnight animate from-left">
-                        <img alt="Campaign pre post comparison telemetry" loading="lazy" src="/insat/images/Risk-Scoring-1.jpg" />
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 5. SLIDER SECTION */}
-        <section className="bg-white">
-            <div className="container">
-                <div className="slider-container animate" id="testimonialsSlider">
-                    <div className="slider-wrapper" ref={sliderWrapperRef}>
-
-                        {/* Slide 1 */}
-                        <div className="slide slide-quote-card">
-                            <div className="testimonial-card bg-plum" style={{color: "var(--color-lavender)"}}>
-                                <blockquote className="testimonial-quote">
-                                    “InSAT is a true security awareness partner: not only is the training highly
-                                    engaging for our teams, but it also delivers real behavior change and measurable
-                                    risk reduction.”
-                                </blockquote>
-                                <div className="testimonial-author-row">
-                                    <div className="testimonial-author-name">Katharina Schneider</div>
-                                    <div className="testimonial-author-role">VP Security Strategy</div>
-                                </div>
-                                <div className="testimonial-footer">
-                                    <Link className="arrow-link" href="/solutions/insat" style={{color: "var(--color-lavender)", marginTop: "0"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg" style={{backgroundColor: "var(--color-white)"}}></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" style={{color: "var(--color-plum)"}} d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span>Read success story</span>
-                                    </Link>
-                                    <div className="testimonial-logo">
-                                        <img alt="malt unbound" src="/insat/images/malt-unbound.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 2 */}
-                        <div className="slide slide-promo-card">
-                            <div className="testimonial-card bg-sky" style={{color: "var(--color-midnight)"}}>
-                                <div className="testimonial-logo">
-                                    <img alt="StaffMe Powered by NOWJOBS" src="/insat/images/StaffMe-Powered-by-NOWJOBS-Forest.svg" />
-                                </div>
-                                <div style={{marginTop: "3rem"}}>
-                                    <h3 className="text-28-heading">StaffMe reduces phishing click rates by 80% with InSAT</h3>
-                                    <Link className="arrow-link" href="/solutions/insat" style={{color: "var(--color-midnight)", marginTop: "2rem"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg"></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span>Read success story</span>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 3 */}
-                        <div className="slide slide-quote-card">
-                            <div className="testimonial-card bg-forest" style={{color: "var(--color-white)"}}>
-                                <blockquote className="testimonial-quote">
-                                    “InSAT is a 2.0, if not 3.0 security awareness solution, and it’s entirely evident.
-                                    It has transformed our security culture into something our employees actually enjoy.”
-                                </blockquote>
-                                <div className="testimonial-author-row">
-                                    <div className="testimonial-author-name">Antoine Bordalis</div>
-                                    <div className="testimonial-author-role">CISO at Comet</div>
-                                </div>
-                                <div className="testimonial-footer">
-                                    <Link className="arrow-link" href="/" style={{color: "var(--color-white)", marginTop: "0"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg" style={{backgroundColor: "var(--color-white)"}}></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" style={{color: "var(--color-forest)"}} d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span>Learn more</span>
-                                    </Link>
-                                    <div className="testimonial-logo">
-                                        <img alt="Comet White" src="/insat/images/Comet-White.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Slide 4 */}
-                        <div className="slide slide-promo-card">
-                            <div className="testimonial-card bg-salmon" style={{color: "var(--color-brick)"}}>
-                                <div className="testimonial-logo">
-                                    <img alt="JUMP Brick" src="/insat/images/JUMP_Brick.svg" />
-                                </div>
-                                <div style={{marginTop: "3rem"}}>
-                                    <h3 className="text-28-heading">Jump turns compliance training into everyday secure habits in less than 30 days with InSAT</h3>
-                                    <Link className="arrow-link" href="/solutions/insat" style={{color: "var(--color-brick)", marginTop: "2rem"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg" style={{backgroundColor: "var(--color-brick)"}}></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" style={{color: "var(--color-salmon)"}} d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span>Read success story</span>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="slider-controls">
-                        <button type="button" className="slider-btn prev" id="sliderPrevBtn" aria-label="Previous Slide" disabled={prevDisabled} onClick={() => currentIndex > 0 && setCurrentIndex(currentIndex - 1)}>
-                            <span className="slider-btn-ring"></span>
-                            <span className="slider-btn-fill"></span>
-                            <span className="slider-btn-inner"></span>
-                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.44095 7.0007L0.364258 1.92401L1.81474 0.473541L8.34188 7.0007L1.81474 13.5278L0.364258 12.0773L5.44095 7.0007Z" fill="var(--color-forest)" />
-                            </svg>
-                        </button>
-                        <button type="button" className="slider-btn next" id="sliderNextBtn" aria-label="Next Slide" disabled={nextDisabled} onClick={() => currentIndex < 3 && setCurrentIndex(currentIndex + 1)}>
-                            <span className="slider-btn-ring"></span>
-                            <span className="slider-btn-fill"></span>
-                            <span className="slider-btn-inner"></span>
-                            <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.44095 7.0007L0.364258 1.92401L1.81474 0.473541L8.34188 7.0007L1.81474 13.5278L0.364258 12.0773L5.44095 7.0007Z" fill="var(--color-forest)" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 6. ROUNDED VIDEO CARD BOX */}
-        <section className="bg-white" style={{paddingTop: "0", paddingBottom: "0"}}>
-            <div className="container" style={{padding: "0"}}>
-                <div className="rounded-card-box bg-forest">
-                    
-                    <div className="box-backdrop-visual">
-                        <div className="visual-inner">
-                            <video autoPlay loop playsInline muted width="100%" height="100%">
-                                <source src="/insat/images/currencies.webm" type="video/webm" />
-                                <source src="/insat/images/currencies-1.mov" type="video/quicktime" />
-                            </video>
-                        </div>
-                    </div>
-
-                    <div className="rounded-card-content animate">
-                        <h2>See Your Workforce Risk Clearly</h2>
-                        <p className="text-20-content rounded-card-desc">
-                            Deliver continuous human risk telemetry, customized analytics, department scores, and automated recommendations.
+                        <span className="text-subheading">AI-GENERATED REPORTS</span>
+                        <h2 className="text-52-heading" style={{ marginTop: "0.5rem", marginBottom: "1.5rem", lineHeight: "1.2" }}>
+                            Reports for <span style={{ color: "#f15a24" }}>Every</span> <br />
+                            <span style={{ color: "#f15a24" }}>Decision Maker</span>
+                        </h2>
+                        <p className="text-18-content" style={{ opacity: "0.85", marginBottom: "2rem", lineHeight: "1.6" }}>
+                            Create AI-generated reports tailored for departments, managers, executives, board reviews, and compliance evidence.
                         </p>
-                        <Link className="arrow-link" href="/solutions/insat" style={{color: "var(--color-white)", marginTop: "2rem"}}>
-                            <div className="arrow-circle">
-                                <span className="arrow-circle-bg" style={{backgroundColor: "var(--color-white)"}}></span>
-                                <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="currentColor" style={{color: "var(--color-forest)"}} d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                </svg>
-                            </div>
-                            <span>Explore Platform Capabilities</span>
-                        </Link>
+                        
+                        <ul className="campaign-feature-list" style={{ display: "flex", flexDirection: "column", gap: "1.25rem", padding: 0, listStyle: "none", marginTop: "2rem" }}>
+                            {[
+                                {
+                                    title: "Department Reports",
+                                    desc: "Detailed threat susceptibility and risk score metrics segmented by business units to identify vulnerable teams.",
+                                    icon: (
+                                        <svg className="w-5 h-5 flex-shrink-0" style={{ color: "#f15a24", marginTop: "0.2rem" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Manager Reports",
+                                    desc: "Actionable dashboard views for team leads to monitor training completions, active quiz scores, and department progress.",
+                                    icon: (
+                                        <svg className="w-5 h-5 flex-shrink-0" style={{ color: "#f15a24", marginTop: "0.2rem" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <path d="M22 3h-6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Executive Reports",
+                                    desc: "High-level summary dashboards tracking company-wide security posture, repeat risky users, and threat trends.",
+                                    icon: (
+                                        <svg className="w-5 h-5 flex-shrink-0" style={{ color: "#f15a24", marginTop: "0.2rem" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="18" y1="20" x2="18" y2="10" />
+                                            <line x1="12" y1="20" x2="12" y2="4" />
+                                            <line x1="6" y1="20" x2="6" y2="14" />
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Board Reports",
+                                    desc: "Defensible evidence demonstrating security training ROI, continuous improvement rates, and overall risk reduction.",
+                                    icon: (
+                                        <svg className="w-5 h-5 flex-shrink-0" style={{ color: "#f15a24", marginTop: "0.2rem" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Compliance Reports",
+                                    desc: "Audit-ready evidence logs mapped to major global compliance standards, including SOC 2, ISO 27001, and HIPAA.",
+                                    icon: (
+                                        <svg className="w-5 h-5 flex-shrink-0" style={{ color: "#f15a24", marginTop: "0.2rem" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            <path d="M9 11l3 3 5-5" />
+                                        </svg>
+                                    )
+                                }
+                             ].map((point, i) => (
+                                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "1.05rem", color: "#334155", lineHeight: "1.4" }}>
+                                    {point.icon}
+                                    <span style={{ fontSize: "1.05rem", color: "#334155" }}>
+                                        <strong style={{ color: "#1F2937", marginRight: "0.35rem" }}>{point.title}:</strong>
+                                        <span style={{ color: "#4B5563" }}>{point.desc}</span>
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 7. INTEGRATIONS TICKER */}
-        <section className="bg-white" style={{paddingBottom: "0"}}>
-            <div className="container">
-                <div style={{textAlign: "center"}} className="animate">
-                    <h2 className="text-40-heading">Integrate with Your IT & Security Stack</h2>
-                    <p className="text-18-content opacity-70" style={{marginTop: "0.75rem", maxWidth: "523px", marginLeft: "auto", marginRight: "auto"}}>
-                        Automate compliance management and human risk tracking. InSAT syncs with your directories, identity providers, SIEM systems, and HR tools.
-                    </p>
-                </div>
-            </div>
-
-            <div className="ticker-container animate">
-                <div className="ticker-track ticker-forward">
-                    <div className="ticker-item"><img alt="Microsoft 365" src="/insat/images/Frame-1000003126.svg" /></div>
-                    <div className="ticker-item"><img alt="Google Workspace" src="/insat/images/Frame-1000003125.svg" /></div>
-                    <div className="ticker-item"><img alt="Slack" src="/insat/images/Frame-1000003127.svg" /></div>
-                    <div className="ticker-item"><img alt="Teams" src="/insat/images/Frame-1000003129.svg" /></div>
-                    <div className="ticker-item"><img alt="LMS" src="/insat/images/Frame-1000003130.svg" /></div>
-                    <div className="ticker-item"><img alt="SIEM" src="/insat/images/Frame-1000003131.svg" /></div>
-                    <div className="ticker-item"><img alt="HRMS" src="/insat/images/Frame-1000003132.svg" /></div>
-                    <div className="ticker-item"><img alt="Identity" src="/insat/images/Frame-1000003133.svg" /></div>
-                    
-                    <div className="ticker-item"><img alt="Microsoft 365" src="/insat/images/Frame-1000003126.svg" /></div>
-                    <div className="ticker-item"><img alt="Google Workspace" src="/insat/images/Frame-1000003125.svg" /></div>
-                    <div className="ticker-item"><img alt="Slack" src="/insat/images/Frame-1000003127.svg" /></div>
-                    <div className="ticker-item"><img alt="Teams" src="/insat/images/Frame-1000003129.svg" /></div>
-                    <div className="ticker-item"><img alt="LMS" src="/insat/images/Frame-1000003130.svg" /></div>
-                    <div className="ticker-item"><img alt="SIEM" src="/insat/images/Frame-1000003131.svg" /></div>
-                    <div className="ticker-item"><img alt="HRMS" src="/insat/images/Frame-1000003132.svg" /></div>
-                    <div className="ticker-item"><img alt="Identity" src="/insat/images/Frame-1000003133.svg" /></div>
-                </div>
-                
-                <div className="ticker-track ticker-reverse">
-                    <div className="ticker-item"><img alt="LMS" src="/insat/images/Frame-1000003130.svg" /></div>
-                    <div className="ticker-item"><img alt="SIEM" src="/insat/images/Frame-1000003131.svg" /></div>
-                    <div className="ticker-item"><img alt="HRMS" src="/insat/images/Frame-1000003132.svg" /></div>
-                    <div className="ticker-item"><img alt="Identity" src="/insat/images/Frame-1000003133.svg" /></div>
-                    <div className="ticker-item"><img alt="Microsoft 365" src="/insat/images/Frame-1000003126.svg" /></div>
-                    <div className="ticker-item"><img alt="Google Workspace" src="/insat/images/Frame-1000003125.svg" /></div>
-                    <div className="ticker-item"><img alt="Slack" src="/insat/images/Frame-1000003127.svg" /></div>
-                    <div className="ticker-item"><img alt="Teams" src="/insat/images/Frame-1000003129.svg" /></div>
-                    
-                    <div className="ticker-item"><img alt="LMS" src="/insat/images/Frame-1000003130.svg" /></div>
-                    <div className="ticker-item"><img alt="SIEM" src="/insat/images/Frame-1000003131.svg" /></div>
-                    <div className="ticker-item"><img alt="HRMS" src="/insat/images/Frame-1000003132.svg" /></div>
-                    <div className="ticker-item"><img alt="Identity" src="/insat/images/Frame-1000003133.svg" /></div>
-                    <div className="ticker-item"><img alt="Microsoft 365" src="/insat/images/Frame-1000003126.svg" /></div>
-                    <div className="ticker-item"><img alt="Google Workspace" src="/insat/images/Frame-1000003125.svg" /></div>
-                    <div className="ticker-item"><img alt="Slack" src="/insat/images/Frame-1000003127.svg" /></div>
-                    <div className="ticker-item"><img alt="Teams" src="/insat/images/Frame-1000003129.svg" /></div>
-                </div>
-            </div>
-        </section>
-
-        {/* 8. EVERYTHING NEEDED SECTION */}
-        <section className="bg-white">
-            <div className="container">
-                <div style={{display: "flex", flexDirection: "column", gap: "4rem"}}>
-
-                    <div className="two-col-grid" style={{alignItems: "start"}}>
-                        <div className="two-col-content-block" style={{maxWidth: "413px"}}>
-                            <h2 className="text-40-heading">Everything Needed to Secure Your Human Layer</h2>
-                        </div>
-
-                        <div className="faq-list-col" style={{maxWidth: "652px", display: "flex", flexDirection: "column", gap: "2rem"}}>
-                            
-                            <div className="info-row">
-                                <div className="info-icon-box">
-                                    <img alt="Granular User Telemetry icon" src="/insat/images/Products.svg" />
-                                </div>
-                                <div className="info-card-text">
-                                    <h3 className="text-22-heading">Granular User Telemetry</h3>
-                                    <p className="info-desc">
-                                        Monitor user security behaviour indicators, click response rates, and active simulation reporting actions over time.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="info-row">
-                                <div className="info-icon-box">
-                                    <img alt="Cross-Department Heatmaps icon" src="/insat/images/Products-1.svg" />
-                                </div>
-                                <div className="info-card-text">
-                                    <h3 className="text-22-heading">Cross-Department Heatmaps</h3>
-                                    <p className="info-desc">
-                                        Compare susceptibility metrics and quiz outcomes by business departments to target reinforcement campaigns efficiently.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="info-row" style={{borderBottom: "none", paddingBottom: "0"}}>
-                                <div className="info-icon-box">
-                                    <img alt="Always-On compliance reporting icon" src="/insat/images/Products-2.svg" />
-                                </div>
-                                <div className="info-card-text">
-                                    <h3 className="text-22-heading">Audit-Ready Attestations</h3>
-                                    <p className="info-desc">
-                                        Instantly export executive dashboards and training history packages designed to meet SOC 2, ISO 27001, and HIPAA verification standards.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="info-banner-visual">
-                        <img alt="Human risk analytics platform dashboard overview" loading="lazy" src="/insat/images/api-new-static.jpg" />
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* 9. STICKY LAYOUT SECTION */}
-        <section className="bg-white">
-            <div className="container">
-                <div className="section-intro animate" style={{maxWidth: "740px"}}>
-                    <h2 className="text-52-heading">Intelligence That Matches Real Employee Risk</h2>
-                    <p className="text-20-content opacity-70" style={{marginTop: "1rem"}}>
-                        Different departments face different threats. InSAT delivers relevant risk analytics and intelligence based on role, department, and behaviour.
-                    </p>
-                </div>
-
-                <div className="grid-sticky-layout">
-                    
-                    <div className="sticky-col animate from-left">
-                        <div className="sticky-inner-box">
-                            <div className="sticky-text-wrapper">
-                                <span className="text-subheading" style={{color: "var(--color-night)", opacity: "0.5"}}>Departmental Threat Intelligence</span>
-                                <h3 className="text-40-heading" style={{marginTop: "1rem"}}>Customized telemetry tracking specific threat profiles for each department</h3>
-                                <Link className="arrow-link" href="/solutions/insat">
-                                    <div className="arrow-circle">
-                                        <span className="arrow-circle-bg"></span>
-                                        <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
+ 
+                    <div className="two-col-visual-block animate from-right" style={{ background: "transparent" }}>
+                        <div style={{
+                            backgroundColor: "#ffffff",
+                            border: "1px solid #E2E8F0",
+                            borderRadius: "16px",
+                            padding: "1.75rem",
+                            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)"
+                        }}>
+                            {/* Card Header */}
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                    <div style={{ color: "#F15A24" }}>
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
                                         </svg>
                                     </div>
-                                    <span>Learn more</span>
-                                </Link>
+                                    <span style={{ fontWeight: 700, fontSize: "1.2rem", color: "#0F172A" }}>Human Risk Reports</span>
+                                </div>
+                                <div style={{ display: "flex", gap: "0.5rem" }}>
+                                    <span style={{ fontSize: "0.8rem", backgroundColor: "#F1F5F9", padding: "0.35rem 0.75rem", borderRadius: "6px", color: "#475569", fontWeight: 600, cursor: "pointer" }}>All Reports</span>
+                                    <span style={{ fontSize: "0.8rem", backgroundColor: "#FFEBE0", padding: "0.35rem 0.75rem", borderRadius: "6px", color: "#F15A24", fontWeight: 600, cursor: "pointer" }}>AI-Generated</span>
+                                </div>
                             </div>
-                            <div className="sticky-visual">
-                                <img alt="Departmental threats dashboard mockup" loading="lazy" src="/insat/images/api-new-static.jpg" />
+                            
+                            {/* KPI Metrics Row */}
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "0.75rem", marginBottom: "1.5rem" }}>
+                                {[
+                                    { label: "RISK POSTURE", val: "Medium", diff: "↑ 5% this month", color: "#EF4444", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                                    )},
+                                    { label: "VULNERABLE TEAMS", val: "3", diff: "HR, Fin, Sales", color: "#EF4444", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm14 14v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    )},
+                                    { label: "AVG RISK SCORE", val: "42", diff: "↓ 12%", color: "#10B981", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                                    )},
+                                    { label: "COMPLIANCE STATUS", val: "94%", diff: "↑ 4%", color: "#10B981", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5zM6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+                                    )}
+                                ].map((kpi, idx) => (
+                                    <div key={idx} style={{ border: "1px solid #F1F5F9", borderRadius: "8px", padding: "0.6rem", display: "flex", gap: "0.5rem" }}>
+                                        <div style={{ color: "#F15A24", marginTop: "0.15rem" }}>{kpi.icon}</div>
+                                        <div>
+                                            <div style={{ fontSize: "0.55rem", fontWeight: 700, color: "#64748B", letterSpacing: "0.02em" }}>{kpi.label}</div>
+                                            <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginTop: "0.15rem" }}>
+                                                <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#0F172A" }}>{kpi.val}</span>
+                                                <span style={{ fontSize: "0.6rem", color: kpi.color, fontWeight: 600 }}>{kpi.diff}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            
+                            {/* Table */}
+                            <div style={{ overflowX: "auto" }}>
+                                <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.8rem" }}>
+                                    <thead>
+                                        <tr style={{ borderBottom: "1px solid #F1F5F9", color: "#64748B", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Report Title</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Target Audience</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Risk Focus</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Status</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Generated</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {[
+                                            { 
+                                                name: "Department Susceptibility Audit", 
+                                                target: "All Departments", 
+                                                targetBg: "#EFF6FF", 
+                                                targetColor: "#1D4ED8",
+                                                risk: "• High Risk", 
+                                                riskColor: "#EF4444", 
+                                                status: "Ready", 
+                                                statusBg: "#DCFCE7", 
+                                                statusColor: "#15803D",
+                                                updated: "5m ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                            },
+                                            { 
+                                                name: "Executive Posture Summary", 
+                                                target: "Board & CISOs", 
+                                                targetBg: "#FAF5FF", 
+                                                targetColor: "#7E22CE",
+                                                risk: "• Medium Risk", 
+                                                riskColor: "#F59E0B", 
+                                                status: "Ready", 
+                                                statusBg: "#DCFCE7", 
+                                                statusColor: "#15803D",
+                                                updated: "1h ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                            },
+                                            { 
+                                                name: "Compliance Attestation Log", 
+                                                target: "SOC 2 Auditors", 
+                                                targetBg: "#F0FDF4", 
+                                                targetColor: "#166534",
+                                                risk: "• Low Risk", 
+                                                riskColor: "#10B981", 
+                                                status: "Ready", 
+                                                statusBg: "#DCFCE7", 
+                                                statusColor: "#15803D",
+                                                updated: "3h ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 11l3 3 5-5"/></svg>
+                                            },
+                                            { 
+                                                name: "Risk Mitigation Roadmap", 
+                                                target: "Security Team", 
+                                                targetBg: "#EFF6FF", 
+                                                targetColor: "#1D4ED8",
+                                                risk: "• Medium Risk", 
+                                                riskColor: "#F59E0B", 
+                                                status: "Draft", 
+                                                statusBg: "#F1F5F9", 
+                                                statusColor: "#475569",
+                                                updated: "1d ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                            }
+                                        ].map((row, rIdx) => (
+                                            <tr key={rIdx} style={{ borderBottom: "1px solid #F1F5F9", color: "#334155" }}>
+                                                <td style={{ padding: "0.75rem 0.5rem", fontWeight: 500, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                                    <span style={{ color: "#94A3B8" }}>{row.icon}</span>
+                                                    <span>{row.name}</span>
+                                                </td>
+                                                <td style={{ padding: "0.75rem 0.5rem" }}>
+                                                    <span style={{ backgroundColor: row.targetBg, color: row.targetColor, padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.7rem", fontWeight: 600 }}>
+                                                        {row.target}
+                                                    </span>
+                                                </td>
+                                                <td style={{ padding: "0.75rem 0.5rem", color: row.riskColor, fontWeight: 600 }}>{row.risk}</td>
+                                                <td style={{ padding: "0.75rem 0.5rem" }}>
+                                                    <span style={{ backgroundColor: row.statusBg, color: row.statusColor, padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.7rem", fontWeight: 600 }}>
+                                                        {row.status}
+                                                    </span>
+                                                </td>
+                                                <td style={{ padding: "0.75rem 0.5rem", color: "#64748B" }}>{row.updated}</td>
+                                                <td style={{ padding: "0.75rem 0.5rem", color: "#94A3B8", cursor: "pointer", textAlign: "right" }}>
+                                                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <circle cx="12" cy="12" r="1"/>
+                                                        <circle cx="12" cy="5" r="1"/>
+                                                        <circle cx="12" cy="19" r="1"/>
+                                                    </svg>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            {/* Footer */}
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid #F1F5F9", fontSize: "0.75rem", color: "#94A3B8" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", color: "#F15A24", fontWeight: 600, cursor: "pointer" }}>
+                                    <span>View all reports</span>
+                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12 5 19 12 12 19"/>
+                                    </svg>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                                    <span>Last updated: 2 min ago</span>
+                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M23 4v6h-6M1 20v-6h6M21.94 9.57a8.91 8.91 0 0 0-4.48-5.32 9 9 0 0 0-9.67.6L2 9m20 5l-5.74 5.74a9 9 0 0 1-9.67.6 8.91 8.91 0 0 1-4.48-5.32"/>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div className="side-grid-col animate from-right">
-                        
-                        <div className="side-card">
-                            <div className="side-card-text-wrapper">
-                                <div className="side-card-title-row">
-                                    <Link className="arrow-link" href="/solutions/insat" style={{marginTop: "0"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg"></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span className="side-card-title">Finance & HR Risk Telemetry</span>
-                                    </Link>
+        {/* 4. AI RECOMMENDATIONS SECTION */}
+        <section className="bg-white">
+            <div className="container">
+                <div className="two-col-grid" style={{ alignItems: "start" }}>
+                    
+                    {/* Left Column: Heading, Description, and 2x2 Cards Grid */}
+                    <div className="two-col-content-block animate from-left" style={{ maxWidth: "580px" }}>
+                        <span className="text-subheading">AI RECOMMENDATIONS</span>
+                        <h2 className="text-52-heading" style={{ marginTop: "0.5rem", marginBottom: "1.5rem", lineHeight: "1.2" }}>
+                            Know What to <span style={{ color: "#f15a24" }}>Fix Next</span>
+                        </h2>
+                        <p className="text-18-content" style={{ opacity: "0.85", marginBottom: "2rem", lineHeight: "1.6" }}>
+                            AI-assisted recommendations help teams prioritize users, departments, campaigns, and reinforcement actions.
+                        </p>
+
+                        {/* 2x2 Grid of cards */}
+                        <div className="reports-insight-grid">
+                            {[
+                                {
+                                    title: "High-Risk Users",
+                                    desc: "Assign targeted microlearning.",
+                                    icon: (
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                            <line x1="12" y1="9" x2="12" y2="13"/>
+                                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Weak Departments",
+                                    desc: "Launch role-based simulations.",
+                                    icon: (
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Repeat Clickers",
+                                    desc: "Trigger reinforcement campaigns.",
+                                    icon: (
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                                        </svg>
+                                    )
+                                },
+                                {
+                                    title: "Leadership",
+                                    desc: "Generate executive summaries.",
+                                    icon: (
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <polyline points="14 2 14 8 20 8"/>
+                                            <line x1="16" y1="13" x2="8" y2="13"/>
+                                            <line x1="16" y1="17" x2="8" y2="17"/>
+                                        </svg>
+                                    )
+                                }
+                            ].map((card, idx) => (
+                                <div key={idx} className="reports-insight-card">
+                                    <div className="reports-insight-icon-container">
+                                        {card.icon}
+                                    </div>
+                                    <div className="reports-insight-text-wrapper">
+                                        <h4 className="reports-insight-title">{card.title}</h4>
+                                        <p className="reports-insight-desc">{card.desc}</p>
+                                    </div>
                                 </div>
-                                <p className="side-card-desc">
-                                    <strong>Finance:</strong> Highlights risk indicators for invoice fraud, BEC redirection, and fake vendor requests.
-                                    <br /><strong>HR:</strong> Identifies resume malware risks and handling of sensitive candidate documents.
-                                </p>
-                            </div>
-                            <div className="side-card-visual bg-plum">
-                                <img alt="Finance & HR risks illustration" loading="lazy" src="/insat/images/Protection-1.jpg" />
-                            </div>
+                            ))}
                         </div>
+                    </div>
 
-                        <div className="side-card">
-                            <div className="side-card-text-wrapper">
-                                <div className="side-card-title-row">
-                                    <Link className="arrow-link" href="/solutions/insat" style={{marginTop: "0"}}>
-                                        <div className="arrow-circle">
-                                            <span className="arrow-circle-bg"></span>
-                                            <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill="currentColor" d="M3.86426 4.00028L0.818237 0.954267L1.68853 0.0839844L5.60481 4.00028L1.68853 7.91652L0.818237 7.04625L3.86426 4.00028Z" />
-                                            </svg>
-                                        </div>
-                                        <span className="side-card-title">Sales & IT Risk Telemetry</span>
-                                    </Link>
+                    {/* Right Column: Dashboard Mockup */}
+                    <div className="two-col-visual-block animate from-right" style={{ background: "transparent" }}>
+                        <div style={{
+                            backgroundColor: "#ffffff",
+                            border: "1px solid #E2E8F0",
+                            borderRadius: "16px",
+                            padding: "1.75rem",
+                            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)"
+                        }}>
+                            {/* Card Header */}
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                    <div style={{ color: "#F15A24" }}>
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                                        </svg>
+                                    </div>
+                                    <span style={{ fontWeight: 700, fontSize: "1.2rem", color: "#0F172A" }}>AI Auto-Pilot Actions</span>
                                 </div>
-                                <p className="side-card-desc">
-                                    <strong>Sales:</strong> Impersonation attacks, mobile work threats, CRM credentials risk.
-                                    <br /><strong>IT:</strong> Privileged credentials risk, cloud security awareness gaps, and SaaS connection alerts.
-                                </p>
+                                <div style={{ display: "flex", gap: "0.5rem" }}>
+                                    <span style={{ fontSize: "0.8rem", backgroundColor: "#FFEBE0", padding: "0.35rem 0.75rem", borderRadius: "6px", color: "#F15A24", fontWeight: 600, cursor: "pointer" }}>Recommendations</span>
+                                </div>
                             </div>
-                            <div className="side-card-visual bg-plum">
-                                <img alt="Sales & IT risks illustration" loading="lazy" src="/insat/images/Risk-Scoring-1.jpg" />
+
+                            {/* KPI Metrics Row */}
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem", marginBottom: "1.5rem" }}>
+                                {[
+                                    { label: "AUTO-RESOLVED", val: "84%", diff: "↑ 12%", color: "#10B981", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                                    )},
+                                    { label: "PENDING ACTIONS", val: "4", diff: "High priority", color: "#EF4444", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                                    )},
+                                    { label: "IMPACT FORECAST", val: "+18%", diff: "Risk reduction", color: "#10B981", icon: (
+                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                                    )}
+                                ].map((kpi, idx) => (
+                                    <div key={idx} style={{ border: "1px solid #F1F5F9", borderRadius: "8px", padding: "0.6rem", display: "flex", gap: "0.5rem" }}>
+                                        <div style={{ color: "#F15A24", marginTop: "0.15rem" }}>{kpi.icon}</div>
+                                        <div>
+                                            <div style={{ fontSize: "0.55rem", fontWeight: 700, color: "#64748B", letterSpacing: "0.02em" }}>{kpi.label}</div>
+                                            <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginTop: "0.15rem" }}>
+                                                <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#0F172A" }}>{kpi.val}</span>
+                                                <span style={{ fontSize: "0.55rem", color: kpi.color, fontWeight: 600 }}>{kpi.diff}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Recommendation Logs */}
+                            <div style={{ overflowX: "auto" }}>
+                                <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.8rem" }}>
+                                    <thead>
+                                        <tr style={{ borderBottom: "1px solid #F1F5F9", color: "#64748B", fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.03em" }}>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Recommendation</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Auto-Trigger Action</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Status</th>
+                                            <th style={{ padding: "0.6rem 0.5rem", fontWeight: 600 }}>Triggered</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {[
+                                            { 
+                                                name: "High-Risk Users Detected", 
+                                                action: "Deploy targeted microlearning", 
+                                                status: "Active", 
+                                                statusBg: "#FFEBE0", 
+                                                statusColor: "#F15A24",
+                                                time: "2m ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                                            },
+                                            { 
+                                                name: "Finance Click Rate Spike", 
+                                                action: "Launch role-based simulations", 
+                                                status: "Pending", 
+                                                statusBg: "#F1F5F9", 
+                                                statusColor: "#475569",
+                                                time: "15m ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                            },
+                                            { 
+                                                name: "Repeat Phishing Clickers", 
+                                                action: "Trigger reinforcement campaign", 
+                                                status: "Completed", 
+                                                statusBg: "#DCFCE7", 
+                                                statusColor: "#15803D",
+                                                time: "1h ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                                            },
+                                            { 
+                                                name: "Leadership Posture Review", 
+                                                action: "Generate executive summary", 
+                                                status: "Completed", 
+                                                statusBg: "#DCFCE7", 
+                                                statusColor: "#15803D",
+                                                time: "3h ago",
+                                                icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                                            }
+                                        ].map((row, rIdx) => (
+                                            <tr key={rIdx} style={{ borderBottom: "1px solid #F1F5F9", color: "#334155" }}>
+                                                <td style={{ padding: "0.75rem 0.5rem", fontWeight: 500, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                                    <span style={{ color: "#94A3B8" }}>{row.icon}</span>
+                                                    <span>{row.name}</span>
+                                                </td>
+                                                <td style={{ padding: "0.75rem 0.5rem", color: "#475569" }}>{row.action}</td>
+                                                <td style={{ padding: "0.75rem 0.5rem" }}>
+                                                    <span style={{ backgroundColor: row.statusBg, color: row.statusColor, padding: "0.2rem 0.5rem", borderRadius: "4px", fontSize: "0.7rem", fontWeight: 600 }}>
+                                                        {row.status}
+                                                    </span>
+                                                </td>
+                                                <td style={{ padding: "0.75rem 0.5rem", color: "#64748B" }}>{row.time}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            {/* Footer */}
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid #F1F5F9", fontSize: "0.75rem", color: "#94A3B8" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.25rem", color: "#F15A24", fontWeight: 600, cursor: "pointer" }}>
+                                    <span>Manage all recommendations</span>
+                                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                        <polyline points="12 5 19 12 12 19"/>
+                                    </svg>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
+                                    <span>Last updated: 5 min ago</span>
+                                </div>
                             </div>
                         </div>
                     </div>

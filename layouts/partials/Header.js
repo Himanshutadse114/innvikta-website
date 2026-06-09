@@ -606,7 +606,7 @@ const menuData = {
         headline: "Immediate security utilities for IT and security administration teams.",
         cells: [
           { name: "Password Exposure Scanner", desc: "Scan if enterprise emails are leaked in public breaches.", href: "#" },
-          { name: "Domain Security Analyzer", desc: "Scan SPF, DKIM, and DMARC record vulnerabilities.", href: "#" },
+          { name: "Domain Security Analyzer", desc: "Scan SPF, DKIM, and DMARC record vulnerabilities.", href: "/freetools/domain-security-analyzer" },
           { name: "Compliance Gap Checker", desc: "Verify regulatory readiness for GDPR, SOC2, and HIPAA.", href: "#" },
           { name: "Simulation ROI Tool", desc: "Estimate potential cost savings from threat training campaigns.", href: "#" }
         ],
@@ -806,9 +806,16 @@ const menuData = {
 };
 
 const Header = () => {
+  const pathname = usePathname();
   const [showMenu, setShowMenu] = useState(false);
   const [sticky, setSticky] = useState(false);
   const headerRef = useRef(null);
+
+  // Close menus on path changes
+  useEffect(() => {
+    setActiveMegaMenu(null);
+    setShowMenu(false);
+  }, [pathname]);
 
   // States to manage the active mega menu and active tabs per mega menu
   const [activeMegaMenu, setActiveMegaMenu] = useState(null);
@@ -1004,16 +1011,22 @@ const Header = () => {
                       const tabContent = (
                         <>
                           <div className="flex items-center gap-3">
-                            <tab.icon className="text-base text-[#f15a24] shrink-0" />
-                            <span className="whitespace-nowrap">{tab.label}</span>
+                            {/* Absolute indicator for active state */}
+                            {isActive && (
+                              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[16px] bg-[#f15a24] rounded-r-full" />
+                            )}
+                            <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                              <tab.icon className={`text-[17px] shrink-0 transition-colors duration-200 ${isActive ? "text-[#f15a24]" : "text-slate-400 group-hover/tab:text-slate-600"}`} />
+                            </div>
+                            <span className="whitespace-nowrap transition-colors">{tab.label}</span>
                           </div>
-                          <FiArrowRight className={`text-xs shrink-0 transition-transform duration-200 ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1"}`} />
+                          <FiArrowRight className={`text-xs shrink-0 transition-all duration-200 ${isActive ? "opacity-100 translate-x-0 text-[#f15a24]" : "opacity-0 -translate-x-1"}`} />
                         </>
                       );
-                      const baseClass = `w-full flex items-center justify-between text-left px-4 py-3 rounded-lg text-[15px] font-bold transition-all duration-200 ${
+                      const baseClass = `relative w-full flex items-center justify-between text-left pl-6 pr-3 py-2.5 rounded-lg text-[14px] font-semibold transition-all duration-200 group/tab ${
                         isActive
-                          ? "bg-[#f15a24]/10 text-[#f15a24] shadow-sm"
-                          : "text-slate-600 hover:bg-slate-100/70 hover:text-[#f15a24]"
+                          ? "bg-slate-200/50 text-slate-900"
+                          : "text-slate-600 hover:bg-slate-100/70 hover:text-slate-900"
                       }`;
 
                       return isPlaceholder ? (

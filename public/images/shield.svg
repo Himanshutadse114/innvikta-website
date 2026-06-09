@@ -1,0 +1,14 @@
+<svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Shield Outline with soft orange tint fill -->
+  <path d="M60 7 L108 26 L108 68 Q108 104 60 125 Q12 104 12 68 L12 26 Z" stroke="#FF7A00" stroke-width="2.5" fill="rgba(255, 122, 0, 0.07)" stroke-linejoin="round" />
+  <!-- Inner Shield Outline -->
+  <path d="M60 20 L96 36 L96 66 Q96 90 60 108 Q24 90 24 66 L24 36 Z" stroke="#FF7A00" stroke-width="1.2" fill="none" opacity="0.45" stroke-linejoin="round" />
+  <!-- Central Checkmark -->
+  <path d="M40 66 L53 80 L80 50" stroke="#FF7A00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Decorative Dots on vertices -->
+  <circle cx="60" cy="7" r="3" fill="#FF7A00" opacity="0.8" />
+  <circle cx="108" cy="26" r="2.5" fill="#FF7A00" opacity="0.6" />
+  <circle cx="108" cy="68" r="2.5" fill="#FF7A00" opacity="0.5" />
+  <circle cx="12" cy="26" r="2.5" fill="#FF7A00" opacity="0.6" />
+  <circle cx="12" cy="68" r="2.5" fill="#FF7A00" opacity="0.5" />
+</svg>

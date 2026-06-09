@@ -1,0 +1,8 @@
+<svg width="1440" height="320" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Wave 1: solid wave -->
+  <path d="M0,160 C320,300 480,20 800,180 C1120,340 1280,100 1440,240" stroke="#FFE4D1" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+  <!-- Wave 2: dashed wave -->
+  <path d="M0,200 C240,60 560,320 880,140 C1200,-40 1360,260 1440,180" stroke="#FFD8BE" stroke-width="2" stroke-dasharray="8 8" opacity="0.45"/>
+  <!-- Wave 3: dotted wave -->
+  <path d="M0,100 C360,220 720,40 1080,260 C1260,370 1380,150 1440,120" stroke="#FFEAE0" stroke-width="4" stroke-dasharray="3 9" opacity="0.5"/>
+</svg>
