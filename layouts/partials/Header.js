@@ -1025,8 +1025,8 @@ const Header = () => {
                       );
                       const baseClass = `relative w-full flex items-center justify-between text-left pl-6 pr-3 py-2.5 rounded-lg text-[14px] font-semibold transition-all duration-200 group/tab ${
                         isActive
-                          ? "bg-[#FFEFEA] text-[#f15a24]"
-                          : "text-slate-600 hover:bg-[#FFEFEA] hover:text-[#f15a24]"
+                          ? "active-tab-rail"
+                          : "inactive-tab-rail"
                       }`;
 
                       return isPlaceholder ? (
