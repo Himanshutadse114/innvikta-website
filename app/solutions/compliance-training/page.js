@@ -8,73 +8,10 @@ import { gsap } from "@lib/gsap";
 import Circle from "@layouts/components/Circle";
 import ImageFallback from "@layouts/components/ImageFallback";
 
-const howItWorks = [
-  {
-    title: "Train",
-    desc: "Deliver structured compliance modules tailored to employee role, department, and policy exposure.",
-    image: "/insat/images/platform.png",
-    icon: (active) => (
-      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      </svg>
-    )
-  },
-  {
-    title: "Assess",
-    desc: "Use scenario-based assessments and AI-supported checks to identify learning gaps.",
-    image: "/insat/images/platform.png",
-    icon: (active) => (
-      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <polyline points="22 4 12 14.01 9 11.01" />
-      </svg>
-    )
-  },
-  {
-    title: "Reinforce",
-    desc: "Trigger AI-recommended refresher modules and nudges when policies change, training gaps appear, or risk areas emerge.",
-    image: "/insat/images/platform.png",
-    icon: (active) => (
-      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    )
-  },
-  {
-    title: "Evidence",
-    desc: "Generate AI-assisted summaries, completion records, assessment scores, and exportable reports for audits and internal reviews.",
-    image: "/insat/images/platform.png",
-    icon: (active) => (
-      <svg className={`w-6 h-6 transition-colors duration-300 ${active ? "text-white" : "text-current"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-      </svg>
-    )
-  }
-];
-
 const ComplianceTrainingPage = () => {
   const [activeFaq, setActiveFaq] = useState(null);
-  const [activeStep, setActiveStep] = useState(0);
-  const [displayImages, setDisplayImages] = useState({
-    current: "/insat/images/platform.png",
-    prev: null
-  });
-
-  useEffect(() => {
-    const nextImg = activeStep !== null ? howItWorks[activeStep].image : "/insat/images/platform.png";
-    if (nextImg !== displayImages.current) {
-      setDisplayImages((prev) => ({
-        prev: prev.current,
-        current: nextImg
-      }));
-    }
-  }, [activeStep]);
-
   const heroRef = useRef(null);
+  const journeyRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -95,6 +32,81 @@ const ComplianceTrainingPage = () => {
         "<"
       );
     }, heroRef);
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+
+      // Desktop
+      mm.add("(min-width: 1024px)", () => {
+        // Animate path drawing via mask
+        const maskPath = document.querySelector(".journey-mask-path");
+        if (maskPath) {
+          const pathLength = maskPath.getTotalLength();
+          gsap.set(maskPath, {
+            strokeDasharray: pathLength,
+            strokeDashoffset: pathLength
+          });
+          gsap.to(maskPath, {
+            strokeDashoffset: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".journey-right-col",
+              start: "top 60%",
+              end: "bottom 95%",
+              scrub: 1.2
+            }
+          });
+        }
+
+        // Animate steps
+        gsap.fromTo(
+          ".journey-step",
+          {
+            y: 80,
+            opacity: 0
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.25,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".journey-steps-container",
+              start: "top 75%",
+              toggleActions: "play none none none"
+            }
+          }
+        );
+      });
+
+      // Mobile
+      mm.add("(max-width: 1023px)", () => {
+        gsap.fromTo(
+          ".journey-step",
+          {
+            y: 50,
+            opacity: 0
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".journey-steps-container",
+              start: "top 85%",
+              toggleActions: "play none none none"
+            }
+          }
+        );
+      });
+    }, journeyRef);
+
     return () => ctx.revert();
   }, []);
 
@@ -318,7 +330,7 @@ const ComplianceTrainingPage = () => {
               <div className="container">
                 <div className="hero-content">
                   <span className="text-subheading">Compliance Training</span>
-                  <h1 className="text-96-heading">Audit-ready. Built for retention.</h1>
+                  <h1 className="text-96-heading">Audit-ready. Built for Retention.</h1>
 
                   <div className="hero-text-wrapper">
                     <p className="text-20-content hero-paragraph">
@@ -337,7 +349,7 @@ const ComplianceTrainingPage = () => {
                       </div>
                     </a>
                     <a className="btn btn-secondary" href="/demo">
-                      <span>Request Demo</span>
+                      <span>Book a Demo</span>
                     </a>
                   </div>
                 </div>
@@ -469,74 +481,125 @@ const ComplianceTrainingPage = () => {
             </div>
           </section>
 
-          {/* 3. ACCORDION / HOW DOES IT WORK SECTION */}
-          <section className="bg-white" style={{ paddingTop: "4rem" }}>
+          {/* 3. COMPLIANCE JOURNEY SECTION */}
+          <section className="bg-white" style={{ paddingTop: "4rem", paddingBottom: "5rem", position: "relative" }} ref={journeyRef}>
             <div className="container">
-              <div className="animate mb-12">
-                <span className="text-subheading">HOW DOES IT WORK</span>
-                <h2 className="text-52-heading">Train → Assess → Reinforce → Evidence</h2>
-                <div style={{ marginTop: "1rem", opacity: "0.7" }}>
-                  <p className="text-18-content">
-                    Turn compliance mandates into highly effective structured learning loops.
+              <div className="journey-section-grid">
+                
+                {/* Left Column: Title & CTAs */}
+                 <div className="journey-left-col animate">
+                  <span className="text-subheading">FROM AWARENESS TO EVIDENCE</span>
+                  <h2 className="text-52-heading" style={{ lineHeight: "1.2" }}>
+                    <span style={{ display: "block", whiteSpace: "nowrap" }}>One Continuous</span>
+                    <span style={{ display: "block", whiteSpace: "nowrap" }}>Compliance <span className="text-orange">Journey</span></span>
+                  </h2>
+                  <p className="text-18-content" style={{ opacity: "0.85", marginTop: "1.25rem", marginBottom: "2rem", color: "#334155", maxWidth: "480px" }}>
+                    A structured, automated learning loop designed to satisfy regulatory audits, build lasting retention, and turn policy training into measurable employee behavior and audit-ready compliance evidence.
                   </p>
-                </div>
-              </div>
-
-              <div className="modern-simulations-grid">
-                {/* Left Accordion Column */}
-                <div className="simulation-accordion-list animate from-left">
-                  {howItWorks.map((step, index) => {
-                    const active = activeStep === index;
-                    return (
-                      <button
-                        key={index}
-                        type="button"
-                        onClick={() => setActiveStep(index)}
-                        className={`simulation-accordion-item ${active ? "active" : ""}`}
-                      >
-                        <div className="sim-icon-container">
-                          {step.icon(active)}
-                        </div>
-                        <div className="sim-text-content">
-                          <h3 className="sim-title">{step.title}</h3>
-                          <div 
-                            className="sim-desc-wrapper" 
-                            style={{ 
-                              maxHeight: active ? "120px" : "0px",
-                              opacity: active ? 1 : 0
-                            }}
-                          >
-                            <p className="sim-desc">{step.desc}</p>
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Right Bezel Frame Column */}
-                <div className="animate from-right">
-                  <div className="platform-bezel-frame">
-                    <div className="frame-inner" style={{ position: "relative", width: "100%", aspectRatio: "16/10", overflow: "hidden" }}>
-                      {displayImages.prev && (
-                        <img 
-                          key={displayImages.prev + "_prev"}
-                          src={displayImages.prev} 
-                          alt="Previous screenshot"
-                          style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                          className="animate-image-fade-out"
-                        />
-                      )}
-                      <img 
-                        key={displayImages.current + "_current"}
-                        src={displayImages.current} 
-                        alt={howItWorks[activeStep].title} 
-                        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                        className="animate-image-fade-in"
-                      />
-                    </div>
+                  
+                  <div className="journey-btn-group">
+                    <Link className="btn btn-primary btn-cta" href="/demo">
+                      <span className="hover-sweep"></span>
+                      <span>Book a Demo</span>
+                      <div className="arrow-wrapper">
+                        <svg className="arrow-icon" width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3.29985 4.50047L0 1.20062L0.942813 0.257812L5.18545 4.50047L0.942813 8.74306L0 7.80027L3.29985 4.50047Z" fill="currentColor" />
+                        </svg>
+                      </div>
+                    </Link>
                   </div>
                 </div>
+
+                {/* Right Column: Staggered Cards & Wave */}
+                <div className="journey-right-col">
+                  {/* Dotted Snake Connecting SVG */}
+                  <div className="journey-wave-container">
+                    <svg className="journey-wave-svg" viewBox="0 0 850 780" preserveAspectRatio="none">
+                      <defs>
+                        <mask id="journey-mask">
+                          <path className="journey-mask-path" d="M 142,20 L 142,74 C 142,140 426,140 426,254 C 426,320 142,320 142,434 C 142,500 426,500 426,614 L 426,696" stroke="#ffffff" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                        </mask>
+                      </defs>
+                      <path className="journey-path-bg" d="M 142,20 L 142,74 C 142,140 426,140 426,254 C 426,320 142,320 142,434 C 142,500 426,500 426,614 L 426,696" />
+                      <path className="journey-path-active" d="M 142,20 L 142,74 C 142,140 426,140 426,254 C 426,320 142,320 142,434 C 142,500 426,500 426,614 L 426,696" mask="url(#journey-mask)" />
+                      <circle cx="142" cy="20" r="4.5" fill="#f15a24" />
+                      <circle cx="426" cy="696" r="4.5" fill="#f15a24" />
+                    </svg>
+                  </div>
+
+                  {/* Staggered Cards Grid */}
+                  <div className="journey-steps-container">
+                    
+                    {/* Step 1: Train */}
+                    <div className="journey-step step-1">
+                      <div className="journey-badge">1</div>
+                      <div className="journey-card">
+                        <div className="journey-card-header">
+                          <div className="journey-card-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
+                          </div>
+                          <h3 className="journey-card-title">Train</h3>
+                        </div>
+                        <p className="journey-card-desc">Deliver role-based training that builds awareness and knowledge.</p>
+                      </div>
+                    </div>
+
+                    {/* Step 2: Assess */}
+                    <div className="journey-step step-2">
+                      <div className="journey-badge">2</div>
+                      <div className="journey-card">
+                        <div className="journey-card-header">
+                          <div className="journey-card-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                              <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                          </div>
+                          <h3 className="journey-card-title">Assess</h3>
+                        </div>
+                        <p className="journey-card-desc">Evaluate understanding with scenario-based assessments.</p>
+                      </div>
+                    </div>
+
+                    {/* Step 3: Reinforce */}
+                    <div className="journey-step step-3">
+                      <div className="journey-badge">3</div>
+                      <div className="journey-card">
+                        <div className="journey-card-header">
+                          <div className="journey-card-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z" />
+                            </svg>
+                          </div>
+                          <h3 className="journey-card-title">Reinforce</h3>
+                        </div>
+                        <p className="journey-card-desc">Reinforce learning with microlearning, nudges, and spaced repetition.</p>
+                      </div>
+                    </div>
+
+                    {/* Step 4: Evidence */}
+                    <div className="journey-step step-4">
+                      <div className="journey-badge">4</div>
+                      <div className="journey-card">
+                        <div className="journey-card-header">
+                          <div className="journey-card-icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                              <path d="M9 10h6M9 14h6" />
+                            </svg>
+                          </div>
+                          <h3 className="journey-card-title">Evidence</h3>
+                        </div>
+                        <p className="journey-card-desc">Automatically generate reports, completion records, and compliance evidence.</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
             </div>
           </section>
@@ -554,16 +617,63 @@ const ComplianceTrainingPage = () => {
                     Assign AI-assisted learning paths based on department, role, location, policy exposure, or risk profile.
                   </p>
                   
-                  <ul className="campaign-feature-list" style={{ display: "flex", flexDirection: "column", gap: "1rem", padding: 0, listStyle: "none" }}>
+                  <ul className="campaign-feature-list" style={{ display: "flex", flexDirection: "column", gap: "1.25rem", padding: 0, listStyle: "none" }}>
                     {[
-                      { role: "HR", desc: "Employee data, POSH, background checks, workplace conduct, and confidentiality." },
-                      { role: "Finance", desc: "Invoice fraud, payment approvals, anti-bribery, vendor risk, and financial data handling." },
-                      { role: "IT", desc: "Access control, incident reporting, security policies, privileged accounts, and data protection." },
-                      { role: "Sales & Customer Teams", desc: "Customer data, consent, CRM usage, confidentiality, and responsible communication." },
-                      { role: "Leadership", desc: "Governance, regulatory accountability, breach escalation, ethics, and reputational risk." }
+                      {
+                        role: "HR",
+                        desc: "Employee data, POSH, background checks, workplace conduct, and confidentiality.",
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                          </svg>
+                        )
+                      },
+                      {
+                        role: "Finance",
+                        desc: "Invoice fraud, payment approvals, anti-bribery, vendor risk, and financial data handling.",
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
+                            <line x1="2" y1="10" x2="22" y2="10" />
+                          </svg>
+                        )
+                      },
+                      {
+                        role: "IT",
+                        desc: "Access control, incident reporting, security policies, privileged accounts, and data protection.",
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="2" width="20" height="14" rx="2" ry="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                          </svg>
+                        )
+                      },
+                      {
+                        role: "Sales & Customer Teams",
+                        desc: "Customer data, consent, CRM usage, confidentiality, and responsible communication.",
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                          </svg>
+                        )
+                      },
+                      {
+                        role: "Leadership",
+                        desc: "Governance, regulatory accountability, breach escalation, ethics, and reputational risk.",
+                        icon: (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                          </svg>
+                        )
+                      }
                     ].map((item, i) => (
                       <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", fontSize: "1.05rem", color: "#334155", lineHeight: "1.4" }}>
-                        <span style={{ color: "#F15A24", marginTop: "0.25rem", fontWeight: "bold" }}>⚡</span>
+                        <span style={{ color: "#F15A24", marginTop: "0.25rem", flexShrink: 0, display: "inline-flex" }}>{item.icon}</span>
                         <span>
                           <strong style={{ color: "#000" }}>{item.role}:</strong> {item.desc}
                         </span>
@@ -593,26 +703,86 @@ const ComplianceTrainingPage = () => {
                 <div className="two-col-content-block animate from-left" style={{ maxWidth: "540px" }}>
                   <span className="text-subheading">REFRESHER & REINFORCEMENT CAMPAIGNS</span>
                   <h2 className="text-52-heading" style={{ marginTop: "0.5rem", marginBottom: "1.5rem" }}>
-                    Keep Compliance Alive
+                    Keep <span className="text-orange">Compliance</span> Alive
                   </h2>
                   <p className="text-18-content" style={{ opacity: "0.85", marginBottom: "2rem", lineHeight: "1.6", color: "#334155" }}>
                     Compliance knowledge fades when it is not reinforced. Innvikta helps teams send timely refresher campaigns after policy updates, audits, incidents, or identified learning gaps.
                   </p>
                   
-                  <div className="reports-insight-grid">
+                   <div className="reports-insight-grid">
                     {[
-                      { title: "Short refresher modules", desc: "Quick bite-sized micro-courses" },
-                      { title: "Policy update campaigns", desc: "Sent when internal rules update" },
-                      { title: "Department-wise reinforcement", desc: "Tailored to high-risk roles" },
-                      { title: "Targeted reminders", desc: "Nudges for incomplete training" },
-                      { title: "Scenario-based policy recall", desc: "Verifies knowledge retention" },
-                      { title: "Periodic compliance training", desc: "Assigned to high-risk user groups" }
+                      {
+                        title: "Short refresher modules",
+                        desc: "Quick bite-sized micro-courses",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                          </svg>
+                        )
+                      },
+                      {
+                        title: "Policy update campaigns",
+                        desc: "Sent when internal rules update",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                            <polyline points="10 9 9 9 8 9" />
+                          </svg>
+                        )
+                      },
+                      {
+                        title: "Department-wise reinforcement",
+                        desc: "Tailored to high-risk roles",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                          </svg>
+                        )
+                      },
+                      {
+                        title: "Targeted reminders",
+                        desc: "Nudges for incomplete training",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                          </svg>
+                        )
+                      },
+                      {
+                        title: "Scenario-based policy recall",
+                        desc: "Verifies knowledge retention",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                          </svg>
+                        )
+                      },
+                      {
+                        title: "Periodic compliance training",
+                        desc: "Assigned to high-risk user groups",
+                        icon: (
+                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                          </svg>
+                        )
+                      }
                     ].map((card, idx) => (
                       <div key={idx} className="reports-insight-card">
                         <div className="reports-insight-icon-container">
-                          <svg className="w-5 h-5 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
-                          </svg>
+                          {card.icon}
                         </div>
                         <div className="reports-insight-text-wrapper">
                           <h4 className="reports-insight-title">{card.title}</h4>
