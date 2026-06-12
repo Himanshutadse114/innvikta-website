@@ -590,8 +590,8 @@ const menuData = {
         cells: [
           { name: "Maturity Calculator", desc: "Grade the effectiveness and maturity of your training program.", href: "#" },
           { name: "Risk Estimator", desc: "Estimate employee click rates before starting simulations.", href: "#" },
-          { name: "Baseline Score Tool", desc: "Get a baseline human risk score for your active domain.", href: "#" },
-          { name: "Culture Benchmarking", desc: "Measure security culture indicators and threat reports.", href: "#" }
+          { name: "Baseline Score Tool", desc: "Get a baseline human risk score for your active domain.", href: "/freetools/baseline-score-tool" },
+          { name: "Culture Benchmarking", desc: "Measure security culture indicators and threat reports.", href: "/freetools/culture-benchmarking" }
         ],
         cta: {
           title: "Run a free human risk test",
