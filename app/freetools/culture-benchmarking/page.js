@@ -1073,7 +1073,7 @@ const CultureBenchmarkingPage = () => {
                   </h4>
                   <div style={{ background: "#FDFDFD", borderLeft: "4px solid #E7E7E7", padding: "1.5rem 2rem", borderRadius: "0 8px 8px 0" }}>
                     <p style={{ fontSize: "1rem", color: "#3A3A3A", lineHeight: "1.8", margin: 0, fontStyle: "italic" }}>
-                      "{scoreData.execSummary}"
+                      &ldquo;{scoreData.execSummary}&rdquo;
                     </p>
                   </div>
                 </div>
