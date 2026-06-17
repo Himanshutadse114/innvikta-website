@@ -57,6 +57,16 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
     }
   }, [collectedItem]);
 
+  // Auto-reset game after a delay when score reaches 4
+  useEffect(() => {
+    if (score === 4) {
+      const timer = setTimeout(() => {
+        resetGame();
+      }, 6000); // 6 second delay to read the final notification
+      return () => clearTimeout(timer);
+    }
+  }, [score, resetGame]);
+
   let infoTitle = "Threat Detected";
   let infoDesc = ["Unknown attack vector analyzed."];
   let Icon = AlertTriangle;
@@ -284,7 +294,7 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
         )}
       </AnimatePresence>
 
-      <div className="absolute inset-0 z-30 pointer-events-none hidden md:block">
+      <div className={`absolute inset-0 z-30 ${isHookActive ? 'pointer-events-auto' : 'pointer-events-none'} hidden md:block`}>
         <SceneErrorBoundary>
           <Scene />
         </SceneErrorBoundary>

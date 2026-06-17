@@ -626,12 +626,14 @@ const PositionEditor = ({ collectibles, updatePosition }) => {
 const Scene = () => {
   const collectibles = useStore((state) => state.collectibles);
   const updatePosition = useStore((state) => state.updatePosition);
+  const isHookActive = useStore((state) => state.isHookActive);
   const [showEditor, setShowEditor] = useState(false);
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-none">
+    <div className={`absolute inset-0 z-10 ${isHookActive ? 'pointer-events-auto' : 'pointer-events-none'}`}>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
+        style={{ pointerEvents: isHookActive ? 'auto' : 'none' }}
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
         dpr={[1, 2]}
         shadows
