@@ -693,15 +693,15 @@ const menuData = {
         icon: FiGlobe,
         headline: "Grow with a modern security awareness and human risk platform built for enterprises.",
         cells: [
-          { name: "Partner Program", desc: "Collaborate with Innvikta to deliver modern security awareness solutions.", href: "#" },
-          { name: "Co-Selling", desc: "Partner with our sales experts to close deals and drive mutual revenue.", href: "#" },
-          { name: "Growth Support", desc: "Access tier pricing, marketing assets, and co-marketing funds.", href: "#" }
+          { name: "Partner Program", desc: "Collaborate with Innvikta to deliver modern security awareness solutions.", href: "/partners" },
+          { name: "Co-Selling", desc: "Partner with our sales experts to close deals and drive mutual revenue.", href: "/partners#support" },
+          { name: "Growth Support", desc: "Access tier pricing, marketing assets, and co-marketing funds.", href: "/partners#support" }
         ],
         cta: {
           title: "Join our partner network",
           desc: "Expand your portfolio with our leading security awareness and human risk analytics tools.",
           label: "Become a Partner",
-          href: "#",
+          href: "/partners#form",
           svgType: "partners"
         }
       },
@@ -711,15 +711,15 @@ const menuData = {
         icon: FiShield,
         headline: "Offer Innvikta’s awareness, simulation, compliance, and human risk solutions to your clients.",
         cells: [
-          { name: "Resellers", desc: "Offer Innvikta's training and human risk solutions to your clients.", href: "#" },
-          { name: "Consultants", desc: "Integrate human risk intelligence into your security consulting services.", href: "#" },
-          { name: "IT Partners", desc: "Equip your IT offerings with easy-to-manage training and phishing tools.", href: "#" }
+          { name: "Resellers", desc: "Offer Innvikta's training and human risk solutions to your clients.", href: "/partners#reseller" },
+          { name: "Consultants", desc: "Integrate human risk intelligence into your security consulting services.", href: "/partners#reseller" },
+          { name: "IT Partners", desc: "Equip your IT offerings with easy-to-manage training and phishing tools.", href: "/partners#reseller" }
         ],
         cta: {
           title: "Access white-label reseller tools",
           desc: "Rebrand the training experience and deliver human risk visibility as a managed service.",
           label: "Explore Reseller Program",
-          href: "#",
+          href: "/partners#form",
           svgType: "partners"
         }
       }
@@ -908,19 +908,32 @@ const Header = () => {
             </ul>
 
             {/* Sticky Conversion Area */}
-            <div className="hidden lg:flex items-center gap-4 ml-auto">
-              <Link 
-                href="#" 
-                className="px-4 py-2 bg-orange-50/50 hover:bg-[#f15a24] border border-[#f15a24]/30 hover:border-[#f15a24] text-[#f15a24] hover:text-white rounded-lg text-[13px] font-extrabold transition-all duration-300"
-              >
-                Start Free
-              </Link>
-              <Link 
-                href="/book-demo" 
-                className="px-5 py-2 bg-[#f15a24] hover:bg-orange-600 text-white rounded-lg text-[13px] font-bold transition-all duration-300 flex items-center gap-1"
-              >
-                Book a Demo <FiArrowRight className="text-xs" />
-              </Link>
+            <div className="hidden lg:flex items-center ml-auto relative">
+              {/* Partner CTA */}
+              <div className={`transition-all duration-300 flex items-center h-full ${pathname === "/partners" ? "opacity-100 pointer-events-auto translate-x-0" : "opacity-0 pointer-events-none translate-x-4 absolute right-0"}`}>
+                <Link 
+                  href="#form" 
+                  className="mr-6 md:mr-10 px-6 py-2 bg-[#f15a24] hover:bg-orange-600 text-white rounded-lg text-[13px] font-bold transition-all duration-300 flex items-center gap-1 border border-[#f15a24] hover:border-orange-600"
+                >
+                  Become a Partner <FiArrowRight className="text-xs" />
+                </Link>
+              </div>
+
+              {/* Standard CTAs */}
+              <div className={`transition-all duration-300 flex items-center gap-4 h-full ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-x-0" : "opacity-0 pointer-events-none -translate-x-4 absolute right-0"}`}>
+                <Link 
+                  href="#" 
+                  className="px-4 py-2 bg-orange-50/50 hover:bg-[#f15a24] border border-[#f15a24]/30 hover:border-[#f15a24] text-[#f15a24] hover:text-white rounded-lg text-[13px] font-extrabold transition-all duration-300"
+                >
+                  Start Free
+                </Link>
+                <Link 
+                  href="/book-demo" 
+                  className="px-5 py-2 bg-[#f15a24] hover:bg-orange-600 text-white rounded-lg text-[13px] font-bold transition-all duration-300 flex items-center gap-1"
+                >
+                  Book a Demo <FiArrowRight className="text-xs" />
+                </Link>
+              </div>
             </div>
 
             {/* Mobile Navigation Toggle Button */}
@@ -1225,14 +1238,28 @@ const Header = () => {
           </div>
 
           {/* Bottom Mobile Sticky CTAs */}
-          <div className="flex flex-col gap-3 border-t border-slate-100 pt-6 mt-6">
-            <Link 
-              href="/book-demo" 
-              onClick={() => setShowMenu(false)}
-              className="w-full text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10"
-            >
-              Book a Demo
-            </Link>
+          <div className="flex flex-col gap-3 border-t border-slate-100 pt-6 mt-6 relative min-h-[60px]">
+            {/* Partner CTA */}
+            <div className={`transition-all duration-300 w-full ${pathname === "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none translate-y-2 absolute inset-x-0"}`}>
+              <Link 
+                href="#form" 
+                onClick={() => setShowMenu(false)}
+                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10"
+              >
+                Become a Partner
+              </Link>
+            </div>
+
+            {/* Standard CTA */}
+            <div className={`transition-all duration-300 w-full ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2 absolute inset-x-0"}`}>
+              <Link 
+                href="/book-demo" 
+                onClick={() => setShowMenu(false)}
+                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10"
+              >
+                Book a Demo
+              </Link>
+            </div>
           </div>
         </div>
       </header>
