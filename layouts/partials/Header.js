@@ -752,17 +752,143 @@ const menuData = {
   }
 };
 
+const searchIndex = [
+  {
+    title: "Security Awareness Training",
+    description: "Cinematic, role-based courses that engage employees and satisfy compliance audits.",
+    url: "/solutions/insat",
+    category: "Solutions",
+    keywords: ["insat", "training", "modules", "awareness", "gamification", "arcade", "microlearning"]
+  },
+  {
+    title: "Interactive Gamified Arcade",
+    description: "Bite-sized microlearning games and quizzes that motivate participation.",
+    url: "/solutions/insat",
+    category: "Solutions",
+    keywords: ["arcade", "game", "gamified", "quiz", "points", "xp", "badges", "rewards"]
+  },
+  {
+    title: "Phishing Simulation",
+    description: "Personalized phishing simulations that teach, test, and strengthen workforce response.",
+    url: "/solutions/phishing-simulation",
+    category: "Solutions",
+    keywords: ["phishing", "simulation", "sms", "whatsapp", "qr code", "templates", "email", "vishing"]
+  },
+  {
+    title: "Human Risk Intelligence",
+    description: "Turn awareness data into measurable, board-ready human risk visibility and risk scores.",
+    url: "/solutions/human-risk-intelligence",
+    category: "Solutions",
+    keywords: ["analytics", "risk score", "dashboard", "heatmap", "reporting", "ciso", "roi"]
+  },
+  {
+    title: "Compliance Training",
+    description: "Satisfy GDPR, HIPAA, PCI-DSS, and India's DPDP Act requirements.",
+    url: "/solutions/compliance-training",
+    category: "Solutions",
+    keywords: ["compliance", "gdpr", "hipaa", "dpdp", "audit", "policy", "regulations"]
+  },
+  {
+    title: "Customized Solutions",
+    description: "Tailored training for your people, risks, and industry with customized learning paths.",
+    url: "/solutions/customized-solutions",
+    category: "Solutions",
+    keywords: ["custom", "industry", "bfsi", "healthcare", "manufacturing", "remote", "department"]
+  },
+  {
+    title: "Partner Program",
+    description: "Collaborate with Innvikta to deliver modern security awareness solutions, co-selling, and reseller support.",
+    url: "/partners",
+    category: "Company & Partners",
+    keywords: ["partners", "reseller", "channel", "growth", "co-selling", "collaborate", "alliance"]
+  },
+  {
+    title: "About Innvikta",
+    description: "Learn about our story, mission, leadership, and our human security mission.",
+    url: "/about",
+    category: "Company & Partners",
+    keywords: ["about", "story", "mission", "leadership", "team", "innvikta"]
+  },
+  {
+    title: "Free Baseline Risk Score Assessment",
+    description: "Verify baseline employee susceptibility in less than 5 minutes.",
+    url: "/freetools/baseline-score-tool",
+    category: "Free Tools",
+    keywords: ["baseline", "calculator", "risk estimator", "free tool"]
+  },
+  {
+    title: "Free Security Culture Benchmarking",
+    description: "Measure security culture indicators and threat reports across your industry.",
+    url: "/freetools/culture-benchmarking",
+    category: "Free Tools",
+    keywords: ["culture", "benchmark", "indicator", "survey", "free tool"]
+  },
+  {
+    title: "Free Domain Security Analyzer",
+    description: "Scan SPF, DKIM, and DMARC record vulnerabilities for your active domain.",
+    url: "/freetools/domain-security-analyzer",
+    category: "Free Tools",
+    keywords: ["domain", "spf", "dkim", "dmarc", "scanner", "email security", "free tool"]
+  },
+  {
+    title: "Start Free Trial",
+    description: "Start building a stronger security culture with free awareness training modules and cybersecurity games.",
+    url: "/start-free",
+    category: "Get Started",
+    keywords: ["start free", "trial", "register", "free account"]
+  },
+  {
+    title: "Book a Demo",
+    description: "Schedule a live demo session with our product experts.",
+    url: "/book-demo",
+    category: "Get Started",
+    keywords: ["demo", "book", "schedule", "product demo", "meeting"]
+  }
+];
+
 const Header = () => {
   const pathname = usePathname();
   const [showMenu, setShowMenu] = useState(false);
   const [sticky, setSticky] = useState(false);
   const headerRef = useRef(null);
 
-  // Close menus on path changes
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
+  const searchInputRef = useRef(null);
+  const searchResultsRef = useRef(null);
+
+  // Close menus and search on path changes
   useEffect(() => {
     setActiveMegaMenu(null);
     setShowMenu(false);
+    setIsSearchOpen(false);
+    setSearchQuery("");
   }, [pathname]);
+
+  // Auto focus input when search overlay is opened
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  // Reset active result index when query changes
+  useEffect(() => {
+    setActiveSearchIndex(-1);
+  }, [searchQuery]);
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isSearchOpen && headerRef.current && !headerRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+        setSearchQuery("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isSearchOpen]);
 
   // States to manage the active mega menu and active tabs per mega menu
   const [activeMegaMenu, setActiveMegaMenu] = useState(null);
@@ -792,6 +918,39 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const filteredResults = searchQuery.trim() === "" 
+    ? [] 
+    : searchIndex.filter(item => {
+        const query = searchQuery.toLowerCase();
+        return item.title.toLowerCase().includes(query) ||
+               item.description.toLowerCase().includes(query) ||
+               item.keywords.some(kw => kw.toLowerCase().includes(query)) ||
+               item.category.toLowerCase().includes(query);
+      });
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveSearchIndex(prev => 
+        prev < filteredResults.length - 1 ? prev + 1 : prev
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveSearchIndex(prev => prev > 0 ? prev - 1 : prev);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (activeSearchIndex >= 0 && activeSearchIndex < filteredResults.length) {
+        const targetUrl = filteredResults[activeSearchIndex].url;
+        setIsSearchOpen(false);
+        setSearchQuery("");
+        window.location.href = targetUrl;
+      }
+    }
+  };
 
   const handleTabHover = (menuKey, tabId) => {
     setActiveTabs((prev) => ({
@@ -839,15 +998,21 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-4">
-              <Link href="#" className="hover:text-white transition-colors flex items-center gap-1.5">
+              <button 
+                onClick={() => {
+                  setIsSearchOpen(!isSearchOpen);
+                  if (isSearchOpen) setSearchQuery("");
+                }}
+                className="hover:text-white transition-colors flex items-center gap-1.5 focus:outline-none cursor-pointer"
+              >
                 <FiSearch className="text-[14px]" /> Search
-              </Link>
+              </button>
               <span className="h-3 w-[1px] bg-white/30"></span>
               <Link href="#" className="hover:text-white transition-colors flex items-center gap-1.5">
                 <FiHelpCircle className="text-[14px]" /> Support
               </Link>
               <span className="h-3 w-[1px] bg-white/30"></span>
-
+ 
               <div className="relative">
                 <button 
                   onClick={() => setLangOpen(!langOpen)}
@@ -869,12 +1034,112 @@ const Header = () => {
             </div>
           </div>
         </div>
-
+ 
         {/* =========================================================
             LAYER 2: MAIN NAVIGATION BAR (Logo, Navigation & CTA Buttons)
             ========================================================= */}
         <div className="w-full transition-all duration-300 bg-white border-b border-slate-100 h-[80px] relative z-40">
-          <div className="container-xl h-full flex items-center justify-between">
+          {/* Search Overlay Container */}
+          <AnimatePresence>
+            {isSearchOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="absolute inset-0 w-full h-[80px] bg-white z-[60] flex items-center border-b border-slate-100"
+              >
+                <div className="container-xl flex items-center justify-center gap-4 w-full relative">
+                  <div className="relative flex-1 max-w-[800px]">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Search for offerings, solutions, tools..."
+                      className="w-full px-6 py-2.5 bg-white border border-slate-200 focus:border-[#f15a24] focus:ring-1 focus:ring-[#f15a24] rounded-full text-slate-800 placeholder-slate-400 focus:outline-none pr-12 text-sm transition-all font-semibold"
+                    />
+                    <FiSearch className="absolute right-5 top-1/2 -translate-y-1/2 text-[#f15a24] text-lg pointer-events-none" />
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchQuery("");
+                    }}
+                    className="text-slate-400 hover:text-[#f15a24] transition-colors p-2 cursor-pointer focus:outline-none flex items-center justify-center shrink-0"
+                    aria-label="Close search"
+                  >
+                    <CgClose className="text-xl stroke-[1px]" />
+                  </button>
+
+                  {/* Search Results Dropdown */}
+                  <AnimatePresence>
+                    {searchQuery.trim() !== "" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.15 }}
+                        ref={searchResultsRef}
+                        className="absolute left-0 right-0 top-[60px] mx-auto max-w-[800px] bg-white border border-slate-100 rounded-2xl shadow-xl z-[70] overflow-hidden max-h-[450px] overflow-y-auto"
+                      >
+                        {filteredResults.length === 0 ? (
+                          <div className="p-8 text-center text-slate-400 font-semibold">
+                            No results found for <span className="text-[#f15a24]">"{searchQuery}"</span>
+                          </div>
+                        ) : (
+                          <div className="p-4 space-y-4 text-left">
+                            {Array.from(new Set(filteredResults.map(r => r.category))).map(category => (
+                              <div key={category} className="space-y-1.5">
+                                <div className="text-[11px] font-extrabold tracking-wider text-slate-400 uppercase px-3">
+                                  {category}
+                                </div>
+                                <div className="space-y-1">
+                                  {filteredResults
+                                    .filter(r => r.category === category)
+                                    .map((result) => {
+                                      const globalIdx = filteredResults.indexOf(result);
+                                      const isSelected = globalIdx === activeSearchIndex;
+                                      return (
+                                        <Link
+                                          key={result.title}
+                                          href={result.url}
+                                          onClick={() => {
+                                            setIsSearchOpen(false);
+                                            setSearchQuery("");
+                                          }}
+                                          className={`block p-3 rounded-xl transition-all ${
+                                            isSelected 
+                                              ? "bg-orange-50/70 border-l-4 border-[#f15a24] pl-2" 
+                                              : "hover:bg-slate-50 border-l-4 border-transparent"
+                                          }`}
+                                        >
+                                          <div className="font-bold text-[14px] text-slate-800 flex items-center justify-between">
+                                            <span>{result.title}</span>
+                                            <FiArrowRight className={`text-xs text-[#f15a24] transition-transform ${isSelected ? "translate-x-1" : "opacity-0"}`} />
+                                          </div>
+                                          <div className="text-xs text-slate-500 font-medium leading-relaxed mt-0.5">
+                                            {result.description}
+                                          </div>
+                                        </Link>
+                                      );
+                                    })}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className={`container-xl h-full flex items-center justify-between transition-opacity duration-200 ${isSearchOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
             {/* Logo */}
             <div className="z-50">
               <Link href="/">
@@ -922,7 +1187,7 @@ const Header = () => {
               {/* Standard CTAs */}
               <div className={`transition-all duration-300 flex items-center gap-4 h-full ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-x-0" : "opacity-0 pointer-events-none -translate-x-4 absolute right-0"}`}>
                 <Link 
-                  href="#" 
+                  href="/start-free" 
                   className="px-4 py-2 bg-orange-50/50 hover:bg-[#f15a24] border border-[#f15a24]/30 hover:border-[#f15a24] text-[#f15a24] hover:text-white rounded-lg text-[13px] font-extrabold transition-all duration-300"
                 >
                   Start Free
@@ -1238,26 +1503,33 @@ const Header = () => {
           </div>
 
           {/* Bottom Mobile Sticky CTAs */}
-          <div className="flex flex-col gap-3 border-t border-slate-100 pt-6 mt-6 relative min-h-[60px]">
+          <div className="flex flex-col gap-3.5 border-t border-slate-100 pt-6 mt-6 relative min-h-[60px]">
             {/* Partner CTA */}
             <div className={`transition-all duration-300 w-full ${pathname === "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none translate-y-2 absolute inset-x-0"}`}>
               <Link 
                 href="#form" 
                 onClick={() => setShowMenu(false)}
-                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10"
+                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10 flex items-center justify-center gap-1"
               >
-                Become a Partner
+                Become a Partner <FiArrowRight className="text-xs" />
               </Link>
             </div>
 
             {/* Standard CTA */}
-            <div className={`transition-all duration-300 w-full ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2 absolute inset-x-0"}`}>
+            <div className={`transition-all duration-300 w-full flex flex-col gap-3 ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2 absolute inset-x-0"}`}>
+              <Link 
+                href="/start-free" 
+                onClick={() => setShowMenu(false)}
+                className="w-full block text-center py-3 bg-orange-50/50 hover:bg-[#f15a24] border border-[#f15a24]/30 text-[#f15a24] hover:text-white font-extrabold rounded-lg text-sm transition-all"
+              >
+                Start Free
+              </Link>
               <Link 
                 href="/book-demo" 
                 onClick={() => setShowMenu(false)}
-                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10"
+                className="w-full block text-center py-3 bg-[#f15a24] text-white font-extrabold rounded-lg text-sm shadow-md shadow-orange-500/10 flex items-center justify-center gap-1"
               >
-                Book a Demo
+                Book a Demo <FiArrowRight className="text-xs" />
               </Link>
             </div>
           </div>
