@@ -578,10 +578,10 @@ const PartnersPage = () => {
                       <button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="group relative px-10 py-3.5 bg-[#f15a24] hover:bg-[#f15a24]/90 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/40 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0"
+                        className="group relative px-6 md:px-10 py-3.5 bg-[#f15a24] hover:bg-[#f15a24]/90 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/40 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 whitespace-nowrap"
                       >
                         <div className="relative z-10 flex items-center gap-2">
-                          <span className="uppercase tracking-wider text-sm">
+                          <span className="uppercase tracking-wider text-sm whitespace-nowrap">
                             {isSubmitting ? "Submitting..." : "Become a Partner"}
                           </span>
                           {!isSubmitting && (

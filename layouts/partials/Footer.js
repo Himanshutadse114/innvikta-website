@@ -6,45 +6,34 @@ import Link from "next/link";
 
 const Footer = () => {
   const footerData = {
-    product: [
-      { name: "Security Awareness Training", url: "/security-awareness-training" },
+    solutions: [
+      { name: "InSAT (Security Awareness)", url: "/solutions/insat" },
       { name: "Phishing Simulations", url: "/solutions/phishing-simulation" },
-      { name: "Human Risk Dashboard", url: "/solutions/human-risk-intelligence" },
-      { name: "AI Adaptive Learning", url: "#" },
-      { name: "Gamified Learning", url: "#" },
-      { name: "Executive Reporting", url: "#" },
+      { name: "Human Risk Intelligence", url: "/solutions/human-risk-intelligence" },
       { name: "Compliance Training", url: "/solutions/compliance-training" },
-      { name: "Integrations", url: "#" },
-      { name: "Innvikta CyberHelp", url: "#" }
+      { name: "Customized Solutions", url: "/solutions/customized-solutions" }
     ],
     freeTools: [
-      { name: "Phishing Risk Assessment", url: "#" },
-      { name: "Human Risk Score Calculator", url: "#" },
-      { name: "Security Awareness Maturity Tool", url: "#" },
-      { name: "Security ROI Calculator", url: "#" },
-      { name: "Email Security Analyzer", url: "#" },
-      { name: "Compliance Readiness Checker", url: "#" },
-      { name: "Security Culture Benchmark", url: "#" }
+      { name: "Domain Security Analyzer", url: "/freetools/domain-security-analyzer" },
+      { name: "Baseline Score Tool", url: "/freetools/baseline-score-tool" },
+      { name: "Culture Benchmarking", url: "/freetools/culture-benchmarking" },
+      { name: "Maturity Calculator", url: "#" },
+      { name: "Risk Estimator", url: "#" },
+      { name: "Simulation ROI Calculator", url: "#" }
     ],
     resources: [
       { name: "Blog", url: "/posts" },
-      { name: "Case Studies", url: "#" },
-      { name: "Webinars", url: "#" },
-      { name: "Security Guides", url: "#" },
-      { name: "Research Reports", url: "#" },
-      { name: "Threat Intelligence", url: "#" },
-      { name: "Security Templates", url: "#" },
-      { name: "Documentation", url: "#" },
-      { name: "Help Center", url: "#" }
+      { name: "Innvikta Cyberhelp", url: "#" },
+      { name: "Cybersecurity Guides", url: "#" },
+      { name: "Glossary", url: "/resources/glossary" },
+      { name: "Maturity Benchmarks", url: "#" },
+      { name: "Customer Success Stories", url: "#" }
     ],
     company: [
       { name: "About Us", url: "/about" },
-      { name: "Careers", url: "#" },
-      { name: "Partners", url: "#" },
       { name: "Contact Sales", url: "/contact" },
-      { name: "Security & Compliance", url: "#" },
-      { name: "Privacy Policy", url: "#" },
-      { name: "Terms of Service", url: "#" }
+      { name: "Partners", url: "/partners" },
+      { name: "Careers", url: "#" }
     ]
   };
 
@@ -64,11 +53,11 @@ const Footer = () => {
             </Link>
           </div>
  
-          {/* Column 1 - Product */}
+          {/* Column 1 - Solutions */}
           <div className="col-12 sm:col-6 md:col-4 lg:col-2 mb-10 lg:mb-0">
-            <h3 className="h6 font-bold uppercase tracking-wider mb-8 text-dark text-left">Product</h3>
+            <h3 className="h6 font-bold uppercase tracking-wider mb-8 text-dark text-left">Solutions</h3>
             <ul className="space-y-4 text-left">
-              {footerData.product.map((link) => (
+              {footerData.solutions.map((link) => (
                 <li key={link.name}>
                   <Link href={link.url} className="text-sm font-medium text-slate-500 hover:text-primary transition-colors">
                     {link.name}
@@ -141,7 +130,7 @@ const Footer = () => {
                 </button>
               </form>
               <p className="text-[11px] text-slate-400 leading-relaxed font-medium text-left">
-                By subscribing, you agree to receive updates from Innvikta. Read our <Link href="#" className="underline hover:text-primary">Privacy Policy</Link> for details.
+                By subscribing, you agree to receive updates from Innvikta. Read our <Link href="/terms-policy" className="underline hover:text-primary">Privacy Policy</Link> for details.
               </p>
             </div>
           </div>
@@ -160,9 +149,9 @@ const Footer = () => {
             </div>
             <div className="col-12 md:col-4 text-left mb-6 md:mb-0">
               <div className="flex justify-start gap-2 md:gap-4 flex-wrap">
-                <Link href="#" className="hover:text-primary">Privacy</Link>
+                <Link href="/terms-policy" className="hover:text-primary">Privacy</Link>
                 <span className="text-slate-200">•</span>
-                <Link href="#" className="hover:text-primary">Terms</Link>
+                <Link href="/terms-policy" className="hover:text-primary">Terms</Link>
                 <span className="text-slate-200">•</span>
                 <Link href="#" className="hover:text-primary">Cookies</Link>
                 <span className="text-slate-200">•</span>

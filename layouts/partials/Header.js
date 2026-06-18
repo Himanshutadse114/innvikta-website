@@ -507,9 +507,9 @@ const menuData = {
         icon: FiBookOpen,
         headline: "Level up your security awareness knowledge and threat prevention strategy.",
         cells: [
-          { name: "Security Blog", desc: "Latest threat research findings and awareness campaign tips.", href: "#" },
+          { name: "Security Blog", desc: "Latest threat research findings and awareness campaign tips.", href: "/posts" },
           { name: "Cybersecurity Guides", desc: "Deep-dives into modern corporate digital defense systems.", href: "#" },
-          { name: "Campaign Playbooks", desc: "Step-by-step launch plans for security awareness coordinators.", href: "#" },
+          { name: "Glossary", desc: "A comprehensive glossary of cybersecurity terms and concepts.", href: "/resources/glossary" },
           { name: "Compliance Mappings", desc: "Cross-reference training with global privacy frameworks.", href: "#" }
         ],
         cta: {
@@ -843,6 +843,13 @@ const searchIndex = [
     url: "/book-demo",
     category: "Get Started",
     keywords: ["demo", "book", "schedule", "product demo", "meeting"]
+  },
+  {
+    title: "Cybersecurity Glossary",
+    description: "A comprehensive glossary of cybersecurity terms, threat vectors, and compliance standards.",
+    url: "/resources/glossary",
+    category: "Resources",
+    keywords: ["glossary", "dictionary", "terms", "definitions", "cybersecurity", "phishing", "bec"]
   }
 ];
 

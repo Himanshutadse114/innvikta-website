@@ -834,23 +834,26 @@ section {
 /* Hero graphic mockup container — full width of container, top-rounded only */
 .hero-visual {
     margin-top: 0;
-    aspect-ratio: 1280/574;
     width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: transparent;
     overflow: hidden;
     position: relative;
     z-index: 10;
 }
 
+@media (min-width: 1024px) {
+    .hero-visual {
+        max-width: 1360px;
+    }
+}
+
 /* Platform screenshot — full size inside the container */
 .hero-platform-img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    height: auto;
     border-radius: inherit;
     display: block;
 }
