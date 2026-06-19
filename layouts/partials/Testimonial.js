@@ -32,7 +32,6 @@ const Testimonial = ({ testimonial }) => {
                   "{item.content}"
                 </p>
                 <div className="flex flex-col border-t border-slate-200 pt-6">
-                  <h6 className="font-black text-dark text-base mb-1">{item.author}</h6>
                   <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">
                     {item.profession.split(",")[0]}
                   </p>
@@ -54,7 +53,6 @@ const Testimonial = ({ testimonial }) => {
                   "{item.content}"
                 </p>
                 <div className="flex flex-col border-t border-slate-200 pt-6">
-                  <h6 className="font-black text-dark text-base mb-1">{item.author}</h6>
                   <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">
                     {item.profession.split(",")[0]}
                   </p>
