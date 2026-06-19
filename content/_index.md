@@ -57,41 +57,38 @@ intro:
 
 #speciality
 speciality:
+  title: "Solutions to cut <span class='text-primary'>human cyber risk</span>"
+  description: "Pick just what you need, or let us run a fully managed awareness and compliance program for you."
   list:
-    - subtitle: PHISHING SIMULATION
-      title: 72% Improvement in Phishing Detection
-      description: Run realistic AI-powered phishing simulations that help employees recognize social engineering, credential theft, business email compromise, and phishing manipulation before it becomes a security incident.
+    - subtitle: "InSAT Platform"
+      description: "A unified awareness and training platform with dashboards, automation and reporting, so your program runs consistently instead of relying on reminders."
       button:
-        label: Explore Phishing Simulation
+        label: "Explore InSAT Platform"
+        link: "/solutions/insat"
+      image: /images/features-01.png
+    - subtitle: "User Risk Simulation"
+      description: "Real world phishing and attack simulations that measure user risk, flag repeat offenders, and trigger targeted training instead of generic courses."
+      button:
+        label: "Explore Simulations"
         link: "/solutions/phishing-simulation"
-      image: /images/features-01.png
-    - subtitle: ADAPTIVE LEARNING
-      title: 94% Training Engagement Rate
-      description: Deliver adaptive security awareness training and role-based cybersecurity learning journeys personalized by employee risk level, behavior, department, and training performance.
-      button:
-        label: Explore Adaptive Learning
-        link: "/solutions/insat"
       image: /images/features-02.png
-    - subtitle: HUMAN RISK DASHBOARD
-      title: Real-Time Human Risk Visibility
-      description: Give security leaders real-time human risk intelligence with behavioral analytics, workforce risk scoring, phishing susceptibility insights, executive reporting, and department-level security trends.
+    - subtitle: "Compliance Training"
+      description: "Role based modules for data privacy, information security and industry regulations, mapped to your policies and generating audit ready records by default."
       button:
-        label: Explore Dashboard
-        link: "/solutions/human-risk-intelligence"
-      image: /images/features-01.png
-    - subtitle: GAMIFICATION
-      title: 3.4× Higher Learning Retention
-      description: Increase employee participation and cybersecurity culture engagement through gamified learning experiences, leaderboards, challenges, rewards, progression systems, and interactive awareness activities.
-      button:
-        label: Explore Innvikta Arcade
-        link: "/solutions/insat"
-      image: /images/features-02.png
-    - subtitle: REPORTING & COMPLIANCE
-      title: Audit-Ready Security Awareness Reporting
-      description: Track awareness participation, phishing simulation performance, compliance readiness, employee engagement metrics, and audit evidence with reporting designed for enterprise governance and regulatory requirements.
-      button:
-        label: Explore Compliance Training
+        label: "Explore Compliance Training"
         link: "/solutions/compliance-training"
+      image: /images/features-01.png
+    - subtitle: "Innvikta Arcade"
+      description: "An immersive cybersecurity gaming platform built to drive repeat engagement, healthy competition, and stronger retention than traditional courses."
+      button:
+        label: "Explore Innvikta Arcade"
+        link: "/solutions/insat"
+      image: /images/features-02.png
+    - subtitle: "Customized Solutions"
+      description: "Tailored content, workflows and campaigns for your specific risks, regions and regulators—designed and managed by Innvikta’s team of security experts."
+      button:
+        label: "Contact Us"
+        link: "/contact"
       image: /images/features-01.png
 
 

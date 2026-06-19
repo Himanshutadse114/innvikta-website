@@ -417,6 +417,11 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
 
       <div className="container-xl relative z-20">
         <div className="row border-y border-border py-10">
+          <div className="col-12 text-center mb-6">
+            <span className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400">
+              Trusted By
+            </span>
+          </div>
           <div 
             className="animate from-right col-12"
             onMouseLeave={() => {

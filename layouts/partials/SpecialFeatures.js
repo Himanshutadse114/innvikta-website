@@ -10,10 +10,17 @@ const SpecialFeatures = ({ speciality }) => {
       <div className="container">
         {/* Main Section Heading - H1, Branded Orange */}
         <div className="row justify-center text-center mb-10">
-          <div className="col-12">
-            <h1 className="text-2xl md:text-4xl font-bold leading-tight text-dark">
-              <span className="text-primary">Innvikta</span> Security Awareness Training Platform
-            </h1>
+          <div className="col-12 md:col-8">
+            {markdownify(
+              speciality.title || "Solutions to cut <span class='text-primary'>human cyber risk</span>",
+              "h2",
+              "text-3xl md:text-5xl font-bold leading-tight text-dark mb-4"
+            )}
+            {speciality.description && markdownify(
+              speciality.description,
+              "p",
+              "text-lg text-slate-500 font-medium"
+            )}
           </div>
         </div>
 
@@ -59,21 +66,21 @@ const SpecialFeatures = ({ speciality }) => {
                 }`}
             >
               {/* Main Heading */}
-              {markdownify(
+              {item.subtitle && markdownify(
                 item.subtitle,
                 "h2",
                 "font-bold leading-tight text-primary uppercase text-2xl md:text-3xl mb-4"
               )}
 
               {/* Sub Heading / Metric - Further Reduced Size */}
-              {markdownify(
+              {item.title && markdownify(
                 item.title,
                 "p",
                 "text-lg md:text-xl font-bold text-slate-500 leading-tight"
               )}
 
               {/* Description - Darker for visibility */}
-              {markdownify(item.description, "p", "mt-6 text-slate-700 text-lg leading-relaxed")}
+              {item.description && markdownify(item.description, "p", "mt-6 text-slate-700 text-lg leading-relaxed")}
 
               {item.button && (
                 <div className="mt-8">
