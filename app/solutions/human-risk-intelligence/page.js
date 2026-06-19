@@ -83,6 +83,24 @@ const HumanRiskIntelligencePage = () => {
     }
   }, [activeCoreCard]);
 
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash === "#risk-scoring") {
+        setActiveCoreCard(0);
+      } else if (hash === "#department-heatmaps") {
+        setActiveCoreCard(1);
+      } else if (hash === "#executive-reporting") {
+        setActiveCoreCard(2);
+      } else if (hash === "#pre-post-analysis") {
+        setActiveCoreCard(3);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
   const faqData = [
     {
       question: "How does the platform calculate user and department risk scores?",
@@ -404,7 +422,10 @@ const HumanRiskIntelligencePage = () => {
         </section>
 
         {/* 2b. SOLUTION SECTION (Interactive Accordion Layout) */}
-        <section className="bg-white">
+        <section id="risk-scoring" className="bg-white" style={{ position: "relative" }}>
+            <div id="department-heatmaps" style={{ position: "absolute", top: "-80px" }}></div>
+            <div id="executive-reporting" style={{ position: "absolute", top: "-80px" }}></div>
+            <div id="pre-post-analysis" style={{ position: "absolute", top: "-80px" }}></div>
             <div className="container">
                 <div className="animate mb-12">
                     <span className="text-subheading">RISK INTELLIGENCE CAPABILITIES</span>

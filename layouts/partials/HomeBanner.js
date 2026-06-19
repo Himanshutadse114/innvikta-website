@@ -406,7 +406,7 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
         <div className="banner-img relative w-full min-h-[400px] md:min-h-[600px] overflow-hidden shadow-2xl shadow-orange-500/10 group">
           <ImageFallback
             src="/images/banner-app.png"
-            className="w-full h-auto object-cover relative z-0 group-hover:blur-[2px] transition-all duration-700"
+            className="w-full h-auto object-cover relative z-0 transition-all duration-700"
             width={1920}
             height={600}
             alt="banner image"

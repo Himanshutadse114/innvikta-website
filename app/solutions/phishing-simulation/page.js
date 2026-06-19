@@ -102,6 +102,22 @@ const PhishingSimulationPage = () => {
     }
   }, [activeVector]);
 
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash === "#vishing-simulation") {
+        setActiveVector(3);
+      } else if (hash === "#ai-led-scenario-variants" || hash === "#ai-scenario-variants") {
+        setActiveVector(4);
+      } else if (hash === "#multi-vector-attack") {
+        setActiveVector(0);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
   const heroRef = useRef(null);
   
   // Testimonials Slider state & refs
@@ -504,7 +520,10 @@ const PhishingSimulationPage = () => {
 
 
         
-        <section className="bg-white" style={{ paddingTop: "4rem" }}>
+        <section id="multi-vector-attack" className="bg-white" style={{ paddingTop: "4rem", position: "relative" }}>
+            <div id="vishing-simulation" style={{ position: "absolute", top: "-80px" }}></div>
+            <div id="ai-led-scenario-variants" style={{ position: "absolute", top: "-80px" }}></div>
+            <div id="ai-scenario-variants" style={{ position: "absolute", top: "-80px" }}></div>
             <div className="container">
                 <div className="animate mb-12">
                     <span className="text-subheading" style={{ display: "block", marginBottom: "0.5rem" }}>INSAT MULTICHANNEL SIMULATION</span>
@@ -576,7 +595,7 @@ const PhishingSimulationPage = () => {
         </section>
 
         
-        <section className="bg-grey-5">
+        <section id="audience-segmentation" className="bg-grey-5">
             <div className="container">
                 <div className="two-col-grid">
                     <div className="two-col-content-block animate from-left">

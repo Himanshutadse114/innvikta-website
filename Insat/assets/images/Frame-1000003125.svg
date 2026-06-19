@@ -1,0 +1,9 @@
+<svg width="240" height="60" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: Overlapping rings / loop segment representing Workspace -->
+  <g stroke="#FFFFFF" stroke-width="3" fill="none">
+    <rect x="15" y="18" width="24" height="24" rx="4" />
+    <path d="M21 24H33V36H21V24Z" fill="#FFFFFF" opacity="0.3"/>
+  </g>
+  <!-- Text -->
+  <text x="52" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="16" font-weight="bold" letter-spacing="0.5">Google Workspace</text>
+</svg>

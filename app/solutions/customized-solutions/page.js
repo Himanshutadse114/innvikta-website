@@ -543,7 +543,7 @@ const CustomizedSolutionsPage = () => {
           </section>
 
           {/* 4. INDUSTRY & ROLE-SPECIFIC PATHS (Two Column Alternating Layout) */}
-          <section className="bg-grey-5" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+          <section id="industry-specific-portals" className="bg-grey-5" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
             <div className="container">
               <div className="section-intro animate" style={{ textAlign: "left", marginBottom: "4rem" }}>
                 <span className="text-subheading">TARGETED PATHS</span>
@@ -648,6 +648,7 @@ const CustomizedSolutionsPage = () => {
               </div>
 
               {/* Row 2: Role Tracks */}
+              <div id="departmental-learning-paths" style={{ position: "relative", top: "-100px" }}></div>
               <div className="two-col-grid" style={{ marginTop: "6rem", alignItems: "start" }}>
                 {/* Left Column: Heading and Subheading */}
                 <div className="two-col-content-block animate from-left" style={{ maxWidth: "450px" }}>
@@ -720,7 +721,7 @@ const CustomizedSolutionsPage = () => {
           </section>
 
           {/* 5. EXECUTIVE & HIGH-RISK USER PROGRAMS (Two Column Grid Layout) */}
-          <section className="bg-white" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+          <section id="executive-risk-management" className="bg-white" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
             <div className="container">
               <div className="two-col-grid" style={{ alignItems: "center" }}>
                 
@@ -800,7 +801,7 @@ const CustomizedSolutionsPage = () => {
           </section>
 
           {/* 6. CULTURE & BEHAVIOUR CAMPAIGNS */}
-          <section className="bg-white" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
+          <section id="culture-benchmark-studies" className="bg-white" style={{ paddingTop: "5rem", paddingBottom: "5rem" }}>
             <div className="container">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 

@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Ftdmarc","\u002Fthreatcop-learning-management-system","\u002Fthreatcop-phishing-incident-response","\u002Fthreatcop-security-awareness-training"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

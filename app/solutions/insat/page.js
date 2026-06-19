@@ -425,7 +425,7 @@ const InsatPage = () => {
 
 
         
-        <section className="bg-grey-5">
+        <section id="security-awareness-training" className="bg-grey-5">
             <div className="container">
                 <div className="section-intro animate">
                     <span className="text-subheading">Features</span>
@@ -487,7 +487,7 @@ const InsatPage = () => {
                 </div>
 
                 
-                <div className="two-col-grid" style={{marginTop: "4rem"}}>
+                <div id="ai-adaptive-learning" className="two-col-grid" style={{marginTop: "4rem"}}>
                     <div className="two-col-content-block animate from-left">
                         <h2 className="text-40-heading">AI Adaptive Learning</h2>
                         <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
@@ -544,7 +544,7 @@ const InsatPage = () => {
                 </div>
 
                 
-                <div className="two-col-grid" style={{marginTop: "6rem"}}>
+                <div id="interactive-gamified-arcade" className="two-col-grid" style={{marginTop: "6rem"}}>
                     <div className="two-col-content-block animate from-left">
                         <h2 className="text-40-heading">Gamified Engagement</h2>
                         <div style={{marginTop: "1.5rem", opacity: "0.7"}}>
@@ -572,7 +572,7 @@ const InsatPage = () => {
                 </div>
 
                 
-                <div className="two-col-grid reverse" style={{marginTop: "6rem"}}>
+                <div id="microlearning" className="two-col-grid reverse" style={{marginTop: "6rem"}}>
                     <div className="two-col-content-block animate from-right">
                         <h2 className="text-40-heading">Continuous Reinforcement</h2>
                         <div style={{marginTop: "1.5rem", opacity: "0.7"}}>

@@ -265,25 +265,25 @@ const menuData = {
           { 
             name: "Security Awareness Training", 
             desc: "Cinematic, role-based courses that engage employees and satisfy audits.", 
-            href: "/solutions/insat",
+            href: "/solutions/insat#security-awareness-training",
             chips: [{ label: "Role-Based Modules" }, { label: "Story-Based Simulations" }]
           },
           { 
             name: "Interactive Gamified Arcade", 
             desc: "Bite-sized microlearning games and quizzes that motivate participation.", 
-            href: "/solutions/insat",
+            href: "/solutions/insat#interactive-gamified-arcade",
             chips: [{ label: "Gamified / Interactive Modules" }, { label: "Policy Reinforcement" }]
           },
           { 
             name: "AI Adaptive Learning", 
             desc: "Personalized paths adjusted dynamically to user risk profiles.", 
-            href: "/solutions/insat",
+            href: "/solutions/insat#ai-adaptive-learning",
             chips: [{ label: "Personalized Learning Paths" }, { label: "Dynamic Risk Profiling" }]
           },
           { 
             name: "Microlearning", 
             desc: "Deliver bite-sized, targeted modules to reinforce key security concepts.", 
-            href: "/solutions/insat",
+            href: "/solutions/insat#microlearning",
             chips: [{ label: "Bite-sized Training" }, { label: "Just-in-Time Learning" }]
           }
         ],
@@ -306,25 +306,25 @@ const menuData = {
           { 
             name: "Multi Vector Attack", 
             desc: "Simulate and track phishing, attachment, and QR code attacks.", 
-            href: "#",
+            href: "/solutions/phishing-simulation#multi-vector-attack",
             chips: [{ label: "Smishing Simulation" }, { label: "WhatsApp Simulation" }]
           },
           { 
             name: "Vishing Simulation", 
             desc: "Automated phone tests simulating voice-based social engineering threats.", 
-            href: "#",
+            href: "/solutions/phishing-simulation#vishing-simulation",
             chips: [{ label: "Voice Attack Scenarios" }, { label: "AI-Led Variants" }]
           },
           { 
             name: "Audience Segmentation", 
             desc: "Auto-generate dynamic templates based on current local threat vectors.", 
-            href: "#",
+            href: "/solutions/phishing-simulation#audience-segmentation",
             chips: [{ label: "Campaign Scheduling" }, { label: "Difficulty Progression" }]
           },
           { 
             name: "AI-Led Scenario Variants", 
             desc: "Escalate difficulty levels dynamically based on employee susceptibility.", 
-            href: "#",
+            href: "/solutions/phishing-simulation#ai-led-scenario-variants",
             chips: [{ label: "Adaptive Risk Testing" }, { label: "Personalized Simulation Paths" }]
           }
         ],
@@ -346,25 +346,25 @@ const menuData = {
           { 
             name: "Risk Scoring", 
             desc: "Deep-dive analysis into user report rates, click habits, and trends.", 
-            href: "#",
+            href: "/solutions/human-risk-intelligence#risk-scoring",
             chips: [{ label: "Behavioral Analytics" }, { label: "Threat Intelligence" }]
           },
           { 
             name: "Department Heatmaps", 
             desc: "Calculate dynamic compliance and risk scores for every team.", 
-            href: "#",
+            href: "/solutions/human-risk-intelligence#department-heatmaps",
             chips: [{ label: "Trend Dashboards" }, { label: "Program Impact Analysis" }]
           },
           { 
             name: "Executive Reporting", 
             desc: "Locate vulnerable spots or training gaps by department and location.", 
-            href: "#",
+            href: "/solutions/human-risk-intelligence#executive-reporting",
             chips: [{ label: "Board Reports" }, { label: "Risk Benchmarking" }]
           },
           { 
             name: "Pre/Post Analysis", 
             desc: "Generate board-ready reports showing campaign impact and program ROI.", 
-            href: "#",
+            href: "/solutions/human-risk-intelligence#pre-post-analysis",
             chips: [{ label: "Workforce Comparison" }, { label: "Security Maturity Tracking" }]
           }
         ],
@@ -386,25 +386,25 @@ const menuData = {
           { 
             name: "Compliance Learning Suite", 
             desc: "Satisfy GDPR, HIPAA, PCI-DSS, and India's DPDP Act requirements.", 
-            href: "/solutions/compliance-training",
+            href: "/solutions/compliance-training#compliance-learning-suite",
             chips: [{ label: "GDPR Awareness" }, { label: "HIPAA Awareness" }]
           },
           { 
             name: "Acknowledgement Tracking", 
             desc: "Track and log employee policy agreements and corporate code sign-offs.", 
-            href: "/solutions/compliance-training",
+            href: "/solutions/compliance-training#acknowledgement-tracking",
             chips: [{ label: "Completion Logs" }, { label: "Audit Records" }]
           },
           { 
             name: "Refresher Campaigns", 
             desc: "Automatically deploy compliance courses to specific high-risk user groups.", 
-            href: "/solutions/compliance-training",
+            href: "/solutions/compliance-training#refresher-campaigns",
             chips: [{ label: "Governance Reinforcement" }, { label: "Ongoing Compliance Education" }]
           },
           { 
             name: "Audit-Ready Evidence", 
             desc: "Generate automated training completion records to satisfy security framework audits.", 
-            href: "/solutions/compliance-training",
+            href: "/solutions/compliance-training#audit-ready-evidence",
             chips: [{ label: "Automated Records" }, { label: "Auditor Reports" }]
           }
         ],
@@ -426,7 +426,7 @@ const menuData = {
           { 
             name: "Industry-Specific Portals", 
             desc: "Custom simulations and rules for BFSI, Healthcare, IT, and Manufacturing.", 
-            href: "/solutions/customized-solutions",
+            href: "/solutions/customized-solutions#industry-specific-portals",
             chips: [
               { label: "BFSI", icon: FiShield },
               { label: "Healthcare", icon: FiHeart },
@@ -438,7 +438,7 @@ const menuData = {
           { 
             name: "Departmental Learning Paths", 
             desc: "Custom training tracks designed for unique team exposures and duties.", 
-            href: "/solutions/customized-solutions",
+            href: "/solutions/customized-solutions#departmental-learning-paths",
             chips: [
               { label: "Remote Workforce Security", icon: FiCloud },
               { label: "Human Risk Management", icon: FiActivity }
@@ -447,7 +447,7 @@ const menuData = {
           { 
             name: "Executive Risk Management", 
             desc: "Deploy specialized campaigns to high-target C-suite and finance teams.", 
-            href: "/solutions/customized-solutions",
+            href: "/solutions/customized-solutions#executive-risk-management",
             chips: [
               { label: "Executive Risk Reporting", icon: FiBarChart2 },
               { label: "Phishing Prevention", icon: FiLock }
@@ -456,7 +456,7 @@ const menuData = {
           { 
             name: "Culture Benchmark Studies", 
             desc: "Assess and compare security culture indexes across remote workforces.", 
-            href: "/solutions/customized-solutions",
+            href: "/solutions/customized-solutions#culture-benchmark-studies",
             chips: [
               { label: "Security Culture Building", icon: FiUsers },
               { label: "Compliance Training", icon: FiCheckCircle }

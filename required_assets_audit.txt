@@ -1,0 +1,120 @@
+INNVISTA WEB PLATFORM - REQUIRED ASSETS AUDIT
+
+================================================================================
+1. HOMEPAGE
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE: 
+- An enterprise-grade mockup of the Innvikta SaaS platform dashboard showing the main human risk summary and campaign progress charts.
+
+SECTION: Inside the Innvikta Arcade (Video / Intro)
+REQUIRED IMAGE:
+- A high-quality cinematic preview/thumbnail showing interactive game levels, security challenges, or modular arcade choices.
+
+SECTION: Phishing Simulation (Platform Features)
+REQUIRED IMAGE:
+- A mockup of the phishing campaign editor displaying email templates, target lists, and scheduled vectors.
+
+SECTION: Adaptive Learning (Platform Features)
+REQUIRED IMAGE:
+- An interface showing personal learning journeys, active courses, and personalized department recommendation paths.
+
+SECTION: Human Risk Dashboard (Platform Features)
+REQUIRED IMAGE:
+- Behavioral heatmaps, corporate security index scores, and vulnerability comparison maps.
+
+SECTION: Gamification (Platform Features)
+REQUIRED IMAGE:
+- Gamified user profile page showing earned experience points (XP), badge achievements, and the leaderboard rankings.
+
+SECTION: Reporting & Compliance (Platform Features)
+REQUIRED IMAGE:
+- An audit evidence document generator showing clean reports for frameworks (GDPR, SOC2, HIPAA).
+
+SECTION: Testimonials
+REQUIRED IMAGES:
+- 8 professional headshots (avatars) for CISOs, IT Directors, and compliance leaders who are providing reviews.
+
+
+================================================================================
+2. ABOUT US PAGE
+================================================================================
+SECTION: Our Story
+REQUIRED IMAGE:
+- A collaborative workspace/team meeting photo representing cybersecurity specialists and office operations.
+
+
+================================================================================
+3. InSAT SOLUTION PAGE (Security Awareness Training)
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE:
+- A high-resolution graphic of the core InSAT learning console on desktop and mobile screens.
+
+SECTION: Cinematic Modules (Features)
+REQUIRED IMAGE:
+- A preview of story-based learning content or interactive comic/video modules.
+
+SECTION: Role-Based Training (Management)
+REQUIRED IMAGE:
+- An administration window demonstrating the configuration of custom department learning tracks.
+
+SECTION: Gamified Play (Engagement)
+REQUIRED IMAGE:
+- A mock screen of an employee answering quiz challenges inside the Innvikta Arcade app.
+
+
+================================================================================
+4. PHISHING SIMULATION SOLUTION PAGE
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE:
+- A dashboard showing simulation campaign metrics, click-through rates, and report rates.
+
+SECTION: Multi-Vector Library (Campaigns)
+REQUIRED IMAGE:
+- Mockups of various simulation templates side-by-side (phishing email, SMS text message, WhatsApp card, QR code).
+
+SECTION: Vishing & Mobile Phishing (Advanced Attacks)
+REQUIRED IMAGE:
+- A mobile phone graphic displaying simulated voice phishing or messaging alerts.
+
+
+================================================================================
+5. HUMAN RISK INTELLIGENCE SOLUTION PAGE
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE:
+- A clean executive overview screen detailing overall business risk scores and active threats.
+
+SECTION: Department Heatmaps (Analytics)
+REQUIRED IMAGE:
+- An enterprise risk heatmap showing high-risk departments (e.g., Finance, HR) vs low-risk teams.
+
+SECTION: Executive Telemetry (Board Reports)
+REQUIRED IMAGE:
+- A preview of the board-ready automated report PDF highlighting performance trends.
+
+
+================================================================================
+6. COMPLIANCE TRAINING SOLUTION PAGE
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE:
+- Compliance course portal showing certifications, completion progress, and regulatory modules.
+
+SECTION: Role-Based Compliance (Audits)
+REQUIRED IMAGE:
+- An interface displaying policy sign-off acknowledgement forms and DPDP/GDPR records.
+
+
+================================================================================
+7. CUSTOMIZED SOLUTIONS PAGE
+================================================================================
+SECTION: Hero
+REQUIRED IMAGE:
+- A mock interface showcasing customized login portals for specific industries (BFSI, IT, Healthcare).
+
+SECTION: Industry Paths (Customization)
+REQUIRED IMAGE:
+- A drag-and-drop course-builder interface demonstrating customized learning paths.

@@ -1,0 +1,11 @@
+<svg width="210" height="60" viewBox="0 0 210 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon: 4-square grid -->
+  <g fill="#FFFFFF">
+    <rect x="15" y="15" width="13" height="13" />
+    <rect x="31" y="15" width="13" height="13" />
+    <rect x="15" y="31" width="13" height="13" />
+    <rect x="31" y="31" width="13" height="13" />
+  </g>
+  <!-- Text -->
+  <text x="56" y="36" fill="#FFFFFF" font-family="'STKBureau-Sans', sans-serif" font-size="16" font-weight="bold" letter-spacing="0.5">Microsoft 365</text>
+</svg>

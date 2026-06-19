@@ -365,8 +365,8 @@ const ComplianceTrainingPage = () => {
             </div>
           </section>
 
-          {/* 2. STATS SECTION WITH 5 CARDS BENTO GRID */}
-          <section className="bg-white stats-section">
+        {/* 2. STATS ROW */}
+        <section id="compliance-learning-suite" className="bg-white stats-section" style={{ paddingBottom: "5rem" }}>
             <div className="container">
               <div className="stats-grid">
                 <div className="stats-content-block animate from-left">
@@ -482,7 +482,7 @@ const ComplianceTrainingPage = () => {
           </section>
 
           {/* 3. COMPLIANCE JOURNEY SECTION */}
-          <section className="bg-white" style={{ paddingTop: "4rem", paddingBottom: "5rem", position: "relative" }} ref={journeyRef}>
+          <section id="audit-ready-evidence" className="bg-white" style={{ paddingTop: "4rem", paddingBottom: "5rem", position: "relative" }} ref={journeyRef}>
             <div className="container">
               <div className="journey-section-grid">
                 
@@ -695,7 +695,8 @@ const ComplianceTrainingPage = () => {
           </section>
 
           {/* 5. REPORTS & INSIGHTS (REFRESHER & AUDIT-READY RECORDS) */}
-          <section className="bg-white">
+          <section id="refresher-campaigns" className="bg-white" style={{ position: "relative" }}>
+            <div id="acknowledgement-tracking" style={{ position: "absolute", top: "-80px" }}></div>
             <div className="container">
               <div className="two-col-grid" style={{ marginTop: "0rem" }}>
                 
