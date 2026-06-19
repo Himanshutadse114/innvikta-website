@@ -40,6 +40,7 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [currentNotification, setCurrentNotification] = useState(null);
   const prevCollectedId = useRef(null);
+  const swiperRef = useRef(null);
 
   useEffect(() => {
     if (collectedItem) {
@@ -416,11 +417,25 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
 
       <div className="container-xl relative z-20">
         <div className="row border-y border-border py-10">
-          <div className="col-12 text-center mb-8">
-            <span className="text-sm font-bold uppercase tracking-[0.2em] text-slate-400">Trusted By Companies</span>
-          </div>
-          <div className="animate from-right col-12">
+          <div 
+            className="animate from-right col-12"
+            onMouseLeave={() => {
+              if (swiperRef.current && swiperRef.current.autoplay) {
+                swiperRef.current.autoplay.start();
+              }
+            }}
+          >
             <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              onTouchEnd={(swiper) => {
+                setTimeout(() => {
+                  if (swiper.autoplay) {
+                    swiper.autoplay.start();
+                  }
+                }, 100);
+              }}
               loop={true}
               slidesPerView={4}
               breakpoints={{
@@ -433,16 +448,17 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
               autoplay={{
                 delay: 0,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
               speed={4000}
-              grabCursor={false}
-              allowTouchMove={false}
+              grabCursor={true}
+              allowTouchMove={true}
               freeMode={true}
               className="ticker-swiper"
             >
               {brands.map((brand, index) => (
                 <SwiperSlide
-                  className="h-24 cursor-pointer px-2 py-2 grayscale transition hover:grayscale-0 lg:px-4"
+                  className="h-24 cursor-pointer px-2 py-2 lg:px-4"
                   key={"brand-" + index}
                 >
                   <div className="relative h-full w-full flex items-center justify-center bg-white/50 rounded-lg border border-slate-100/50">
