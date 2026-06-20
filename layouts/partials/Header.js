@@ -488,8 +488,8 @@ const menuData = {
         icon: FiShield,
         headline: "Victim of Cyberfraud? We’re Here to Help You Fight Back.",
         headlineCta: {
-          label: "Get Immediate Help",
-          href: "#"
+          label: "Get Guidance",
+          href: "/contact"
         },
         cells: [
           { name: "Incident Reporting Guide", desc: "Step-by-step assistance for victims to understand, document, and report cyber incidents effectively.", href: "#" },
@@ -1302,11 +1302,11 @@ const Header = () => {
                           {/* 2. CENTER WORKSPACE (Strict 2x2 grid, visually populated) */}
                           <div className="flex-1 pt-4 pb-8 xl:pt-6 xl:pb-12 px-4 xl:px-12 flex flex-col justify-start">
                              {currentTab.headline && (
-                               <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta && currentTab.headlineCta.href !== "#" ? 'flex flex-col items-start gap-4' : ''}`}>
+                               <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
                                  <h3 className="text-[20px] font-semibold text-slate-800 tracking-tight leading-snug">
                                    {currentTab.headline}
                                  </h3>
-                                 {currentTab.headlineCta && currentTab.headlineCta.href !== "#" && (
+                                 {currentTab.headlineCta && (
                                    <Link 
                                      href={currentTab.headlineCta.href}
                                      onClick={handleMenuLeave}
