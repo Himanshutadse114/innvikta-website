@@ -14,6 +14,8 @@ const Footer = () => {
       { name: "Customized Solutions", url: "/solutions/customized-solutions" }
     ],
     freeTools: [
+      { name: "Spot The Phish", url: "/freetools/spot-the-phish" },
+      { name: "Free Password Generator", url: "/freetools/password-generator" },
       { name: "Domain Security Analyzer", url: "/freetools/domain-security-analyzer" },
       { name: "Baseline Score Tool", url: "/freetools/baseline-score-tool" },
       { name: "Culture Benchmarking", url: "/freetools/culture-benchmarking" },

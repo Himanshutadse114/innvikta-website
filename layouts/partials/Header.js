@@ -613,9 +613,9 @@ const menuData = {
         icon: FiMonitor,
         headline: "Immediate security utilities for IT and security administration teams.",
         cells: [
-          { name: "Password Exposure Scanner", desc: "Scan if enterprise emails are leaked in public breaches.", href: "#" },
+          { name: "Free Password Generator", desc: "Create secure passwords and check credential strength locally.", href: "/freetools/password-generator" },
           { name: "Domain Security Analyzer", desc: "Scan SPF, DKIM, and DMARC record vulnerabilities.", href: "/freetools/domain-security-analyzer" },
-          { name: "Compliance Gap Checker", desc: "Verify regulatory readiness for GDPR, SOC2, and HIPAA.", href: "#" },
+          { name: "Spot The Phish", desc: "Test your ability to detect phishing emails in an interactive simulator.", href: "/freetools/spot-the-phish" },
           { name: "Simulation ROI Tool", desc: "Estimate potential cost savings from threat training campaigns.", href: "#" }
         ],
         cta: {
