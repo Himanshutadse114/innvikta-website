@@ -26,7 +26,7 @@ const Footer = () => {
     resources: [
       { name: "Maturity Benchmarks", url: "/maturity-benchmarks" },
       { name: "Blog", url: "/posts" },
-      { name: "Innvikta Cyberhelp", url: "#" },
+      { name: "Innvikta Cyberhelp", url: "/cyberhelp" },
       { name: "Cybersecurity Guides", url: "#" },
       { name: "Glossary", url: "/resources/glossary" },
       { name: "Customer Success Stories", url: "#" }

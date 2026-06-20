@@ -489,15 +489,15 @@ const menuData = {
         headline: "Victim of Cyberfraud? We’re Here to Help You Fight Back.",
         headlineCta: {
           label: "Get Guidance",
-          href: "/contact"
+          href: "/cyberhelp"
         },
         cells: [
-          { name: "Incident Reporting Guide", desc: "Step-by-step assistance for victims to understand, document, and report cyber incidents effectively.", href: "#" },
-          { name: "Complaint Filing Support", desc: "Guided NCRP complaint filing walkthroughs with actionable reporting instructions and support resources.", href: "#" },
-          { name: "Emergency Account Freeze", desc: "Quick access to emergency banking and UPI account freeze guidance to reduce fraud impact immediately.", href: "#" },
-          { name: "Cyber Helpline Directory", desc: "Search verified national, state, banking, and cybercrime support contacts in one centralized place.", href: "#" },
-          { name: "Evidence Vault & Report Templates", desc: "Organize cyber evidence securely and use ready-made complaint templates for faster reporting.", href: "#" },
-          { name: "Scam Awareness & Cyber Alerts", desc: "Stay informed about scam trends, fraud warnings, cyber safety tips, and interactive awareness resources.", href: "#" }
+          { name: "Incident Reporting Guide", desc: "Step-by-step assistance for victims to understand, document, and report cyber incidents effectively.", href: "/cyberhelp/register" },
+          { name: "Complaint Filing Support", desc: "Guided NCRP complaint filing walkthroughs with actionable reporting instructions and support resources.", href: "/cyberhelp/filing-guide" },
+          { name: "Emergency Account Freeze", desc: "Quick access to emergency banking and UPI account freeze guidance to reduce fraud impact immediately.", href: "/cyberhelp/freeze" },
+          { name: "Cyber Helpline Directory", desc: "Search verified national, state, banking, and cybercrime support contacts in one centralized place.", href: "/cyberhelp/directory" },
+          { name: "Evidence Vault & Report Templates", desc: "Organize cyber evidence securely and use ready-made complaint templates for faster reporting.", href: "/cyberhelp/evidence" },
+          { name: "Scam Awareness & Cyber Alerts", desc: "Stay informed about scam trends, fraud warnings, cyber safety tips, and interactive awareness resources.", href: "/cyberhelp/alerts" }
         ],
         cta: {
           title: "Stop Threats at Every Layer—People, Data, AI",
