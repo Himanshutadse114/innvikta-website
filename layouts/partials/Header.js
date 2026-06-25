@@ -471,12 +471,10 @@ const menuData = {
         id: "learning_center",
         label: "Learning Center",
         icon: FiBookOpen,
-        headline: "Level up your security awareness knowledge and threat prevention strategy.",
+        headline: "Read the latest cybersecurity blog posts and explore our comprehensive glossary.",
         cells: [
           { name: "Security Blog", desc: "Latest threat research findings and awareness campaign tips.", href: "/blog" },
-          { name: "Cybersecurity Guides", desc: "Deep-dives into modern corporate digital defense systems.", href: "#" },
-          { name: "Glossary", desc: "A comprehensive glossary of cybersecurity terms and concepts.", href: "/resources/glossary" },
-          { name: "Compliance Mappings", desc: "Cross-reference training with global privacy frameworks.", href: "#" }
+          { name: "Glossary", desc: "A comprehensive glossary of cybersecurity terms and concepts.", href: "/resources/glossary" }
         ],
         cta: {
           title: "Explore the Innvikta Blog",
