@@ -455,7 +455,7 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
               }}
-              speed={4000}
+              speed={3000}
               grabCursor={true}
               allowTouchMove={true}
               freeMode={true}
@@ -466,7 +466,7 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
                   className="h-24 cursor-pointer px-2 py-2 lg:px-4"
                   key={"brand-" + index}
                 >
-                  <div className="relative h-full w-full flex items-center justify-center bg-white/50 rounded-lg border border-slate-100/50">
+                  <div className="relative h-full w-full flex items-center justify-center bg-white/50 rounded-lg">
                     <ImageFallback
                       className="object-contain p-2"
                       src={brand}
