@@ -197,7 +197,7 @@ const BaselineScoreToolPage = () => {
     },
     {
       q: "How does phishing impact human risk?",
-      a: "Phishing remains the primary initial access vector for enterprise breaches. Employee interaction with suspicious emails directly drives social engineering exposure, credential harvesting, and malware deployment. Measuring phishing susceptibility—specifically click rates and threat reporting rates—provides a direct behavioral baseline of human risk. Continuous simulations teach employees to spot active threat indicators, transforming them from targets into active defenders."
+      a: "Phishing remains the primary initial access vector for enterprise breaches. Employee interaction with suspicious emails directly drives social engineering exposure, credential harvesting, and malware deployment. Measuring phishing susceptibility - specifically click rates and threat reporting rates - provides a direct behavioral baseline of human risk. Continuous simulations teach employees to spot active threat indicators, transforming them from targets into active defenders."
     },
     {
       q: "Can AI-generated attacks increase human risk?",

@@ -33,7 +33,7 @@ export const threatGlossary = [
         id: 6,
         title: "Pretexting",
         iconName: "ShieldQuestion",
-        description: "An attacker creates a fake scenario (pretext) to gain your trust—like pretending to be IT support or HR—to obtain confidential information."
+        description: "An attacker creates a fake scenario (pretext) to gain your trust - like pretending to be IT support or HR - to obtain confidential information."
     },
     {
         id: 7,
@@ -63,7 +63,7 @@ export const threatGlossary = [
         id: 11,
         title: "Impersonation",
         iconName: "UserRound",
-        description: "Pretending to be someone you trust—like a colleague, vendor, or authority—to manipulate you into giving access or information."
+        description: "Pretending to be someone you trust - like a colleague, vendor, or authority - to manipulate you into giving access or information."
     },
     {
         id: 12,

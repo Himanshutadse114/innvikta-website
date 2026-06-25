@@ -291,7 +291,7 @@ const HumanRiskIntelligencePage = () => {
 
                         <div className="hero-text-wrapper">
                             <p className="text-20-content hero-paragraph">
-                                Uncover risky users, weak teams, behaviour trends, and training gaps — before they become incidents.
+                                Uncover risky users, weak teams, behaviour trends, and training gaps - before they become incidents.
                             </p>
                         </div>
 

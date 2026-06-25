@@ -735,7 +735,7 @@ const PhishingSimulationPage = () => {
                             See Risk Clearly
                         </h2>
                         <p className="text-18-content" style={{ opacity: "0.85", marginBottom: "2rem", lineHeight: "1.6", color: "#334155" }}>
-                            Track campaign results, risky users, department trends, and learning progress—so you can take action that makes an impact.
+                            Track campaign results, risky users, department trends, and learning progress - so you can take action that makes an impact.
                         </p>
                         
                         <div className="reports-insight-grid">

@@ -429,7 +429,7 @@ const CustomizedSolutionsPage = () => {
 
                   <div className="stats-subheading">
                     <p className="text-18-content" style={{ opacity: "0.8" }}>
-                      Your organization has its own policies, processes, and risks. Innvikta adapts awareness programs around them — so learning feels relevant, practical, and measurable.
+                      Your organization has its own policies, processes, and risks. Innvikta adapts awareness programs around them - so learning feels relevant, practical, and measurable.
                     </p>
                   </div>
 
@@ -813,7 +813,7 @@ const CustomizedSolutionsPage = () => {
                     Visible <span className="text-orange">All Year</span>
                   </h2>
                   <p className="text-18-content" style={{ opacity: "0.8", color: "#475569", lineHeight: "1.6" }}>
-                    Run themed campaigns using nudges, posters, quizzes, games, simulations, and microlearning — aligned to your internal communication style.
+                    Run themed campaigns using nudges, posters, quizzes, games, simulations, and microlearning - aligned to your internal communication style.
                   </p>
                   <div style={{ marginTop: "2rem" }}>
                     <Link className="btn btn-primary btn-cta" href="/book-demo">

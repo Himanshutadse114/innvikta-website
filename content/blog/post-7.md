@@ -10,4 +10,4 @@ categories:
   - Security Awareness Training
 ---
 
-Long, annual security training sessions are largely ineffective because employees suffer from information overload. Microlearning—bite-sized, targeted modules delivered frequently—replaces lecturing with reinforcement. Gamified learning and quiz arcade challenges drive long-term secure habit formation.
+Long, annual security training sessions are largely ineffective because employees suffer from information overload. Microlearning - bite-sized, targeted modules delivered frequently - replaces lecturing with reinforcement. Gamified learning and quiz arcade challenges drive long-term secure habit formation.

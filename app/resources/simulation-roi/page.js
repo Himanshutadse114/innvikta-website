@@ -95,7 +95,7 @@ export default function SimulationRoiPage() {
   const ctaData = {
     label: "FREE FOR UP TO 50 USERS",
     title: "Start Free. No Credit Card. No Catch.",
-    description: "Get access to AI-powered security awareness training, phishing templates, gamified learning, and human risk reporting — free for teams up to 50 users.",
+    description: "Get access to AI-powered security awareness training, phishing templates, gamified learning, and human risk reporting - free for teams up to 50 users.",
     features: [
       "Security awareness modules",
       "Phishing email templates",

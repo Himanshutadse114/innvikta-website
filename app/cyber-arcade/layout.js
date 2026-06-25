@@ -1,7 +1,7 @@
 import "./styles/cyber-arcade.scss";
 
 export const metadata = {
-  title: "INNVIKTA — Gamified Security Awareness",
+  title: "INNVIKTA - Gamified Security Awareness",
   description: "Experience security awareness training through immersive 3D gameplay and interactive quests.",
 };
 

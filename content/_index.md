@@ -50,7 +50,7 @@ features:
 #intro
 intro:
   title: Experience the Next-Gen in Security Awareness
-  description: Get a firsthand look at our world-class training modules—cinematic, engaging, and designed to transform employee security behavior.
+  description: Get a firsthand look at our world-class training modules - cinematic, engaging, and designed to transform employee security behavior.
   thumbnail: "/images/training-thumbnail.png"
   video_id: -tmmOl6JYiY
 
@@ -84,7 +84,7 @@ speciality:
         link: "/cyber-arcade"
       image: /images/features-02.png
     - subtitle: "Customized Solutions"
-      description: "Tailored content, workflows and campaigns for your specific risks, regions and regulators—designed and managed by Innvikta’s team of security experts."
+      description: "Tailored content, workflows and campaigns for your specific risks, regions and regulators - designed and managed by Innvikta’s team of security experts."
       button:
         label: "Contact Us"
         link: "/contact"
@@ -157,7 +157,7 @@ free_tier:
   enable: true
   label: FREE FOR UP TO 50 USERS
   title: Start Free. No Credit Card. No Catch.
-  description: Get access to AI-powered security awareness training, phishing templates, gamified learning, and human risk reporting — free for teams up to 50 users.
+  description: Get access to AI-powered security awareness training, phishing templates, gamified learning, and human risk reporting - free for teams up to 50 users.
   features:
     - Security awareness modules
     - Phishing email templates

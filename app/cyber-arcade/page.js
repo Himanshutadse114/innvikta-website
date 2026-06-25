@@ -658,7 +658,7 @@ export default function CyberArcadePage() {
         <section className="section" id="section-quote">
           <div className="quote-mark">&quot;</div>
           <p className="quote-text">&quot;Finally, security awareness training that employees actually want to complete. Innvikta has turned boring compliance into a highlight of our week.&quot;</p>
-          <p className="quote-attr"><strong>Industry Standard</strong> — Verified Review</p>
+          <p className="quote-attr"><strong>Industry Standard</strong> - Verified Review</p>
         </section>
 
         {/* CTA */}

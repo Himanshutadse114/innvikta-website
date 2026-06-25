@@ -334,7 +334,7 @@ const ComplianceTrainingPage = () => {
 
                   <div className="hero-text-wrapper">
                     <p className="text-20-content hero-paragraph">
-                      Train employees across regulations, roles and policies with short, scenario-based modules — with measurable completion, reinforcement, and audit-ready evidence.
+                      Train employees across regulations, roles and policies with short, scenario-based modules - with measurable completion, reinforcement, and audit-ready evidence.
                     </p>
                   </div>
 

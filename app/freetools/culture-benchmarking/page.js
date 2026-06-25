@@ -156,38 +156,38 @@ const CultureBenchmarkingPage = () => {
       { name: "Team Norms & Cultural Reinforcement", weight: "10%", score: normsScore, desc: "Measures peer influence, security champion participation, and how security behaviors are reinforced across teams.", color: "#06B6D4" }
     ];
 
-    let maturityLevel = "Level 4 — Mature";
+    let maturityLevel = "Level 4 - Mature";
     let maturityDesc = "Employees consistently demonstrate secure behaviors, accountability, and active participation in security initiatives.";
     let riskLevel = "Low–Moderate Risk";
     let riskDesc = "Primary exposure areas include social engineering susceptibility and inconsistent security reinforcement across departments.";
     let percentile = "Top 18% of Organizations Assessed";
     
     if (score >= 86) {
-      maturityLevel = "Level 5 — Security-Driven Culture";
+      maturityLevel = "Level 5 - Security-Driven Culture";
       maturityDesc = "Security is embedded into daily decision-making, supported by strong ownership, reporting habits, and organizational reinforcement.";
       riskLevel = "Low Risk";
       riskDesc = "Extremely low human risk exposure; resilient peer reinforcement and active proactive threat scanning.";
       percentile = "Top 5% of Organizations Assessed";
     } else if (score >= 76) {
-      maturityLevel = "Level 4 — Mature";
+      maturityLevel = "Level 4 - Mature";
       maturityDesc = "Employees consistently demonstrate secure behaviors, accountability, and active participation in security initiatives.";
       riskLevel = "Low–Moderate Risk";
       riskDesc = "Primary exposure areas include social engineering susceptibility and inconsistent security reinforcement across departments.";
       percentile = "Top 18% of Organizations Assessed";
     } else if (score >= 61) {
-      maturityLevel = "Level 3 — Progressing";
+      maturityLevel = "Level 3 - Progressing";
       maturityDesc = "Security practices are becoming embedded, though key opportunities remain in behavior reinforcement and reporting culture.";
       riskLevel = "Moderate Risk";
       riskDesc = "Moderate risk exposure in credential sharing, reporting lag, and peer accountability.";
       percentile = "Top 42% of Organizations Assessed";
     } else if (score >= 41) {
-      maturityLevel = "Level 2 — Foundational";
+      maturityLevel = "Level 2 - Foundational";
       maturityDesc = "Basic awareness exists, but security behaviors and cultural adoption remain inconsistent across the organization.";
       riskLevel = "High Risk";
       riskDesc = "Elevated threat vectors in social engineering and shadow IT due to lack of policy compliance.";
       percentile = "Top 70% of Organizations Assessed";
     } else {
-      maturityLevel = "Level 1 — High Human Risk";
+      maturityLevel = "Level 1 - High Human Risk";
       maturityDesc = "Organizations show significant cultural gaps, inconsistent security behaviors, and elevated exposure to human-driven threats.";
       riskLevel = "Critical Human Risk";
       riskDesc = "High susceptibility to phishing, social engineering, and security policy bypasses.";
