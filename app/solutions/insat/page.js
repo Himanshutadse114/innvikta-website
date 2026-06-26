@@ -436,7 +436,7 @@ const InsatPage = () => {
                     
                     <div className="feature-card animate">
                         <div className="feature-visual">
-                            <img alt="Security Awareness Training" loading="lazy" src="/insat/images/sat.jpeg" />
+                            <img alt="Security Awareness Training" loading="lazy" src="/insat/images/phishing-new.png" />
                         </div>
                         <div className="feature-content">
                             <h3 className="feature-title">Security Awareness Training</h3>
@@ -451,7 +451,7 @@ const InsatPage = () => {
                     <div className="feature-card animate">
                         <div className="feature-visual bg-grey-30">
                             <img alt="Phishing simulations mockup" loading="lazy"
-                                src="/insat/images/phishing.jpeg" />
+                                src="/insat/images/sat-new.png" />
                         </div>
                         <div className="feature-content">
                             <h3 className="feature-title">Phishing Simulations</h3>
@@ -466,7 +466,7 @@ const InsatPage = () => {
                     <div className="feature-card animate">
                         <div className="feature-visual bg-aquamarine">
                             <img alt="Microlearning modules mockup" loading="lazy"
-                                src="/insat/images/microlearning.jpeg" />
+                                src="/insat/images/microlearning-new.png" />
                         </div>
                         <div className="feature-content">
                             <h3 className="feature-title">Microlearning</h3>
