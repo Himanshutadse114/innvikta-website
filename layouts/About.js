@@ -203,7 +203,7 @@ const About = () => {
                         Book Demo <FiArrowRight className="text-xs" />
                       </Link>
                       <Link 
-                        href="/contact"
+                        href="/book-demo"
                         className="w-44 h-12 flex items-center justify-center rounded-lg font-bold text-base bg-orange-50/50 hover:bg-[#f15a24] border border-[#f15a24]/30 hover:border-[#f15a24] text-[#f15a24] hover:text-white transition-all duration-300"
                       >
                         Start Free
@@ -628,7 +628,7 @@ const About = () => {
                     </p>
                     
                     <div className="flex flex-wrap justify-center gap-4 mt-10" style={{ marginTop: "2.5rem" }}>
-                      <Link href="/contact" className="btn btn-primary">
+                      <Link href="/book-demo" className="btn btn-primary">
                         Start Free
                       </Link>
                       <Link href="/book-demo" className="btn btn-outline-primary">

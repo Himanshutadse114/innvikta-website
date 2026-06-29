@@ -296,7 +296,7 @@ const HumanRiskIntelligencePage = () => {
                         </div>
 
                         <div className="hero-actions-row">
-                            <Link className="btn btn-primary btn-cta" href="/contact">
+                            <Link className="btn btn-primary btn-cta" href="/book-demo">
                                 <span className="hover-sweep"></span>
                                 <span>Start Free</span>
                                 <div className="arrow-wrapper">
@@ -1020,7 +1020,7 @@ const HumanRiskIntelligencePage = () => {
                     <Link href="/book-demo" className="btn btn-primary">
                       Book A Demo
                     </Link>
-                    <Link href="/contact" className="btn btn-outline-primary">
+                    <Link href="/book-demo" className="btn btn-outline-primary">
                       Start Free
                     </Link>
                   </div>

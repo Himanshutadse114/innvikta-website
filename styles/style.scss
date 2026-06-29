@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+// Trigger compilation refresh for final vector layout update
 
 html {
   scroll-behavior: smooth;
@@ -118,6 +119,38 @@ body {
   }
 }
 
+/* Ultra-tight layout specifically for viewports between 992px and 1023px to prevent logo/links/buttons overlapping */
+@media (min-width: 992px) and (max-width: 1023px) {
+  .desktop-nav-menu {
+    gap: 0.15rem !important;
+  }
+  .desktop-nav-menu .nav-link {
+    font-size: 11px !important;
+    padding-left: 0.15rem !important;
+    padding-right: 0.15rem !important;
+    gap: 0.1rem !important;
+  }
+  .desktop-nav-menu .nav-link svg {
+    font-size: 12px !important;
+  }
+  .header-cta-buttons {
+    gap: 0.25rem !important;
+  }
+  .header-cta-buttons .header-cta-start-free {
+    padding: 0.25rem 0.4rem !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+  }
+  .header-cta-buttons .header-cta-book-demo {
+    padding: 0.25rem 0.4rem !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+  }
+  .container-xl img[alt="Innvikta"] {
+    max-height: 22px !important;
+  }
+}
+
 /* Protected tight layout for viewports above 1024px and below 1360px to prevent overlapping (captures Nest Hub Max 1280px) */
 @media (min-width: 1024px) and (max-width: 1359px) {
   .desktop-nav-menu {
@@ -144,8 +177,8 @@ body {
   }
 }
 
-/* Medium layout for standard desktops/laptops between 1360px and 1679px (including 1397px viewports) */
-@media (min-width: 1360px) and (max-width: 1679px) {
+/* Medium layout for standard desktops/laptops between 1360px and 1849px (including 1397px viewports) */
+@media (min-width: 1360px) and (max-width: 1849px) {
   .desktop-nav-menu {
     gap: 1.1rem !important;
   }
@@ -170,8 +203,8 @@ body {
   }
 }
 
-/* Spacious, premium layout for 1920px (including display-scaled viewports >= 1680px) */
-@media (min-width: 1680px) {
+/* Spacious, premium layout for 1920px (including display-scaled viewports >= 1850px) */
+@media (min-width: 1850px) {
   .desktop-nav-menu {
     gap: 1.6rem !important;
   }

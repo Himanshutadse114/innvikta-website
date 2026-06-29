@@ -598,7 +598,7 @@ export default function CyberAwarenessMonthCampaignPage() {
                   Prepare your organization with practical cybersecurity awareness resources, including modules and interactive learning experiences.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 mt-10 animate-fade-in" style={{ marginTop: "2.5rem" }}>
-                  <Link href="/contact" className="btn btn-primary btn-cta inline-flex items-center justify-center gap-2 whitespace-nowrap">
+                  <Link href="/book-demo" className="btn btn-primary btn-cta inline-flex items-center justify-center gap-2 whitespace-nowrap">
                     <span className="hover-sweep"></span>
                     <span>Contact Us</span>
                     <div className="arrow-wrapper">

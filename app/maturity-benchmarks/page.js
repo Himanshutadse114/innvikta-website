@@ -418,7 +418,7 @@ export default function MaturityBenchmarksPage() {
                 </h2>
                 <div className="flex items-center gap-2">
                   <span className="text-primary font-bold text-sm">&gt;</span>
-                  <Link href="/contact" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors">
+                  <Link href="/book-demo" className="text-sm font-semibold text-slate-700 hover:text-primary transition-colors">
                     Still have questions? Contact us
                     </Link>
                 </div>

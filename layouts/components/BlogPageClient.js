@@ -310,16 +310,16 @@ const BlogPageClient = ({ initialPosts, title }) => {
           /* Default state: asymmetric Prismic layout */
           <div className="space-y-12">
             {/* Asymmetric Core Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               {/* Left Column: Stacked smaller cards */}
-              <div className="lg:col-span-3 flex flex-col gap-8 order-2 lg:order-1">
+              <div className="lg:col-span-3 flex flex-col justify-between gap-8 order-2 lg:order-1">
                 {leftPosts.map((post) => renderSmallCard(post))}
               </div>
 
               {/* Center/Right Column: Huge Featured Post */}
               {featuredPost && (
                 <div className="lg:col-span-9 order-1 lg:order-2">
-                  <div className="group flex flex-col bg-white border border-slate-100 rounded-3xl p-6 w-full">
+                  <div className="group flex flex-col bg-white border border-slate-100 rounded-3xl p-6 w-full h-full">
                     <div className="space-y-4">
                       {featuredPost.frontmatter.image && (
                         <Link href={`/blog/${featuredPost.slug}`} className="block overflow-hidden rounded-2xl relative">
@@ -353,7 +353,7 @@ const BlogPageClient = ({ initialPosts, title }) => {
                         </Link>
                       </h3>
 
-                      <p className="text-sm text-slate-500 font-medium leading-relaxed">
+                      <p className="text-sm text-slate-500 font-medium leading-relaxed line-clamp-3">
                         {featuredPost.content}
                       </p>
                     </div>

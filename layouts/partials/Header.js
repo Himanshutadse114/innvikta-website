@@ -45,204 +45,540 @@ import {
 // SVG illustrations for the right-hand Featured CTA cards
 const RenderSvgIllustration = ({ type }) => {
   const primaryColor = "#f15a24";
-  const darkColor = "#1a202c";
-  const mutedColor = "#94a3b8";
 
   switch (type) {
     case "platform":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes drawPath {
+              to { stroke-dashoffset: 0; }
+            }
+            @keyframes fillProgress {
+              from { width: 0; }
+              to { width: 150px; }
+            }
+            @keyframes pulseCircle {
+              0%, 100% { transform: scale(1); opacity: 1; }
+              50% { transform: scale(1.25); opacity: 0.7; }
+            }
+            @keyframes fadeInSeq {
+              from { opacity: 0; transform: translateY(4px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .draw-line {
+              stroke-dasharray: 100;
+              stroke-dashoffset: 100;
+              animation: drawPath 1.2s ease-out forwards;
+            }
+            .fill-bar {
+              animation: fillProgress 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+            .pulse-dot {
+              transform-origin: 124px 78px;
+              animation: pulseCircle 2s infinite ease-in-out;
+            }
+            .fade-item-1 { animation: fadeInSeq 0.4s ease-out 0.2s forwards; opacity: 0; }
+            .fade-item-2 { animation: fadeInSeq 0.4s ease-out 0.4s forwards; opacity: 0; }
+            .fade-item-3 { animation: fadeInSeq 0.4s ease-out 0.6s forwards; opacity: 0; }
+          `}</style>
           {/* Dashboard browser window mockup */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <line x1="10" y1="30" x2="230" y2="30" stroke="#e2e8f0" />
-          <circle cx="24" cy="20" r="3" fill="#ef4444" stroke="none" />
-          <circle cx="34" cy="20" r="3" fill="#eab308" stroke="none" />
-          <circle cx="44" cy="20" r="3" fill="#22c55e" stroke="none" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          <line x1="15" y1="52" x2="305" y2="52" stroke="currentColor" strokeOpacity="0.15" strokeWidth="2" />
+          <circle cx="35" cy="34" r="4" fill="currentColor" fillOpacity="0.3" stroke="none" />
+          <circle cx="49" cy="34" r="4" fill="currentColor" fillOpacity="0.3" stroke="none" />
+          <circle cx="63" cy="34" r="4" fill="currentColor" fillOpacity="0.3" stroke="none" />
           {/* Dashboard chart mockup */}
-          <rect x="25" y="45" width="80" height="40" rx="4" fill={primaryColor} fillOpacity="0.05" stroke={primaryColor} strokeWidth="1" />
-          <path d="M35 75 L55 60 L75 68 L95 52" stroke={primaryColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          <circle cx="95" cy="52" r="3" fill="#fff" stroke={primaryColor} strokeWidth="1.5" />
+          <rect x="35" y="72" width="105" height="60" rx="6" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="1.5" />
+          <path d="M48 112 L72 92 L96 102 L124 78" className="draw-line" stroke={primaryColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="124" cy="78" r="4" className="pulse-dot" fill="#fff" stroke={primaryColor} strokeWidth="2" />
           {/* Checklist items */}
-          <rect x="120" y="48" width="90" height="6" rx="3" fill="#e2e8f0" stroke="none" />
-          <rect x="120" y="60" width="70" height="6" rx="3" fill="#e2e8f0" stroke="none" />
-          <rect x="120" y="72" width="80" height="6" rx="3" fill="#e2e8f0" stroke="none" />
+          <rect x="160" y="78" width="115" height="8" rx="4" className="fade-item-1" fill="currentColor" fillOpacity="0.1" stroke="none" />
+          <rect x="160" y="96" width="95" height="8" rx="4" className="fade-item-2" fill="currentColor" fillOpacity="0.1" stroke="none" />
+          <rect x="160" y="114" width="105" height="8" rx="4" className="fade-item-3" fill="currentColor" fillOpacity="0.1" stroke="none" />
           {/* Progress bar */}
-          <rect x="25" y="100" width="190" height="12" rx="6" fill="#f1f5f9" stroke="none" />
-          <rect x="25" y="100" width="130" height="12" rx="6" fill={primaryColor} stroke="none" />
-          <text x="135" y="109" fill="#fff" fontSize="8" fontWeight="bold" fontFamily="Inter, sans-serif">68%</text>
+          <rect x="35" y="160" width="250" height="18" rx="9" fill="currentColor" fillOpacity="0.08" stroke="none" />
+          <rect x="35" y="160" width="150" height="18" rx="9" className="fill-bar" fill={primaryColor} stroke="none" />
+          <text x="110" y="173" className="fade-item-3" fill="#fff" fontSize="10" fontWeight="extrabold" fontFamily="Inter, sans-serif">60%</text>
         </svg>
       );
     case "phishing":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes slideInRow {
+              from { transform: translateX(-8px); opacity: 0; }
+              to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes shakeTriangle {
+              0%, 100% { transform: rotate(0deg); }
+              20%, 60% { transform: rotate(-4deg); }
+              40%, 80% { transform: rotate(4deg); }
+            }
+            .alert-shield {
+              transform-origin: 137px 92px;
+              animation: shakeTriangle 3s ease-in-out infinite;
+            }
+            .list-row-1 { animation: slideInRow 0.4s ease-out 0.15s forwards; opacity: 0; }
+            .list-row-2 { animation: slideInRow 0.4s ease-out 0.3s forwards; opacity: 0; }
+            .list-row-3 { animation: slideInRow 0.4s ease-out 0.45s forwards; opacity: 0; }
+          `}</style>
           {/* Email client window */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <line x1="10" y1="30" x2="230" y2="30" stroke="#e2e8f0" />
-          <line x1="75" y1="30" x2="75" y2="130" stroke="#e2e8f0" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          <line x1="15" y1="52" x2="305" y2="52" stroke="currentColor" strokeOpacity="0.15" strokeWidth="2" />
+          <line x1="95" y1="52" x2="95" y2="225" stroke="currentColor" strokeOpacity="0.15" strokeWidth="2" />
           {/* Left panel items */}
-          <rect x="20" y="42" width="45" height="8" rx="4" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="0.5" />
-          <rect x="20" y="58" width="40" height="6" rx="3" fill="#cbd5e1" stroke="none" />
-          <rect x="20" y="70" width="35" height="6" rx="3" fill="#cbd5e1" stroke="none" />
+          <rect x="28" y="70" width="55" height="10" rx="5" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="0.5" />
+          <rect x="28" y="92" width="50" height="8" rx="4" fill="currentColor" fillOpacity="0.1" stroke="none" />
+          <rect x="28" y="110" width="42" height="8" rx="4" fill="currentColor" fillOpacity="0.1" stroke="none" />
           {/* Email row with warning sign */}
-          <rect x="85" y="42" width="135" height="34" rx="4" fill={primaryColor} fillOpacity="0.05" stroke={primaryColor} strokeWidth="1" />
-          <path d="M96 61 L101 51 L106 61 Z" fill={primaryColor} stroke={primaryColor} strokeWidth="1" strokeLinejoin="round" />
-          <line x1="101" y1="55" x2="101" y2="57" stroke="#fff" strokeWidth="1" />
-          <circle cx="101" cy="59" r="0.5" fill="#fff" />
-          <rect x="115" y="49" width="70" height="6" rx="3" fill={darkColor} stroke="none" />
-          <rect x="115" y="60" width="90" height="5" rx="2.5" fill={mutedColor} stroke="none" />
+          <g className="list-row-1">
+            <rect x="110" y="70" width="180" height="52" rx="6" fill={primaryColor} fillOpacity="0.10" stroke={primaryColor} strokeWidth="1.5" />
+            <g className="alert-shield">
+              <path d="M125 102 L137 82 L149 102 Z" fill={primaryColor} stroke={primaryColor} strokeWidth="1.5" strokeLinejoin="round" />
+              <line x1="137" y1="88" x2="137" y2="94" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+              <circle cx="137" cy="98" r="1" fill="#fff" />
+            </g>
+            <rect x="160" y="80" width="90" height="8" rx="4" fill="currentColor" stroke="none" />
+            <rect x="160" y="96" width="115" height="6" rx="3" fill="currentColor" fillOpacity="0.4" stroke="none" />
+          </g>
           {/* Simple list of emails */}
-          <rect x="85" y="86" width="135" height="14" rx="3" fill="#f8fafc" stroke="none" />
-          <rect x="95" y="91" width="60" height="4" rx="2" fill="#cbd5e1" stroke="none" />
-          <rect x="85" y="106" width="135" height="14" rx="3" fill="#f8fafc" stroke="none" />
-          <rect x="95" y="111" width="70" height="4" rx="2" fill="#cbd5e1" stroke="none" />
+          <g className="list-row-2">
+            <rect x="110" y="136" width="180" height="24" rx="4" fill="currentColor" fillOpacity="0.05" stroke="none" />
+            <rect x="122" y="144" width="90" height="8" rx="4" fill="currentColor" fillOpacity="0.15" stroke="none" />
+          </g>
+          <g className="list-row-3">
+            <rect x="110" y="172" width="180" height="24" rx="4" fill="currentColor" fillOpacity="0.05" stroke="none" />
+            <rect x="122" y="180" width="110" height="8" rx="4" fill="currentColor" fillOpacity="0.15" stroke="none" />
+          </g>
         </svg>
       );
     case "analytics":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes growBar {
+              from { transform: scaleY(0); }
+              to { transform: scaleY(1); }
+            }
+            @keyframes drawRiskLine {
+              to { stroke-dashoffset: 0; }
+            }
+            @keyframes floatBadge {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-4px); }
+            }
+            @keyframes pulseCircle {
+              0%, 100% { transform: scale(1); opacity: 1; }
+              50% { transform: scale(1.25); opacity: 0.7; }
+            }
+            .bar-chart-1 { transform-origin: 50px 190px; animation: growBar 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards; transform: scaleY(0); }
+            .bar-chart-2 { transform-origin: 95px 190px; animation: growBar 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.25s forwards; transform: scaleY(0); }
+            .bar-chart-3 { transform-origin: 140px 190px; animation: growBar 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards; transform: scaleY(0); }
+            .bar-chart-4 { transform-origin: 185px 190px; animation: growBar 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s forwards; transform: scaleY(0); }
+            
+            .risk-line {
+              stroke-dasharray: 150;
+              stroke-dashoffset: 150;
+              animation: drawRiskLine 1.2s ease-out 0.3s forwards;
+            }
+            .risk-badge {
+              animation: floatBadge 3.5s ease-in-out infinite;
+            }
+            .risk-dot {
+              transform-origin: 95px 65px;
+              animation: pulseCircle 2s infinite ease-in-out 1.2s;
+            }
+          `}</style>
           {/* Analytics graph dashboard */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <line x1="10" y1="30" x2="230" y2="30" stroke="#e2e8f0" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          <line x1="15" y1="52" x2="305" y2="52" stroke="currentColor" strokeOpacity="0.15" strokeWidth="2" />
           {/* Multi-series bar chart */}
-          <rect x="25" y="65" width="25" height="50" rx="3" fill="#e2e8f0" stroke="none" />
-          <rect x="60" y="45" width="25" height="70" rx="3" fill={primaryColor} stroke="none" />
-          <rect x="95" y="55" width="25" height="60" rx="3" fill={darkColor} stroke="none" />
-          <rect x="130" y="75" width="25" height="40" rx="3" fill="#cbd5e1" stroke="none" />
+          <rect x="35" y="110" width="30" height="80" rx="4" className="bar-chart-1" fill="currentColor" fillOpacity="0.08" stroke="none" />
+          <rect x="80" y="80" width="30" height="110" rx="4" className="bar-chart-2" fill={primaryColor} stroke="none" />
+          <rect x="125" y="95" width="30" height="95" rx="4" className="bar-chart-3" fill="currentColor" fillOpacity="0.4" stroke="none" />
+          <rect x="170" y="130" width="30" height="60" rx="4" className="bar-chart-4" fill="currentColor" fillOpacity="0.15" stroke="none" />
           {/* Line overlay representing risk dropping */}
-          <path d="M37 60 L72 38 L107 50 L142 68" fill="none" stroke={primaryColor} strokeWidth="2.5" strokeLinecap="round" />
-          <circle cx="72" cy="38" r="4.5" fill="#fff" stroke={primaryColor} strokeWidth="2" />
+          <path d="M50 100 L95 65 L140 85 L185 115" className="risk-line" fill="none" stroke={primaryColor} strokeWidth="3.5" strokeLinecap="round" />
+          <circle cx="95" cy="65" r="6" className="risk-dot" fill="#fff" stroke={primaryColor} strokeWidth="2.5" />
           {/* Analytics Stats badge */}
-          <rect x="170" y="45" width="45" height="20" rx="6" fill="#22c55e" fillOpacity="0.1" stroke="#22c55e" strokeWidth="0.5" />
-          <text x="176" y="58" fill="#22c55e" fontSize="9" fontWeight="bold" fontFamily="Inter, sans-serif">-24%</text>
-          <text x="170" y="80" fill={mutedColor} fontSize="8" fontWeight="semibold" fontFamily="Inter, sans-serif">Risk Score</text>
+          <g className="risk-badge">
+            <rect x="220" y="70" width="65" height="28" rx="8" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="1.5" />
+            <text x="230" y="88" fill={primaryColor} fontSize="11" fontWeight="extrabold" fontFamily="Inter, sans-serif">-24%</text>
+            <text x="220" y="115" fill="currentColor" fillOpacity="0.7" fontSize="10" fontWeight="semibold" fontFamily="Inter, sans-serif">Risk Score</text>
+          </g>
         </svg>
       );
     case "compliance":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes pulseShield {
+              0%, 100% { fill-opacity: 0.10; }
+              50% { fill-opacity: 0.22; }
+            }
+            @keyframes drawCheckmark {
+              to { stroke-dashoffset: 0; }
+            }
+            @keyframes floatBadge1 {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-4px); }
+            }
+            @keyframes floatBadge2 {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(4px); }
+            }
+            .shield-path {
+              animation: pulseShield 3s ease-in-out infinite;
+            }
+            .checkmark-path {
+              stroke-dasharray: 80;
+              stroke-dashoffset: 80;
+              animation: drawCheckmark 0.8s ease-out 0.2s forwards;
+            }
+            .compliance-badge-1 { transform-origin: 55px 80px; animation: floatBadge1 3.5s ease-in-out infinite; }
+            .compliance-badge-2 { transform-origin: 55px 140px; animation: floatBadge2 3s ease-in-out infinite; }
+            .compliance-badge-3 { transform-origin: 265px 110px; animation: floatBadge1 4s ease-in-out infinite; }
+          `}</style>
           {/* Lock and compliance certificate shield layout */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
           {/* Centered shield illustration */}
-          <path d="M120 35 C155 35 165 47 165 70 C165 100 120 112 120 112 C120 112 75 100 75 70 C75 47 85 35 120 35 Z" fill={primaryColor} fillOpacity="0.05" stroke={primaryColor} strokeWidth="2" />
+          <path d="M160 55 C210 55 225 72 225 105 C225 147 160 170 160 170 C160 170 95 147 95 105 C95 72 110 55 160 55 Z" className="shield-path" fill={primaryColor} fillOpacity="0.10" stroke={primaryColor} strokeWidth="3" strokeLinejoin="round" />
           {/* Custom checkmark */}
-          <path d="M102 70 L114 82 L138 58" fill="none" stroke={primaryColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M133 105 L151 123 L187 87" className="checkmark-path" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
           {/* Certificates badges */}
-          <circle cx="40" cy="50" r="14" fill={darkColor} fillOpacity="0.03" stroke={darkColor} strokeWidth="1" />
-          <text x="32" y="53" fill={darkColor} fontSize="7" fontWeight="bold" fontFamily="Inter, sans-serif">GDPR</text>
+          <g className="compliance-badge-1">
+            <circle cx="55" cy="80" r="20" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+            <text x="43" y="84" fill="currentColor" fontSize="9" fontWeight="extrabold" fontFamily="Inter, sans-serif">GDPR</text>
+          </g>
           
-          <circle cx="40" cy="85" r="14" fill={darkColor} fillOpacity="0.03" stroke={darkColor} strokeWidth="1" />
-          <text x="30" y="88" fill={darkColor} fontSize="7" fontWeight="bold" fontFamily="Inter, sans-serif">HIPAA</text>
-
-          <circle cx="200" cy="68" r="14" fill={darkColor} fillOpacity="0.03" stroke={darkColor} strokeWidth="1" />
-          <text x="192" y="71" fill={darkColor} fontSize="7" fontWeight="bold" fontFamily="Inter, sans-serif">SOC2</text>
+          <g className="compliance-badge-2">
+            <circle cx="55" cy="140" r="20" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+            <text x="40" y="144" fill="currentColor" fontSize="9" fontWeight="extrabold" fontFamily="Inter, sans-serif">HIPAA</text>
+          </g>
+ 
+          <g className="compliance-badge-3">
+            <circle cx="265" cy="110" r="20" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+            <text x="253" y="114" fill="currentColor" fontSize="9" fontWeight="extrabold" fontFamily="Inter, sans-serif">SOC2</text>
+          </g>
         </svg>
       );
     case "network":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes animateSignal {
+              to { stroke-dashoffset: -20; }
+            }
+            @keyframes radiateRing {
+              0% { transform: scale(0.7); opacity: 1; }
+              100% { transform: scale(1.4); opacity: 0; }
+            }
+            @keyframes scaleNode {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.15); }
+            }
+            .signal-line {
+              animation: animateSignal 1.2s linear infinite;
+            }
+            .radiate-circle {
+              transform-origin: 160px 120px;
+              animation: radiateRing 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            }
+            .center-node {
+              transform-origin: 160px 120px;
+              animation: scaleNode 3s ease-in-out infinite;
+            }
+            .outer-node-1 { transform-origin: 65px 70px; animation: scaleNode 3s ease-in-out infinite 0.2s; }
+            .outer-node-2 { transform-origin: 255px 70px; animation: scaleNode 3s ease-in-out infinite 0.5s; }
+            .outer-node-3 { transform-origin: 65px 170px; animation: scaleNode 3s ease-in-out infinite 0.8s; }
+            .outer-node-4 { transform-origin: 255px 170px; animation: scaleNode 3s ease-in-out infinite 1.1s; }
+          `}</style>
           {/* Centralized Node Connection Mockup */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          {/* Interlocking nodes */}
-          <circle cx="120" cy="70" r="22" fill={primaryColor} fillOpacity="0.08" stroke={primaryColor} strokeWidth="1.5" />
-          <circle cx="120" cy="70" r="8" fill={primaryColor} stroke="none" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
           
-          <circle cx="50" cy="40" r="14" fill={darkColor} fillOpacity="0.04" stroke="#e2e8f0" strokeWidth="1" />
-          <circle cx="190" cy="40" r="14" fill={darkColor} fillOpacity="0.04" stroke="#e2e8f0" strokeWidth="1" />
-          <circle cx="50" cy="100" r="14" fill={darkColor} fillOpacity="0.04" stroke="#e2e8f0" strokeWidth="1" />
-          <circle cx="190" cy="100" r="14" fill={darkColor} fillOpacity="0.04" stroke="#e2e8f0" strokeWidth="1" />
-
+          {/* Radiating outer circles */}
+          <circle cx="160" cy="120" r="32" className="radiate-circle" stroke={primaryColor} strokeWidth="1" strokeOpacity="0.4" fill="none" />
+          
+          {/* Interlocking nodes */}
+          <circle cx="160" cy="120" r="32" className="center-node" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="2" />
+          <circle cx="160" cy="120" r="10" className="center-node" fill={primaryColor} stroke="none" />
+          
+          <circle cx="65" cy="70" r="20" className="outer-node-1" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+          <circle cx="255" cy="70" r="20" className="outer-node-2" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+          <circle cx="65" cy="170" r="20" className="outer-node-3" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+          <circle cx="255" cy="170" r="20" className="outer-node-4" fill="currentColor" fillOpacity="0.03" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+ 
           {/* Connection lines */}
-          <line x1="120" y1="70" x2="50" y2="40" stroke={primaryColor} strokeWidth="1.5" strokeDasharray="4,4" />
-          <line x1="120" y1="70" x2="190" y2="40" stroke={primaryColor} strokeWidth="1.5" strokeDasharray="4,4" />
-          <line x1="120" y1="70" x2="50" y2="100" stroke={primaryColor} strokeWidth="1.5" strokeDasharray="4,4" />
-          <line x1="120" y1="70" x2="190" y2="100" stroke={primaryColor} strokeWidth="1.5" strokeDasharray="4,4" />
+          <line x1="160" y1="120" x2="65" y2="70" className="signal-line" stroke={primaryColor} strokeWidth="2" strokeDasharray="6,4" strokeDashoffset="0" />
+          <line x1="160" y1="120" x2="255" y2="70" className="signal-line" stroke={primaryColor} strokeWidth="2" strokeDasharray="6,4" strokeDashoffset="0" />
+          <line x1="160" y1="120" x2="65" y2="170" className="signal-line" stroke={primaryColor} strokeWidth="2" strokeDasharray="6,4" strokeDashoffset="0" />
+          <line x1="160" y1="120" x2="255" y2="170" className="signal-line" stroke={primaryColor} strokeWidth="2" strokeDasharray="6,4" strokeDashoffset="0" />
+ 
+          <circle cx="65" cy="70" r="6" className="outer-node-1" fill="currentColor" />
+          <circle cx="255" cy="70" r="6" className="outer-node-2" fill="currentColor" />
+          <circle cx="65" cy="170" r="6" className="outer-node-3" fill="currentColor" />
+          <circle cx="255" cy="170" r="6" className="outer-node-4" fill="currentColor" />
         </svg>
       );
     case "resources":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes floatBook {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-5px); }
+            }
+            @keyframes floatBookBack {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-2.5px); }
+            }
+            @keyframes slideCoverLine {
+              from { width: 0; }
+            }
+            @keyframes fadeInSeq {
+              from { opacity: 0; transform: translateY(4px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .book-front {
+              transform-origin: 112px 110px;
+              animation: floatBook 4s ease-in-out infinite;
+            }
+            .book-back {
+              transform-origin: 85px 115px;
+              animation: floatBookBack 4s ease-in-out infinite;
+            }
+            .cover-line-1 { animation: slideCoverLine 0.8s ease-out 0.3s forwards; }
+            .cover-line-2 { animation: slideCoverLine 0.8s ease-out 0.45s forwards; }
+            .fade-item-1 { animation: fadeInSeq 0.4s ease-out 0.1s forwards; opacity: 0; }
+            .fade-item-2 { animation: fadeInSeq 0.4s ease-out 0.25s forwards; opacity: 0; }
+            .fade-item-3 { animation: fadeInSeq 0.4s ease-out 0.4s forwards; opacity: 0; }
+          `}</style>
           {/* Resource center mockup with guides/books */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <rect x="30" y="30" width="70" height="85" rx="4" fill={primaryColor} fillOpacity="0.05" stroke={primaryColor} strokeWidth="1.5" />
-          {/* Guide Cover detail */}
-          <rect x="40" y="42" width="50" height="8" rx="2" fill={primaryColor} stroke="none" />
-          <rect x="40" y="56" width="40" height="4" rx="2" fill={darkColor} stroke="none" />
-          <rect x="40" y="66" width="30" height="4" rx="2" fill={mutedColor} stroke="none" />
-          <path d="M40 92 C 55 86, 75 98, 90 92" fill="none" stroke={primaryColor} strokeWidth="1.5" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          
+          {/* Back book */}
+          <rect x="40" y="55" width="90" height="120" rx="6" className="book-back" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />
+          
+          {/* Front book */}
+          <g className="book-front">
+            <rect x="65" y="45" width="95" height="130" rx="8" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="2.5" />
+            {/* Guide Cover detail */}
+            <rect x="65" y="45" width="22" height="130" fill={primaryColor} stroke="none" />
+            <rect x="98" y="70" width="50" height="8" rx="2" className="cover-line-1" fill="currentColor" stroke="none" />
+            <rect x="98" y="88" width="45" height="6" rx="2" className="cover-line-2" fill="currentColor" fillOpacity="0.6" stroke="none" />
+            <path d="M98 120 C 112 114, 132 126, 145 120" fill="none" stroke={primaryColor} strokeWidth="2" />
+          </g>
+          
           {/* Side text links */}
-          <rect x="120" y="42" width="80" height="6" rx="3" fill="#cbd5e1" stroke="none" />
-          <rect x="120" y="58" width="70" height="6" rx="3" fill="#cbd5e1" stroke="none" />
-          <rect x="120" y="74" width="60" height="6" rx="3" fill="#cbd5e1" stroke="none" />
-          <rect x="120" y="90" width="75" height="6" rx="3" fill="#cbd5e1" stroke="none" />
+          <g>
+            <rect x="185" y="65" width="85" height="8" rx="4" className="fade-item-1" fill="currentColor" fillOpacity="0.15" stroke="none" />
+            <rect x="185" y="85" width="75" height="8" rx="4" className="fade-item-2" fill="currentColor" fillOpacity="0.15" stroke="none" />
+            <rect x="185" y="105" width="65" height="8" rx="4" className="fade-item-3" fill="currentColor" fillOpacity="0.15" stroke="none" />
+            <rect x="185" y="125" width="80" height="8" rx="4" className="fade-item-2" fill="currentColor" fillOpacity="0.15" stroke="none" />
+            <rect x="185" y="145" width="70" height="8" rx="4" className="fade-item-3" fill="currentColor" fillOpacity="0.15" stroke="none" />
+          </g>
         </svg>
       );
     case "assessments":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes popCheck {
+              0% { transform: scale(0); opacity: 0; }
+              70% { transform: scale(1.2); opacity: 1; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+            @keyframes drawCheckmark {
+              to { stroke-dashoffset: 0; }
+            }
+            @keyframes slideLine {
+              from { width: 0; opacity: 0; }
+              to { width: var(--line-width); opacity: var(--line-opacity, 1); }
+            }
+            .check-badge-1 { transform-origin: 80px 78px; animation: popCheck 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards; opacity: 0; }
+            .check-badge-2 { transform-origin: 80px 120px; animation: popCheck 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards; opacity: 0; }
+            .check-badge-3 { transform-origin: 80px 162px; animation: popCheck 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards; opacity: 0; }
+            
+            .checkmark-path-1 { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawCheckmark 0.3s ease-out 0.35s forwards; }
+            .checkmark-path-2 { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawCheckmark 0.3s ease-out 0.5s forwards; }
+            .checkmark-path-3 { stroke-dasharray: 20; stroke-dashoffset: 20; animation: drawCheckmark 0.3s ease-out 0.65s forwards; }
+            
+            .assess-line-1 { --line-width: 135px; animation: slideLine 0.6s ease-out 0.35s forwards; opacity: 0; }
+            .assess-line-2 { --line-width: 115px; --line-opacity: 0.4; animation: slideLine 0.6s ease-out 0.5s forwards; opacity: 0; }
+            .assess-line-3 { --line-width: 125px; --line-opacity: 0.4; animation: slideLine 0.6s ease-out 0.65s forwards; opacity: 0; }
+          `}</style>
           {/* Assessment checklist illustration */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          {/* Document page border */}
+          <rect x="45" y="45" width="230" height="150" rx="8" fill="currentColor" fillOpacity="0.01" stroke="currentColor" strokeOpacity="0.15" strokeWidth="2" />
+          
           {/* Checklist rows */}
-          <circle cx="35" cy="45" r="7" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="1" />
-          <path d="M32 45 L34 47 L38 42" fill="none" stroke={primaryColor} strokeWidth="2" strokeLinecap="round" />
-          <rect x="55" y="42" width="140" height="6" rx="3" fill={darkColor} stroke="none" />
-
-          <circle cx="35" cy="70" r="7" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="1" />
-          <path d="M32 70 L34 72 L38 67" fill="none" stroke={primaryColor} strokeWidth="2" strokeLinecap="round" />
-          <rect x="55" y="67" width="120" height="6" rx="3" fill="#cbd5e1" stroke="none" />
-
-          <circle cx="35" cy="95" r="7" fill={primaryColor} fillOpacity="0.1" stroke={primaryColor} strokeWidth="1" />
-          <path d="M32 95 L34 97 L38 92" fill="none" stroke={primaryColor} strokeWidth="2" strokeLinecap="round" />
-          <rect x="55" y="92" width="130" height="6" rx="3" fill="#cbd5e1" stroke="none" />
+          <g>
+            <g className="check-badge-1">
+              <circle cx="80" cy="78" r="12" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="1.5" />
+              <path d="M74 78 L78 82 L86 74" className="checkmark-path-1" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <rect x="110" y="73" width="135" height="10" rx="5" className="assess-line-1" fill="currentColor" stroke="none" />
+          </g>
+          
+          <g>
+            <g className="check-badge-2">
+              <circle cx="80" cy="120" r="12" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="1.5" />
+              <path d="M74 120 L78 124 L86 116" className="checkmark-path-2" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <rect x="110" y="115" width="115" height="10" rx="5" className="assess-line-2" fill="currentColor" fillOpacity="0.4" stroke="none" />
+          </g>
+          
+          <g>
+            <g className="check-badge-3">
+              <circle cx="80" cy="162" r="12" fill={primaryColor} fillOpacity="0.15" stroke={primaryColor} strokeWidth="1.5" />
+              <path d="M74 162 L78 166 L86 158" className="checkmark-path-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+            <rect x="110" y="157" width="125" height="10" rx="5" className="assess-line-3" fill="currentColor" fillOpacity="0.4" stroke="none" />
+          </g>
         </svg>
       );
     case "arcade":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes crownFloat {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-4px); }
+            }
+            @keyframes joyTilt {
+              0%, 100% { transform: translate(0, 0); }
+              25% { transform: translate(-2px, 1px); }
+              50% { transform: translate(2px, -2px); }
+              75% { transform: translate(-1px, -2px); }
+            }
+            @keyframes buttonPulse {
+              0%, 100% { transform: scale(1); filter: brightness(1); }
+              50% { transform: scale(1.15); filter: brightness(1.2); }
+            }
+            .crown-svg {
+              transform-origin: 160px 48px;
+              animation: crownFloat 3s ease-in-out infinite;
+            }
+            .joystick-1 {
+              transform-origin: 130px 130px;
+              animation: joyTilt 4s ease-in-out infinite;
+            }
+            .joystick-2 {
+              transform-origin: 180px 130px;
+              animation: joyTilt 4s ease-in-out infinite 2s;
+            }
+            .act-btn-1 { transform-origin: 230px 120px; animation: buttonPulse 2s infinite ease-in-out; }
+            .act-btn-2 { transform-origin: 248px 138px; animation: buttonPulse 2s infinite ease-in-out 1s; }
+          `}</style>
           {/* Innvikta Arcade gaming/illustration mockup */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <rect x="50" y="50" width="140" height="60" rx="10" fill={darkColor} stroke="none" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          <rect x="50" y="80" width="220" height="100" rx="16" fill="currentColor" fillOpacity="0.05" stroke="currentColor" strokeOpacity="0.3" strokeWidth="2" />
           {/* Controller D-Pad */}
-          <path d="M72 80 H88 M80 72 V88" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" />
+          <path d="M72 130 H92 M82 120 V140" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" />
           {/* Action buttons */}
-          <circle cx="150" cy="74" r="5" fill={primaryColor} stroke="none" />
-          <circle cx="166" cy="84" r="5" fill={primaryColor} stroke="none" />
+          <circle cx="230" cy="120" r="8" className="act-btn-1" fill={primaryColor} stroke="none" />
+          <circle cx="248" cy="138" r="8" className="act-btn-2" fill={primaryColor} stroke="none" />
           {/* Joysticks */}
-          <circle cx="102" cy="85" r="8" fill="#64748b" stroke="none" />
-          <circle cx="128" cy="85" r="8" fill="#64748b" stroke="none" />
+          <circle cx="130" cy="130" r="10" className="joystick-1" fill="currentColor" fillOpacity="0.2" stroke="none" />
+          <circle cx="180" cy="130" r="10" className="joystick-2" fill="currentColor" fillOpacity="0.2" stroke="none" />
           {/* Arcade Crown / Star */}
-          <path d="M120 22 L128 32 L138 26 L132 38 H108 L102 26 L112 32 Z" fill={primaryColor} stroke={primaryColor} strokeWidth="1" strokeLinejoin="round" />
+          <path d="M160 38 L170 50 L182 42 L175 58 H145 L138 42 L150 50 Z" className="crown-svg" fill={primaryColor} stroke={primaryColor} strokeWidth="1.5" strokeLinejoin="round" />
         </svg>
       );
     case "partners":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes rotateClockwise {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
+            }
+            @keyframes rotateCounter {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(-360deg); }
+            }
+            .gear-large {
+              transform-origin: 120px 110px;
+              animation: rotateClockwise 12s linear infinite;
+            }
+            .gear-small {
+              transform-origin: 185px 135px;
+              animation: rotateCounter 9.375s linear infinite;
+            }
+          `}</style>
           {/* Connecting gears representation */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
           {/* Gears */}
-          <circle cx="95" cy="65" r="22" fill="none" stroke={primaryColor} strokeWidth="4.5" strokeDasharray="7,5" />
-          <circle cx="95" cy="65" r="8" fill={primaryColor} stroke="none" />
+          <g className="gear-large">
+            <circle cx="120" cy="110" r="32" fill="none" stroke={primaryColor} strokeWidth="7" strokeDasharray="11,7" />
+            <circle cx="120" cy="110" r="12" fill={primaryColor} stroke="none" />
+          </g>
           
-          <circle cx="138" cy="80" r="18" fill="none" stroke={darkColor} strokeWidth="4" strokeDasharray="6,4" />
-          <circle cx="138" cy="80" r="6" fill={darkColor} stroke="none" />
+          <g className="gear-small">
+            <circle cx="185" cy="135" r="25" fill="none" stroke="currentColor" strokeWidth="5.5" strokeDasharray="9,5" />
+            <circle cx="185" cy="135" r="8" fill="currentColor" stroke="none" />
+          </g>
           {/* Grid visual lines */}
-          <line x1="25" y1="35" x2="65" y2="35" stroke="#e2e8f0" />
-          <line x1="25" y1="47" x2="55" y2="47" stroke="#e2e8f0" />
-          <line x1="215" y1="105" x2="175" y2="105" stroke="#e2e8f0" />
+          <line x1="35" y1="55" x2="95" y2="55" stroke="currentColor" strokeOpacity="0.15" strokeWidth="1.5" />
+          <line x1="35" y1="70" x2="80" y2="70" stroke="currentColor" strokeOpacity="0.15" strokeWidth="1.5" />
+          <line x1="285" y1="180" x2="235" y2="180" stroke="currentColor" strokeOpacity="0.15" strokeWidth="1.5" />
         </svg>
       );
     case "company":
       return (
-        <svg viewBox="0 0 240 140" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg viewBox="0 0 320 240" className="w-full h-auto" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <style>{`
+            @keyframes pulseGlobe {
+              0%, 100% { transform: scale(1); opacity: 0.85; }
+              50% { transform: scale(1.04); opacity: 1; }
+            }
+            @keyframes rotateGlobeLines {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            @keyframes floatPin {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-3px); }
+            }
+            .globe-outer {
+              transform-origin: 160px 120px;
+              animation: rotateGlobeLines 25s linear infinite;
+            }
+            .globe-inner {
+              transform-origin: 160px 120px;
+              animation: pulseGlobe 4s ease-in-out infinite;
+            }
+            .location-pin {
+              transform-origin: 160px 107px;
+              animation: floatPin 2.5s ease-in-out infinite;
+            }
+          `}</style>
           {/* Globe or structural lines visual representation */}
-          <rect x="10" y="10" width="220" height="120" rx="6" fill="#fff" stroke="#e2e8f0" />
-          <circle cx="120" cy="70" r="38" fill={primaryColor} fillOpacity="0.05" stroke={primaryColor} strokeWidth="2" />
-          {/* Globe grid lines */}
-          <line x1="82" y1="70" x2="158" y2="70" stroke={primaryColor} strokeWidth="1" />
-          <line x1="120" y1="32" x2="120" y2="108" stroke={primaryColor} strokeWidth="1" />
-          <path d="M94 48 C 110 58, 130 58, 146 48" fill="none" stroke={primaryColor} strokeWidth="1" />
-          <path d="M94 92 C 110 82, 130 82, 146 92" fill="none" stroke={primaryColor} strokeWidth="1" />
-          <path d="M106 38 C 115 55, 115 85, 106 102" fill="none" stroke={primaryColor} strokeWidth="1" />
-          <path d="M134 38 C 125 55, 125 85, 134 102" fill="none" stroke={primaryColor} strokeWidth="1" />
+          <rect x="15" y="15" width="290" height="210" rx="10" fill="currentColor" fillOpacity="0.02" stroke="currentColor" strokeWidth="2" />
+          
+          <g className="globe-outer">
+            <circle cx="160" cy="120" r="55" fill="none" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2" />
+          </g>
+          
+          <g className="globe-inner">
+            <circle cx="160" cy="120" r="48" fill={primaryColor} fillOpacity="0.08" stroke={primaryColor} strokeWidth="2" />
+            {/* Globe grid lines */}
+            <line x1="112" y1="120" x2="208" y2="120" stroke={primaryColor} strokeWidth="1.5" />
+            <line x1="160" y1="72" x2="160" y2="168" stroke={primaryColor} strokeWidth="1.5" />
+            <path d="M124 90 C 144 102, 176 102, 196 90" fill="none" stroke={primaryColor} strokeWidth="1.5" />
+            <path d="M124 150 C 144 138, 176 138, 196 150" fill="none" stroke={primaryColor} strokeWidth="1.5" />
+          </g>
+          
+          <path d="M140 78 C 152 102, 152 138, 140 162" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          <path d="M180 78 C 168 102, 168 138, 180 162" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          
+          {/* Satellite / Location pin */}
+          <g className="location-pin">
+            <path d="M153 100 A 7 7 0 0 1 167 100 C 167 108, 160 114, 160 114 C 160 114, 153 108, 153 100 Z" fill={primaryColor} stroke="none" />
+            <circle cx="160" cy="100" r="2.5" fill="#fff" />
+          </g>
         </svg>
       );
     default:
@@ -292,7 +628,6 @@ const menuData = {
           desc: "Deliver personalized learning built for active participation and defensible compliance evidence.",
           label: "Explore Training Platform",
           href: "/solutions/insat",
-          image: "/images/insat_featured.png",
           svgType: "platform"
         }
       },
@@ -468,53 +803,23 @@ const menuData = {
         }
       },
       {
-        id: "learning_center",
-        label: "Learning Center",
+        id: "knowledge_hub",
+        label: "Knowledge Hub",
         icon: FiBookOpen,
-        headline: "Read the latest cybersecurity blog posts and explore our comprehensive glossary.",
+        headline: "Explore our latest cybersecurity articles, global benchmarks, and community updates.",
         cells: [
           { name: "Security Blog", desc: "Latest threat research findings and awareness campaign tips.", href: "/blog" },
-          { name: "Glossary", desc: "A comprehensive glossary of cybersecurity terms and concepts.", href: "/resources/glossary" }
+          { name: "Glossary", desc: "A comprehensive glossary of cybersecurity terms and concepts.", href: "/resources/glossary" },
+          { name: "Maturity Benchmarks", desc: "Compare regional click rates and reporting rates against industry peers.", href: "/maturity-benchmarks" },
+          { name: "Case Studies", desc: "Success stories from real enterprise security leadership teams.", href: "/resources/case-studies" },
+          { name: "Platform Updates", desc: "See the latest features added to the Innvikta training suite.", href: "/platform-updates" },
+          { name: "Weekly Newsletter", desc: "Security tips and campaign ideas delivered directly to your inbox.", href: "#" }
         ],
         cta: {
           title: "Explore the Innvikta Blog",
           desc: "Stay updated with real-time cybersecurity findings and employee engagement tactics.",
           label: "Go to Blog",
-          href: "#",
-          svgType: "resources"
-        }
-      },
-      {
-        id: "research_hub",
-        label: "Research Hub",
-        icon: FiFileText,
-        headline: "Get data-driven security maturity benchmarks and real-world case studies.",
-        cells: [
-          { name: "Maturity Benchmarks", desc: "Compare regional click rates and reporting rates against industry peers.", href: "/maturity-benchmarks" },
-          { name: "Case Studies", desc: "Success stories from real enterprise security leadership teams.", href: "/resources/case-studies" }
-        ],
-        cta: {
-          title: "Download latest benchmark report",
-          desc: "Understand global trends in human-centric security and phishing simulation performance.",
-          label: "Get Reports",
-          href: "#",
-          svgType: "resources"
-        }
-      },
-      {
-        id: "community_hub",
-        label: "Community",
-        icon: FiCalendar,
-        headline: "Stay up to date with the latest platform updates and security insights.",
-        cells: [
-          { name: "Platform Updates", desc: "See the latest features added to the Innvikta training suite.", href: "/platform-updates" },
-          { name: "Weekly Newsletter", desc: "Security tips and campaign ideas delivered directly to your inbox.", href: "#" }
-        ],
-        cta: {
-          title: "Join our next live webinar",
-          desc: "Register to watch expert panels dissect active social engineering vectors live.",
-          label: "Register Now",
-          href: "#",
+          href: "/blog",
           svgType: "resources"
         }
       }
@@ -865,7 +1170,7 @@ const Header = () => {
   const [activeMegaMenu, setActiveMegaMenu] = useState(null);
   const [activeTabs, setActiveTabs] = useState({
     solutions: "insat",
-    resources: "learning_center",
+    resources: "knowledge_hub",
     freetools: "assessments",
     arcade: "arcade_exp",
     partners: "partner_prog",
@@ -1010,6 +1315,7 @@ const Header = () => {
       
       <header
         className={`header flex flex-col ${sticky ? "header-sticky" : ""}`}
+        style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 99999 }}
         ref={headerRef}
         onMouseLeave={handleMenuLeave}
       >
@@ -1072,7 +1378,7 @@ const Header = () => {
         {/* =========================================================
             LAYER 2: MAIN NAVIGATION BAR (Logo, Navigation & CTA Buttons)
             ========================================================= */}
-        <div className="w-full transition-all duration-300 bg-transparent border-b border-slate-100 h-[80px] relative z-40">
+        <div className="w-full transition-all duration-300 bg-transparent border-b border-slate-200/10 h-[80px] relative z-40">
           {/* Search Overlay Container */}
           <AnimatePresence>
             {isSearchOpen && (
@@ -1253,17 +1559,17 @@ const Header = () => {
           <AnimatePresence>
             {activeMegaMenu && (
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
-                className="absolute left-0 right-0 top-[80px] w-full mega-menu-flyout border-t border-slate-100 shadow-[0_30px_50px_-10px_rgba(0,0,0,0.08)] z-50 pointer-events-auto max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar"
+                className="absolute left-0 right-0 top-[80px] w-full mega-menu-flyout border-t border-white/10 shadow-[0_30px_50px_-10px_rgba(0,0,0,0.08)] z-[99999] pointer-events-auto max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar"
                 onMouseEnter={() => handleMenuHover(activeMegaMenu)}
                 onMouseLeave={handleMenuLeave}
               >
                 <div className="container-xl mx-auto flex min-h-[380px] lg:min-h-[420px] xl:min-h-[460px]">
                   {/* 1. LEFT TAB RAIL (Persistent skeleton anchor) */}
-                  <div className="w-[240px] xl:w-[280px] 2xl:w-[320px] bg-slate-50/40 border-r border-slate-100 pt-4 pb-8 xl:pt-6 xl:pb-12 px-2 xl:px-4 flex flex-col gap-2 shrink-0">
+                  <div className="w-[240px] xl:w-[280px] 2xl:w-[320px] bg-slate-50/10 border-r border-slate-200/10 pt-4 pb-8 xl:pt-6 xl:pb-12 px-2 xl:px-4 flex flex-col gap-2 shrink-0">
                     {menuData[activeMegaMenu].tabs.map((tab) => {
                       const isActive = activeTabs[activeMegaMenu] === tab.id;
                       const isPlaceholder = !tab.href || tab.href === "#";
@@ -1314,16 +1620,16 @@ const Header = () => {
                       <AnimatePresence mode="wait">
                         <motion.div
                           key={currentTabId}
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
                           transition={{ duration: 0.15, ease: "easeOut" }}
                           className="flex flex-1 w-full"
                         >
                           {/* 2. CENTER WORKSPACE (Strict 2x2 grid, visually populated) */}
                           <div className="flex-1 pt-4 pb-8 xl:pt-6 xl:pb-12 px-4 xl:px-12 flex flex-col justify-start">
                              {currentTab.headline && (
-                               <div className={`mb-6 max-w-4xl border-b border-slate-100 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
+                               <div className={`mb-6 max-w-4xl border-b border-slate-200/10 pb-6 ${currentTab.headlineCta ? 'flex flex-col items-start gap-4' : ''}`}>
                                  <h3 className="text-[20px] font-semibold text-slate-800 tracking-tight leading-snug">
                                    {currentTab.headline}
                                  </h3>
@@ -1340,96 +1646,147 @@ const Header = () => {
                              )}
 
                             {/* Strictly 2-column or 3-column layout based on tab config */}
-                            <div className={`grid ${currentTab.layout === 'three-column' ? 'grid-cols-3' : 'grid-cols-2'} lg:gap-x-4 xl:gap-x-10 gap-y-6 items-start content-start w-full mt-1`}>
-                              {currentTab.cells && currentTab.cells.map((cell, idx) => {
-                                const isCellPlaceholder = !cell.href || cell.href === "#";
-                                return (
-                                  <div key={idx} className="group/item flex flex-col justify-start py-0.5">
-                                    {isCellPlaceholder ? (
-                                      <span className="text-[#f15a24] lg:text-[14px] xl:text-[16px] font-bold inline-flex items-center gap-1">
-                                        {cell.name}
-                                      </span>
-                                    ) : (
-                                      <Link 
-                                        href={cell.href}
-                                        onClick={handleMenuLeave}
-                                        className="text-[#f15a24] lg:text-[14px] xl:text-[16px] font-bold inline-flex items-center gap-1 group-hover/item:text-orange-600 transition-colors"
-                                      >
-                                        {cell.name}
-                                        <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
-                                      </Link>
-                                    )}
+                            {currentTab.groups ? (
+                              <div className="grid grid-cols-3 gap-6 lg:gap-x-6 xl:gap-x-10 w-full mt-1">
+                                {currentTab.groups.map((group, gIdx) => (
+                                  <div key={gIdx} className="flex flex-col justify-start">
+                                    <h4 className="text-[13px] font-extrabold text-[#f15a24] uppercase tracking-wider mb-4 pb-2 border-b border-slate-200/40">
+                                      {group.name}
+                                    </h4>
+                                    <div className="space-y-5">
+                                      {group.cells.map((cell, idx) => {
+                                        const isCellPlaceholder = !cell.href || cell.href === "#";
+                                        return (
+                                          <div key={idx} className="group/item flex flex-col justify-start py-0.5">
+                                            {isCellPlaceholder ? (
+                                              <span className="text-[#f15a24] lg:text-[14px] xl:text-[16px] font-bold inline-flex items-center gap-1">
+                                                {cell.name}
+                                              </span>
+                                            ) : (
+                                              <Link 
+                                                href={cell.href}
+                                                onClick={handleMenuLeave}
+                                                className="text-[#f15a24] lg:text-[14px] xl:text-[15px] font-bold inline-flex items-center gap-1 group-hover/item:text-orange-600 transition-colors"
+                                              >
+                                                {cell.name}
+                                                <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
+                                              </Link>
+                                            )}
 
-                                    {cell.desc && (
-                                      isCellPlaceholder ? (
-                                        <p className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1">
-                                          {cell.desc}
-                                        </p>
+                                            {cell.desc && (
+                                              isCellPlaceholder ? (
+                                                <p className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1">
+                                                  {cell.desc}
+                                                </p>
+                                              ) : (
+                                                <Link 
+                                                  href={cell.href}
+                                                  onClick={handleMenuLeave}
+                                                  className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1 group-hover/item:text-slate-950 transition-colors block"
+                                                >
+                                                  {cell.desc}
+                                                </Link>
+                                              )
+                                            )}
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className={`grid ${currentTab.layout === 'three-column' ? 'grid-cols-3' : 'grid-cols-2'} lg:gap-x-4 xl:gap-x-10 gap-y-6 items-start content-start w-full mt-1`}>
+                                {currentTab.cells && currentTab.cells.map((cell, idx) => {
+                                  const isCellPlaceholder = !cell.href || cell.href === "#";
+                                  return (
+                                    <div key={idx} className="group/item flex flex-col justify-start py-0.5">
+                                      {isCellPlaceholder ? (
+                                        <span className="text-[#f15a24] lg:text-[14px] xl:text-[16px] font-bold inline-flex items-center gap-1">
+                                          {cell.name}
+                                        </span>
                                       ) : (
                                         <Link 
                                           href={cell.href}
                                           onClick={handleMenuLeave}
-                                          className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1 group-hover/item:text-slate-950 transition-colors block"
+                                          className="text-[#f15a24] lg:text-[14px] xl:text-[16px] font-bold inline-flex items-center gap-1 group-hover/item:text-orange-600 transition-colors"
                                         >
-                                          {cell.desc}
+                                          {cell.name}
+                                          <FiArrowRight className="text-[11px] opacity-100 translate-x-0.5 group-hover/item:translate-x-1.5 transition-transform text-[#f15a24] group-hover/item:text-orange-600" />
                                         </Link>
-                                      )
-                                    )}
+                                      )}
 
-                                    {/* Chips rendering */}
-                                    {cell.chips && (
-                                      <div className={`flex ${currentTab.id === 'customized_solutions' ? 'flex-wrap' : 'flex-col'} gap-2 mt-3.5 items-start`}>
-                                        {cell.chips.map((chip, i) => {
-                                          const chipClass = `text-[12px] font-bold border rounded-md flex items-center gap-1.5 px-2 py-0.5 ${
-                                            isCellPlaceholder 
-                                              ? 'bg-slate-50 text-slate-500 border-slate-100'
-                                              : chip.isMore 
-                                                ? 'bg-transparent text-slate-400 border-transparent hover:text-[#f15a24] transition-colors' 
-                                                : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-orange-200 hover:text-[#f15a24] hover:bg-orange-50/50 transition-colors'
-                                          }`;
-                                          
-                                          const chipContent = (
-                                            <>
-                                              {chip.icon && <chip.icon className="text-[12px] opacity-60" />}
-                                              {chip.label}
-                                            </>
-                                          );
+                                      {cell.desc && (
+                                        isCellPlaceholder ? (
+                                          <p className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1">
+                                            {cell.desc}
+                                          </p>
+                                        ) : (
+                                          <Link 
+                                            href={cell.href}
+                                            onClick={handleMenuLeave}
+                                            className="text-[12px] xl:text-[13px] text-slate-700 font-semibold leading-normal mt-1 group-hover/item:text-slate-950 transition-colors block"
+                                          >
+                                            {cell.desc}
+                                          </Link>
+                                        )
+                                      )}
 
-                                          if (chip.href) {
-                                            return (
-                                              <Link 
-                                                key={i} 
-                                                href={chip.href}
-                                                onClick={handleMenuLeave}
-                                                className={chipClass}
-                                              >
-                                                {chipContent}
-                                              </Link>
+                                      {/* Chips rendering */}
+                                      {cell.chips && (
+                                        <div className={`flex ${currentTab.id === 'customized_solutions' ? 'flex-wrap gap-x-4 gap-y-1.5' : 'flex-col gap-1.5'} mt-2.5 items-start`}>
+                                          {cell.chips.map((chip, i) => {
+                                            const chipClass = `text-[12px] font-medium flex items-center gap-1.5 transition-colors ${
+                                              isCellPlaceholder 
+                                                ? 'text-slate-400'
+                                                : chip.isMore 
+                                                  ? 'text-slate-400 hover:text-[#f15a24]' 
+                                                  : 'text-slate-500 hover:text-[#f15a24]'
+                                            }`;
+                                            
+                                            const chipContent = (
+                                              <>
+                                                {chip.icon && <chip.icon className="text-[12px] opacity-60" />}
+                                                {chip.label}
+                                              </>
                                             );
-                                          }
 
-                                          return (
-                                            <span key={i} className={chipClass}>
-                                              {chipContent}
-                                            </span>
-                                          );
-                                        })}
-                                      </div>
-                                    )}
-                                  </div>
-                                );
-                              })}
-                            </div>
+                                            if (chip.href) {
+                                              return (
+                                                <Link 
+                                                  key={i} 
+                                                  href={chip.href}
+                                                  onClick={handleMenuLeave}
+                                                  className={chipClass}
+                                                >
+                                                  {chipContent}
+                                                </Link>
+                                              );
+                                            }
+
+                                            return (
+                                              <span key={i} className={chipClass}>
+                                                {chipContent}
+                                              </span>
+                                            );
+                                          })}
+                                        </div>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            )}
 
 
                           </div>
 
                           {/* 3. FEATURED CARD (Integrated conversion card) */}
                           {currentTab.cta && (
-                            <div className="w-[220px] lg:w-[260px] xl:w-[320px] 2xl:w-[360px] pt-4 pb-8 xl:pt-6 xl:pb-12 px-3 xl:px-6 border-l border-slate-100 bg-transparent shrink-0 flex flex-col justify-start">
-                              <div className="bg-slate-50 rounded-2xl p-3 xl:p-5 flex flex-col gap-3 xl:gap-5 shadow-sm border border-slate-100 relative">
+                            <div className="w-[220px] lg:w-[260px] xl:w-[320px] 2xl:w-[360px] pt-4 pb-8 xl:pt-6 xl:pb-12 px-3 xl:px-6 border-l border-slate-200/10 bg-transparent shrink-0 flex flex-col justify-start">
+                              <div className="bg-white/20 rounded-2xl p-3 xl:p-5 flex flex-col gap-3 xl:gap-5 shadow-sm border border-white/20 relative text-slate-700">
                                 <div className="flex flex-col gap-3">
-                                  <div className="w-full bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden mb-2 relative group-hover/card:shadow-md transition-shadow">
+                                  <div className="w-full bg-white/30 rounded-xl border border-white/20 shadow-sm overflow-hidden mb-2 relative group-hover/card:shadow-md transition-shadow">
                                     {currentTab.cta.image && (
                                       <div className="absolute top-3 left-3 bg-[#10b981] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm z-10">
                                         Featured
@@ -1438,12 +1795,12 @@ const Header = () => {
                                     {currentTab.cta.image ? (
                                       <img src={currentTab.cta.image} alt={currentTab.cta.title} className="w-full h-auto object-cover aspect-[4/3] transform hover:scale-105 transition-transform duration-500" />
                                     ) : (
-                                      <div className="p-3">
+                                      <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden">
                                         <RenderSvgIllustration type={currentTab.cta.svgType} />
                                       </div>
                                     )}
                                   </div>
-                                  <h5 className="text-[13px] xl:text-[15px] font-medium text-slate-800 leading-snug">
+                                  <h5 className="text-[13px] xl:text-[15px] font-medium text-slate-900 leading-snug">
                                     {currentTab.cta.title}
                                   </h5>
                                   {/* Description removed to reduce text as requested */}
@@ -1471,7 +1828,7 @@ const Header = () => {
         {/* =========================================================
             MOBILE ACCORDION-BASED MENU (Preserves Information Hierarchy)
             ========================================================= */}
-        <div className={`fixed inset-x-0 top-0 h-screen bg-white z-30 px-6 pt-24 pb-28 overflow-y-auto transition-all duration-500 lg:hidden flex flex-col justify-between ${
+        <div className={`fixed inset-x-0 top-0 h-screen bg-white z-[99999] px-6 pt-24 pb-28 overflow-y-auto transition-all duration-500 lg:hidden flex flex-col justify-between ${
           showMenu ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
         }`}>
           <div className="space-y-3">
@@ -1508,68 +1865,116 @@ const Header = () => {
 
                             <div className={`transition-all duration-300 overflow-hidden pl-4 ${isSubTabOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
                               <ul className="space-y-3 py-1 border-l border-slate-100 pl-3">
-                                {tab.cells && tab.cells.map((cell, idx) => {
-                                  const isCellPlaceholder = !cell.href || cell.href === "#";
-                                  return (
-                                    <li key={idx} className="block py-1">
-                                      {isCellPlaceholder ? (
-                                        <span className="text-slate-700 text-xs font-bold block">
-                                          {cell.name}
-                                        </span>
-                                      ) : (
-                                        <Link 
-                                          href={cell.href} 
-                                          onClick={() => setShowMenu(false)}
-                                          className="text-[#f15a24] hover:text-orange-600 text-xs font-bold inline-flex items-center gap-1 transition-colors"
-                                        >
-                                          {cell.name}
-                                          <FiArrowRight className="text-[10px]" />
-                                        </Link>
-                                      )}
-                                      
-                                      {cell.desc && (
-                                        isCellPlaceholder ? (
-                                          <p className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">
-                                            {cell.desc}
-                                          </p>
-                                        ) : (
-                                          <Link
-                                            href={cell.href}
-                                            onClick={() => setShowMenu(false)}
-                                            className="text-[10px] text-slate-400 font-medium leading-tight block mt-0.5 hover:text-[#f15a24]"
-                                          >
-                                            {cell.desc}
-                                          </Link>
-                                        )
-                                      )}
-
-                                      {cell.chips && (
-                                        <div className="mt-2 flex flex-wrap gap-1.5">
-                                          {cell.chips.map((chip, i) => {
-                                            const chipClass = "text-[10.5px] font-bold border rounded bg-slate-50 text-slate-500 border-slate-100 px-1.5 py-0.5";
-                                            if (chip.href) {
-                                              return (
+                                {tab.groups ? (
+                                  tab.groups.map((group, gIdx) => (
+                                    <div key={gIdx} className="space-y-2 pt-2 first:pt-0">
+                                      <h5 className="text-[11px] font-extrabold text-[#f15a24] uppercase tracking-wider pl-1">
+                                        {group.name}
+                                      </h5>
+                                      <ul className="space-y-3 border-l border-slate-100 pl-3">
+                                        {group.cells.map((cell, idx) => {
+                                          const isCellPlaceholder = !cell.href || cell.href === "#";
+                                          return (
+                                            <li key={idx} className="block py-1">
+                                              {isCellPlaceholder ? (
+                                                <span className="text-slate-700 text-xs font-bold block">
+                                                  {cell.name}
+                                                </span>
+                                              ) : (
                                                 <Link 
-                                                  key={i}
-                                                  href={chip.href}
+                                                  href={cell.href} 
                                                   onClick={() => setShowMenu(false)}
-                                                  className={chipClass}
+                                                  className="text-[#f15a24] hover:text-orange-600 text-xs font-bold inline-flex items-center gap-1 transition-colors"
                                                 >
-                                                  {chip.label}
+                                                  {cell.name}
+                                                  <FiArrowRight className="text-[10px]" />
                                                 </Link>
+                                              )}
+                                              {cell.desc && (
+                                                isCellPlaceholder ? (
+                                                  <p className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">
+                                                    {cell.desc}
+                                                  </p>
+                                                ) : (
+                                                  <Link
+                                                    href={cell.href}
+                                                    onClick={() => setShowMenu(false)}
+                                                    className="text-[10px] text-slate-400 font-medium leading-tight block mt-0.5 hover:text-[#f15a24]"
+                                                  >
+                                                    {cell.desc}
+                                                  </Link>
+                                                )
+                                              )}
+                                            </li>
+                                          );
+                                        })}
+                                      </ul>
+                                    </div>
+                                  ))
+                                ) : (
+                                  tab.cells && tab.cells.map((cell, idx) => {
+                                    const isCellPlaceholder = !cell.href || cell.href === "#";
+                                    return (
+                                      <li key={idx} className="block py-1">
+                                        {isCellPlaceholder ? (
+                                          <span className="text-slate-700 text-xs font-bold block">
+                                            {cell.name}
+                                          </span>
+                                        ) : (
+                                          <Link 
+                                            href={cell.href} 
+                                            onClick={() => setShowMenu(false)}
+                                            className="text-[#f15a24] hover:text-orange-600 text-xs font-bold inline-flex items-center gap-1 transition-colors"
+                                          >
+                                            {cell.name}
+                                            <FiArrowRight className="text-[10px]" />
+                                          </Link>
+                                        )}
+                                        
+                                        {cell.desc && (
+                                          isCellPlaceholder ? (
+                                            <p className="text-[10px] text-slate-400 font-medium leading-tight mt-0.5">
+                                              {cell.desc}
+                                            </p>
+                                          ) : (
+                                            <Link
+                                              href={cell.href}
+                                              onClick={() => setShowMenu(false)}
+                                              className="text-[10px] text-slate-400 font-medium leading-tight block mt-0.5 hover:text-[#f15a24]"
+                                            >
+                                              {cell.desc}
+                                            </Link>
+                                          )
+                                        )}
+
+                                        {cell.chips && (
+                                          <div className="mt-2 flex flex-wrap gap-1.5">
+                                            {cell.chips.map((chip, i) => {
+                                              const chipClass = "text-[10.5px] font-bold border rounded bg-slate-50 text-slate-500 border-slate-100 px-1.5 py-0.5";
+                                              if (chip.href) {
+                                                return (
+                                                  <Link 
+                                                    key={i}
+                                                    href={chip.href}
+                                                    onClick={() => setShowMenu(false)}
+                                                    className={chipClass}
+                                                  >
+                                                    {chip.label}
+                                                  </Link>
+                                                );
+                                              }
+                                              return (
+                                                <span key={i} className={chipClass}>
+                                                  {chip.label}
+                                                </span>
                                               );
-                                            }
-                                            return (
-                                              <span key={i} className={chipClass}>
-                                                {chip.label}
-                                              </span>
-                                            );
-                                          })}
-                                        </div>
-                                      )}
-                                    </li>
-                                  );
-                                })}
+                                            })}
+                                          </div>
+                                        )}
+                                      </li>
+                                    );
+                                  })
+                                )}
                               </ul>
                             </div>
                           </div>
@@ -1615,6 +2020,19 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      {/* Backdrop Film */}
+      <AnimatePresence>
+        {activeMegaMenu && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 top-0 backdrop-film z-[99998] pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

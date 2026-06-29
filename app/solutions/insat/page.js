@@ -257,7 +257,7 @@ const InsatPage = () => {
                         </div>
 
                         <div className="hero-actions-row">
-                            <a className="btn btn-primary btn-cta" href="/contact">
+                            <a className="btn btn-primary btn-cta" href="/book-demo">
                                 <span className="hover-sweep"></span>
                                 <span>Start Free</span>
                                 <div className="arrow-wrapper">
@@ -662,16 +662,15 @@ const InsatPage = () => {
         
         <section className="bg-white">
             <div className="container">
-                <div style={{display: "flex", flexDirection: "column", gap: "4rem"}}>
+                <div className="flex flex-col gap-16">
 
                     
-                    <div className="two-col-grid" style={{alignItems: "start"}}>
-                        <div className="two-col-content-block" style={{maxWidth: "413px"}}>
+                    <div className="two-col-grid items-start">
+                        <div className="two-col-content-block max-w-[413px]">
                             <h2 className="text-40-heading">Everything Needed to Build Everyday Secure Behaviour</h2>
                         </div>
 
-                        <div className="faq-list-col"
-                            style={{maxWidth: "652px", display: "flex", flexDirection: "column", gap: "2rem"}}>
+                        <div className="faq-list-col flex flex-col gap-8 max-w-[652px]">
                             
                             <div className="info-row">
                                 <div className="info-icon-box">
@@ -701,7 +700,7 @@ const InsatPage = () => {
                             </div>
 
                             
-                            <div className="info-row" style={{borderBottom: "none", paddingBottom: "0"}}>
+                            <div className="info-row border-b-0 pb-0">
                                 <div className="info-icon-box">
                                     <img alt="Always-On Reporting & Evidence icon" src="/insat/images/Products-2.svg" />
                                 </div>
@@ -714,11 +713,6 @@ const InsatPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    
-                    <div className="info-banner-visual">
-                        <img alt="API Graphic" loading="lazy" src="/insat/images/api-new-static.jpg" />
                     </div>
                 </div>
             </div>

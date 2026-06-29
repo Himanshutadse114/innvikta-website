@@ -5,6 +5,7 @@ import theme from "@config/theme.json";
 import TwSizeIndicator from "@layouts/components/TwSizeIndicator";
 import Footer from "@layouts/partials/Footer";
 import Header from "@layouts/partials/Header";
+import Chatbot from "@layouts/partials/Chatbot";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../styles/style.scss";
@@ -17,6 +18,28 @@ export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning={true} lang="en">
       <head>
+        {/* Google Tag Manager / Analytics */}
+        {config.params.tag_manager_id && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.params.tag_manager_id}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${config.params.tag_manager_id}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
+
         {/* responsive meta */}
         <meta
           name="viewport"
@@ -67,6 +90,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );

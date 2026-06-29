@@ -1,0 +1,28 @@
+# Innvikta
+
+> Innvikta is an AI-powered security awareness training platform and human risk intelligence system designed to reduce human cyber risk in enterprises.
+
+## Primary Products & Solutions
+
+- **InSAT (Security Awareness Training)**: Adaptive learning paths tailored to each employee's role, department, and risk level.
+- **Phishing Simulation**: Automated phishing tests mimicking real-world threats with extensive threat templates.
+- **Human Risk Intelligence**: Machine learning risk scoring and tracking dashboard for security teams.
+- **Compliance Training**: Mapped modules to ISO 27001, SOC 2, HIPAA, GDPR, and other key standards.
+- **Innvikta Arcade**: Gamified cybersecurity learning modules and interactive challenge simulators.
+- **Baseline Score Tool**: Quick assessments to measure baseline organizational threat awareness.
+
+## Key Resources & Pages
+
+- [InSAT Security Awareness](https://website-innvikta.vercel.app/solutions/insat)
+- [Phishing Simulations](https://website-innvikta.vercel.app/solutions/phishing-simulation)
+- [Human Risk Intelligence](https://website-innvikta.vercel.app/solutions/human-risk-intelligence)
+- [Compliance Training](https://website-innvikta.vercel.app/solutions/compliance-training)
+- [Innvikta Arcade](https://website-innvikta.vercel.app/cyber-arcade)
+- [Partners page](https://website-innvikta.vercel.app/partners)
+- [Free Tools](https://website-innvikta.vercel.app/freetools/spot-the-phish)
+
+## Contact Information
+
+- Email: sales@innvikta.com
+- Phone: +887887998
+- Address: 2118 Thornridge Cir. Syracuse, Connecticut 35624

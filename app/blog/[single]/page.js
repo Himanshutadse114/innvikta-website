@@ -19,6 +19,7 @@ const Article = async ({ params }) => {
         frontmatter={frontmatter}
         content={content}
         recentPosts={recentPosts}
+        slug={single}
       />
     </GSAPWrapper>
   );

@@ -33,7 +33,7 @@ const Footer = () => {
     ],
     company: [
       { name: "About Us", url: "/about" },
-      { name: "Contact Sales", url: "/contact" },
+      { name: "Contact Sales", url: "/book-demo" },
       { name: "Partners", url: "/partners" },
       { name: "Careers", url: "#" }
     ]
@@ -145,22 +145,20 @@ const Footer = () => {
  
         {/* Bottom bar */}
         <div className="py-10 border-t border-border">
-          <div className="row items-center text-sm text-slate-500 font-medium">
-            <div className="col-12 md:col-4 text-left mb-6 md:mb-0 uppercase tracking-tight">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-sm text-slate-500 font-medium">
+            <div className="uppercase tracking-tight">
               © 2026 Innvikta Technologies Pvt. Ltd.
             </div>
-            <div className="col-12 md:col-4 text-left mb-6 md:mb-0">
-              <div className="flex justify-start gap-2 md:gap-4 flex-wrap">
-                <Link href="/terms-policy" className="hover:text-primary">Privacy</Link>
-                <span className="text-slate-200">•</span>
-                <Link href="/terms-policy" className="hover:text-primary">Terms</Link>
-                <span className="text-slate-200">•</span>
-                <Link href="#" className="hover:text-primary">Cookies</Link>
-                <span className="text-slate-200">•</span>
-                <Link href="#" className="hover:text-primary">Responsible Disclosure</Link>
-              </div>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <Link href="/terms-policy" className="hover:text-primary">Privacy</Link>
+              <span className="text-slate-200">•</span>
+              <Link href="/terms-policy" className="hover:text-primary">Terms</Link>
+              <span className="text-slate-200">•</span>
+              <Link href="#" className="hover:text-primary">Cookies</Link>
+              <span className="text-slate-200">•</span>
+              <Link href="#" className="hover:text-primary">Responsible Disclosure</Link>
             </div>
-            <div className="col-12 md:col-4 text-left md:text-right">
+            <div className="text-left md:text-right">
               <span className="font-bold text-dark text-base">Made to reduce human risk.</span>
             </div>
           </div>

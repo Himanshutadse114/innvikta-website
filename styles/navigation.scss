@@ -14,16 +14,17 @@
   left: 0;
   width: 100%;
   top: 0;
-  z-index: 50;
+  z-index: 999;
   background-color: rgba(255, 255, 255, 0.45) !important;
   backdrop-filter: blur(30px) !important;
   -webkit-backdrop-filter: blur(30px) !important;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(254, 96, 25, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.01);
 }
 
 .header-sticky {
+  background-color: rgba(255, 255, 255, 0.75) !important;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
 }
 
@@ -130,6 +131,21 @@
   }
 }
 
+// Glassmorphic mega menu flyout (matches header perfectly)
 .mega-menu-flyout {
-  background-color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 99999;
 }
+
+// Glassmorphic backdrop film matching navbar color and blur exactly
+.backdrop-film {
+  background-color: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(30px) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  z-index: 99998;
+}
+
+

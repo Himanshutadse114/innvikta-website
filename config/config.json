@@ -16,7 +16,7 @@
   },
 
   "params": {
-    "tag_manager_id": "",
+    "tag_manager_id": "G-E2EV3X3DIN",
     "contact_form_action": "#",
     "footer_content": "Innvikta helps enterprises build safer employee behaviour through phishing simulations, gamified learning, AI-powered training journeys, and human risk visibility.",
     "copyright": "Designed & Developed By [Innvikta](https://innvikta.com)"
@@ -24,7 +24,7 @@
 
   "contact_info": {
     "phone": "+887887998",
-    "email": "info@innvikta.io",
+    "email": "sales@innvikta.com",
     "location": "2118 Thornridge Cir. Syracuse, Connecticut 35624"
   },
 
@@ -37,7 +37,7 @@
   "metadata": {
     "meta_author": "Innvikta",
     "meta_image": "/images/linkedin_poster.png",
-    "meta_description": "Innvikta - AI-Powered Security Awareness Training & Human Risk Intelligence"
+    "meta_description": "Innvikta helps enterprises reduce human cyber risk with AI-powered security awareness training, automated phishing simulations, and compliance tracking."
   },
 
   "call_to_action": {
@@ -46,16 +46,16 @@
     "content": "Join 500,000+ employees training with Innvikta to reduce human risk, improve phishing resilience, and strengthen enterprise security.",
     "button": {
       "label": "Book a Demo",
-      "link": "#"
+      "link": "/book-demo"
     },
     "button_secondary": {
       "label": "Start Free",
-      "link": "#"
+      "link": "/start-free"
     }
   },
 
   "disqus": {
-    "enable": true,
+    "enable": false,
     "shortname": "themefisher-template",
     "settings": {}
   }

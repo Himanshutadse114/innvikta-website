@@ -854,7 +854,7 @@ export default function DomainSecurityAnalyzer() {
             <div className="container faq-grid">
               <div className="faq-title-col animate from-left">
                 <h2 className="text-40-heading">Frequently Asked Questions</h2>
-                <a className="arrow-link" href="/contact" style={{ marginTop: "1.25rem" }}>
+                <a className="arrow-link" href="/book-demo" style={{ marginTop: "1.25rem" }}>
                   <div className="arrow-circle">
                     <span className="arrow-circle-bg"></span>
                     <svg width="6" height="8" viewBox="0 0 6 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -918,7 +918,7 @@ export default function DomainSecurityAnalyzer() {
                     <Link href="/book-demo" className="btn btn-primary">
                       Book A Demo
                     </Link>
-                    <Link href="/contact" className="btn btn-outline-primary">
+                    <Link href="/book-demo" className="btn btn-outline-primary">
                       Start Free
                     </Link>
                   </div>

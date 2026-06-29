@@ -463,12 +463,12 @@ const HomeBanner = ({ banner: bannerData, brands }) => {
             >
               {brands.map((brand, index) => (
                 <SwiperSlide
-                  className="h-24 cursor-pointer px-2 py-2 lg:px-4"
+                  className="h-20 md:h-24 cursor-pointer px-1 py-1 lg:px-4"
                   key={"brand-" + index}
                 >
-                  <div className="relative h-full w-full flex items-center justify-center bg-white/50 rounded-lg">
+                  <div className="relative h-16 md:h-20 w-full flex items-center justify-center bg-white/50 rounded-lg">
                     <ImageFallback
-                      className="object-contain p-2"
+                      className="object-contain p-0.5 md:p-2"
                       src={brand}
                       sizes="200px"
                       alt=""

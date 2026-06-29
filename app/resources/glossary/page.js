@@ -808,7 +808,7 @@ export default function GlossaryPage() {
                               <Link href="/book-demo" className="btn btn-primary text-white font-bold">
                                   Book A Demo
                               </Link>
-                              <Link href="/contact" className="btn btn-outline-primary font-bold">
+                              <Link href="/book-demo" className="btn btn-outline-primary font-bold">
                                   Start Free
                               </Link>
                           </div>

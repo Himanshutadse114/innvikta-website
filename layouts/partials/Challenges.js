@@ -8,7 +8,7 @@ const Challenges = ({ challenges }) => {
     <section className="section bg-body py-24 border-b border-border">
       <div className="container">
         <div className="row items-center">
-          <div className="col-12 lg:col-5 mb-16 lg:mb-0 px-6 md:px-12 lg:px-16">
+          <div className="col-12 xl:col-5 mb-16 xl:mb-0 px-4 sm:px-6 md:px-8 xl:px-12">
             {markdownify(challenges.title, "h2", "mb-8 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight")}
             {challenges.stats_summary && (
               <div className="text-lg md:text-xl leading-relaxed font-medium mb-4">
@@ -36,10 +36,10 @@ const Challenges = ({ challenges }) => {
               }
             `}</style>
           </div>
-          <div className="col-12 lg:col-7 px-6 md:px-12 lg:px-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="col-12 xl:col-7 px-4 sm:px-6 md:px-8 xl:px-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {challenges.cards?.map((card, index) => (
-                <div key={index} className="group h-[450px] [perspective:1000px]">
+                <div key={index} className="group h-[380px] sm:h-[400px] md:h-[450px] xl:h-[450px] [perspective:1000px]">
                   <div className="relative h-full w-full rounded-2xl transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] cursor-pointer">
                     {/* Front */}
                     <div className="absolute inset-0 h-full w-full rounded-2xl bg-[#FFFBF7] border border-orange-100 p-6 flex flex-col [backface-visibility:hidden] shadow-sm overflow-hidden text-center justify-between">

@@ -2,8 +2,62 @@
 
 import { markdownify } from "@lib/utils/textConverter";
 import Link from "next/link";
-import { useState } from "react";
-import { FiCheck, FiArrowRight } from "react-icons/fi";
+import { useState, useRef, useEffect } from "react";
+import { FiCheck, FiArrowRight, FiChevronDown } from "react-icons/fi";
+
+function CustomDropdown({ label, value, placeholder, options, onChange, error }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className={`relative text-left w-full ${isOpen ? "z-50" : "z-10"}`} ref={dropdownRef}>
+      <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wide">{label}</label>
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full flex items-center justify-between px-5 py-3.5 bg-slate-50 border ${error ? "border-red-300 ring-4 ring-red-50" : "border-slate-100"} rounded-xl text-dark focus:outline-none focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all font-medium text-left cursor-pointer`}
+        >
+          <span className={value ? "text-dark" : "text-slate-400"}>{value || placeholder}</span>
+          <FiChevronDown className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        </button>
+
+        {isOpen && (
+          <div 
+            className="absolute left-0 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-60 overflow-y-auto no-scrollbar"
+            style={{ top: "100%", padding: "6px" }}
+          >
+            {options.map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => {
+                  onChange(opt);
+                  setIsOpen(false);
+                }}
+                className={`w-full text-left hover:bg-slate-50 transition-colors text-sm cursor-pointer rounded-lg ${opt === value ? 'bg-orange-50 text-primary font-semibold' : 'text-slate-700'}`}
+                style={{ paddingLeft: "1.25rem", paddingRight: "1.25rem", paddingTop: "0.625rem", paddingBottom: "0.625rem" }}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+      {error && <p className="mt-1.5 text-[10px] font-bold text-red-500 uppercase tracking-wide">{error}</p>}
+    </div>
+  );
+}
 
 const FreeTierCta = ({ data }) => {
   const { label, title, description, features, form: formData } = data;
@@ -61,6 +115,28 @@ const FreeTierCta = ({ data }) => {
       }, 1000);
     }
   };
+
+  const designations = [
+    "Director / VP",
+    "CISO / CSO / CIO",
+    "Manager / Lead",
+    "Engineer / Specialist",
+    "HR / Compliance Officer",
+    "Consultant / Advisor",
+    "Other / Executive"
+  ];
+
+  const teamSizes = [
+    "1–10",
+    "11–25",
+    "26–50",
+    "51–100",
+    "100–200",
+    "200–500",
+    "500–1000",
+    "1000–2000",
+    "2000+"
+  ];
 
   return (
     <section className="section relative overflow-hidden bg-[#fafafa]">
@@ -134,24 +210,14 @@ const FreeTierCta = ({ data }) => {
                   {errors.fullName && <p className="mt-1.5 text-[10px] font-bold text-red-500 uppercase tracking-wide">{errors.fullName}</p>}
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wide">Designation</label>
-                  <select 
-                    value={form.designation}
-                    onChange={(e) => setForm({...form, designation: e.target.value})}
-                    className={`w-full px-5 py-3.5 bg-slate-50 border ${errors.designation ? "border-red-300 ring-4 ring-red-50" : "border-slate-100"} rounded-xl text-dark focus:outline-none focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all appearance-none cursor-pointer`}
-                  >
-                    <option value="">Select designation</option>
-                    <option>Director / VP</option>
-                    <option>CISO / CSO / CIO</option>
-                    <option>Manager / Lead</option>
-                    <option>Engineer / Specialist</option>
-                    <option>HR / Compliance Officer</option>
-                    <option>Consultant / Advisor</option>
-                    <option>Other / Executive</option>
-                  </select>
-                  {errors.designation && <p className="mt-1.5 text-[10px] font-bold text-red-500 uppercase tracking-wide">{errors.designation}</p>}
-                </div>
+                <CustomDropdown
+                  label="Designation"
+                  value={form.designation}
+                  placeholder="Select designation"
+                  options={designations}
+                  onChange={(val) => setForm({...form, designation: val})}
+                  error={errors.designation}
+                />
                 
                 <div>
                   <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wide">Work Email</label>
@@ -189,55 +255,37 @@ const FreeTierCta = ({ data }) => {
                     />
                     {errors.company && <p className="mt-1.5 text-[10px] font-bold text-red-500 uppercase tracking-wide">{errors.company}</p>}
                   </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 tracking-wide">Team Size</label>
-                    <select 
-                      value={form.teamSize}
-                      onChange={(e) => setForm({...form, teamSize: e.target.value})}
-                      className={`w-full px-5 py-3.5 bg-slate-50 border ${errors.teamSize ? "border-red-300 ring-4 ring-red-50" : "border-slate-100"} rounded-xl text-dark focus:outline-none focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all appearance-none cursor-pointer`}
-                    >
-                      <option value="">Select size</option>
-                      <option>1–10</option>
-                      <option>11–25</option>
-                      <option>26–50</option>
-                      <option>51–100</option>
-                      <option>100–200</option>
-                      <option>200–500</option>
-                      <option>500–1000</option>
-                      <option>1000–2000</option>
-                      <option>2000+</option>
-                    </select>
-                    {errors.teamSize && <p className="mt-1.5 text-[10px] font-bold text-red-500 uppercase tracking-wide">{errors.teamSize}</p>}
-                  </div>
+                  <CustomDropdown
+                    label="Team Size"
+                    value={form.teamSize}
+                    placeholder="Select size"
+                    options={teamSizes}
+                    onChange={(val) => setForm({...form, teamSize: val})}
+                    error={errors.teamSize}
+                  />
                 </div>
                 
                 <div className="pt-2 flex justify-start">
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="group relative px-10 py-3.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/40 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0"
+                    className="group relative px-10 py-3.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/40 overflow-hidden transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 cursor-pointer"
                   >
                     <div className="relative z-10 flex items-center gap-2">
-                      <span className="uppercase tracking-wider text-sm">
-                        {isSubmitting ? "Submitting..." : "Submit"}
-                      </span>
-                      {!isSubmitting && (
-                        <FiArrowRight className="text-lg transition-transform group-hover:translate-x-1" />
-                      )}
+                      <span>{formData.button_label}</span>
+                      <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
                     </div>
-                    <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
                   </button>
                 </div>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-slate-100 text-center">
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+              <div className="mt-6 pt-6 border-t border-slate-100 text-center">
+                <p className="text-[10px] text-slate-400 font-semibold mb-3">
                   {formData.micro_trust}
                 </p>
-                <div className="mt-4 flex justify-center gap-3">
-                   <div className="px-2 py-1 bg-slate-50 border border-slate-100 rounded text-[9px] font-bold text-slate-400 uppercase tracking-tighter">SOC2 Ready</div>
-                   <div className="px-2 py-1 bg-slate-50 border border-slate-100 rounded text-[9px] font-bold text-slate-400 uppercase tracking-tighter">GDPR Friendly</div>
-                </div>
+                <p className="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">
+                  {formData.trust_row}
+                </p>
               </div>
             </div>
           </div>
