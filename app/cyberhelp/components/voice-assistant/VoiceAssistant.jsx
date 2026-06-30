@@ -230,7 +230,8 @@ export default function VoiceAssistant() {
                 transcript: currentTranscript
             };
 
-            const resObj = await fetch('server/api/save_voice_session.php', {
+            const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://localhost/Innvikta-Website/Cyberhelp_Innvikta/server";
+            const resObj = await fetch(`${backendUrl}/api/save_voice_session.php`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
