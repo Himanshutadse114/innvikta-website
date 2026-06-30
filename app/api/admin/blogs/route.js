@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://localhost/Innvikta-Website/Cyberhelp_Innvikta/server";
+    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://vps.innvikta.com/Cyberhelp_Innvikta/server";
     const res = await fetch(`${backendUrl}/blog_api.php`);
     
     if (!res.ok) throw new Error("Failed to fetch blogs from database");
@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
-    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://localhost/Innvikta-Website/Cyberhelp_Innvikta/server";
+    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://vps.innvikta.com/Cyberhelp_Innvikta/server";
     
     const res = await fetch(`${backendUrl}/blog_api.php`, {
       method: "POST",
@@ -42,7 +42,7 @@ export async function DELETE(request) {
       return NextResponse.json({ error: "Filename is required" }, { status: 400 });
     }
 
-    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://localhost/Innvikta-Website/Cyberhelp_Innvikta/server";
+    const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://vps.innvikta.com/Cyberhelp_Innvikta/server";
     
     const res = await fetch(`${backendUrl}/blog_api.php?filename=${filename}`, {
       method: "DELETE"
