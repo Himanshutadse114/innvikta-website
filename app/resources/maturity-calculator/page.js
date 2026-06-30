@@ -637,8 +637,7 @@ export default function MaturityCalculator() {
             </div>
           </section>
 
-          {/* START FREE CTA SECTION */}
-          <FreeTierCta data={CTA_DATA} />
+
 
         </div>
       </div>
