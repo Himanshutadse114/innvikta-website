@@ -1158,9 +1158,12 @@ body {
     display: flex;
     white-space: nowrap;
     width: max-content;
-    animation: marquee 300s linear infinite;
+    animation: marquee 1200s linear infinite;
     padding-left: 0; /* Symmetrical start for seamless loop */
     will-change: transform; /* Performance boost for smooth scroll */
+}
+.ticker-content:hover {
+    animation-play-state: paused;
 }
 
 .ticker-item {
