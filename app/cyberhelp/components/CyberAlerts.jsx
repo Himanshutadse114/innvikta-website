@@ -206,8 +206,9 @@ export default function CyberAlerts() {
         setIsLoading(true);
         setError(null);
         try {
-            // First attempt: fetch from local PHP API (using relative path)
-            const response = await fetch('server/api/get_news.php');
+            // First attempt: fetch from local PHP API using absolute URL
+            const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "http://localhost/Innvikta-Website/Cyberhelp_Innvikta/server";
+            const response = await fetch(`${backendUrl}/api/get_news.php`);
             if (response.ok) {
                 const data = await response.json();
                 const mappedAlerts = data.map(item => ({
