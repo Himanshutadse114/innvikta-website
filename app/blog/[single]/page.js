@@ -15,7 +15,7 @@ const Article = async ({ params }) => {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center">
         <h1 className="text-4xl font-bold text-slate-800">Post Not Found</h1>
-        <p className="text-slate-500 mt-4">The post "{single}" could not be found or you need to run build again.</p>
+        <p className="text-slate-500 mt-4">The post &quot;{single}&quot; could not be found or you need to run build again.</p>
         <pre className="mt-8 text-left bg-slate-100 p-4 rounded-xl text-xs overflow-auto max-w-2xl text-slate-700">
           {JSON.stringify(posts, null, 2)}
         </pre>
