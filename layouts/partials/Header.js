@@ -1181,30 +1181,9 @@ const Header = () => {
   const [mobileActiveMenu, setMobileActiveMenu] = useState(null);
   const [mobileActiveSubTab, setMobileActiveSubTab] = useState(null);
 
-  // Exit Intent Popup state
-  const [showExitPopup, setShowExitPopup] = useState(false);
-
-  useEffect(() => {
-    // Prevent showing popup in admin or specific utility sections
-    if (pathname && (pathname.startsWith("/admin") || pathname.startsWith("/cyberhelp/admin"))) return;
-
-    const hasSeen = sessionStorage.getItem("hasSeenExitPopup");
-    if (hasSeen) return;
-
-    const handleMouseLeave = (e) => {
-      // clientY < 15 detects mouse exiting the top of the viewport
-      if (e.clientY < 15) {
-        setShowExitPopup(true);
-        sessionStorage.setItem("hasSeenExitPopup", "true");
-        document.removeEventListener("mouseleave", handleMouseLeave);
-      }
-    };
-
-    document.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, [pathname]);
+  // Language top strip state
+  const [langOpen, setLangOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState("English (US)");
 
   // Initialize global Google Translate
   useEffect(() => {
@@ -2053,99 +2032,6 @@ const Header = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 top-0 backdrop-film z-[99998] pointer-events-none"
           />
-        )}
-      </AnimatePresence>
-
-      {/* Cybersecurity Awareness Month Exit-Intent Popup */}
-      <AnimatePresence>
-        {showExitPopup && (
-          <div
-            className="fixed inset-0 flex items-center justify-center p-4"
-            style={{ 
-              zIndex: 100002, 
-              backgroundColor: "rgba(15, 23, 42, 0.6)", 
-              backdropFilter: "blur(4px)" 
-            }}
-            onClick={() => setShowExitPopup(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.92, y: 15, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.92, y: 15, opacity: 0 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="bg-white rounded-3xl overflow-hidden max-w-[620px] w-full shadow-2xl relative border border-slate-100 flex flex-col md:flex-row"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setShowExitPopup(false)}
-                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-50 transition-colors cursor-pointer z-50 focus:outline-none"
-                aria-label="Close modal"
-              >
-                <CgClose className="text-lg" />
-              </button>
-
-              {/* Left Side: Visual Banner */}
-              <div 
-                className="md:w-2/5 p-6 flex flex-col justify-between text-white relative overflow-hidden shrink-0"
-                style={{ 
-                  background: "linear-gradient(135deg, #1e293b, #0f172a)",
-                  minHeight: "180px"
-                }}
-              >
-                {/* Thin grid decoration */}
-                <div className="absolute inset-0 opacity-5 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-                
-                <div className="relative z-10">
-                  <span className="bg-[#f15a24] text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded inline-block mb-3">
-                    OCTOBER SPECIAL
-                  </span>
-                  <h4 className="text-[16px] font-bold leading-tight">
-                    Cybersecurity Awareness Month
-                  </h4>
-                </div>
-
-                {/* Glowing Shield Vector */}
-                <div className="relative z-10 flex justify-center py-3">
-                  <svg width="60" height="70" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M60 7 L108 26 L108 68 Q108 104 60 125 Q12 104 12 68 L12 26 Z" stroke="#F15A24" strokeWidth="3" fill="rgba(241,90,36,0.1)" />
-                    <path d="M60 20 L96 36 L96 66 Q96 90 60 108 Q24 90 24 66 L24 36 Z" stroke="#F15A24" strokeWidth="1.5" fill="none" opacity="0.4" />
-                    <path d="M42 66 L54 78 L78 50" stroke="#F15A24" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-                
-                <span className="relative z-10 text-[9px] text-slate-400 font-semibold uppercase tracking-wider">
-                  Innvikta Cyber Security
-                </span>
-              </div>
-
-              {/* Right Side: Content Box */}
-              <div className="md:w-3/5 p-6 flex flex-col justify-center text-left">
-                <h3 className="text-[17px] font-extrabold text-slate-900 leading-snug mb-2">
-                  Is Your Workforce Prepared for Next-Gen Attacks?
-                </h3>
-                <p className="text-[11.5px] text-slate-500 font-semibold leading-relaxed mb-5">
-                  Secure your organization with our free tools, phishing simulators, and interactive cyber-arcade modules built for active learning.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <Link
-                    href="/start-free"
-                    onClick={() => setShowExitPopup(false)}
-                    className="px-4 py-2.5 bg-[#f15a24] hover:bg-orange-600 text-white font-bold rounded-lg text-center text-xs transition-colors flex-1"
-                  >
-                    Get Free Toolkit
-                  </Link>
-                  <button
-                    onClick={() => setShowExitPopup(false)}
-                    className="px-4 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold rounded-lg text-center text-xs transition-colors border border-slate-200 cursor-pointer focus:outline-none"
-                  >
-                    Maybe Later
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
         )}
       </AnimatePresence>
     </>
