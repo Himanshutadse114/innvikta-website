@@ -43,7 +43,7 @@ const RegularPages = async ({ params }) => {
 export default RegularPages;
 
 export async function generateStaticParams() {
-  const slugs = getSinglePage("content");
+  const slugs = await getSinglePage("content");
   return slugs.map((item) => ({
     regular: item.slug,
   }));
