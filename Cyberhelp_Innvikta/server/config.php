@@ -30,7 +30,7 @@ define('MAIL_TO',         'samruddhi.bhiwgade@innvikta.com');
 
 // Start output buffering immediately so stray PHP output never corrupts JSON
 if (!ob_get_level()) ob_start();
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // ── Get PDO connection ────────────────────────────────────────────────────

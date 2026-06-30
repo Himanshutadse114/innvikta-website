@@ -25,7 +25,10 @@ export async function POST(request) {
       body: JSON.stringify(data)
     });
 
-    if (!res.ok) throw new Error("Failed to save blog to database");
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`PHP Error: ${res.status} - ${errText}`);
+    }
     
     const responseData = await res.json();
     return NextResponse.json(responseData);
