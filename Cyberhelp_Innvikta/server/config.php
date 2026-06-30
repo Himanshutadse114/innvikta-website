@@ -1,9 +1,23 @@
 <?php
+// Load .env variables
+$envPath = __DIR__ . '/../../.env';
+$envVars = [];
+if (file_exists($envPath)) {
+    $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos(trim($line), '#') === 0) continue;
+        if (strpos($line, '=') !== false) {
+            list($name, $value) = explode('=', $line, 2);
+            $envVars[trim($name)] = trim($value);
+        }
+    }
+}
+
 // ── Database Configuration ────────────────────────────────────────────────
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'Helpline');
-define('DB_USER', 'platform1');
-define('DB_PASS', 'Himanshu@1272');
+define('DB_HOST', $envVars['DB_HOST'] ?? '127.0.0.1');
+define('DB_NAME', $envVars['DB_NAME'] ?? 'Helpline');
+define('DB_USER', $envVars['DB_USER'] ?? 'platform1');
+define('DB_PASS', $envVars['DB_PASS'] ?? 'Himanshu@1272');
 
 // ── Mail Configuration ────────────────────────────────────────────────────
 define('MAIL_HOST',       'mail.innvikta.com');

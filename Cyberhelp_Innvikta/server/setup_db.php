@@ -154,6 +154,22 @@ CREATE TABLE IF NOT EXISTS cyber_news (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ");
 
+$db->exec("
+CREATE TABLE IF NOT EXISTS blogs (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    filename VARCHAR(255) NOT NULL UNIQUE,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
+    categories JSON,
+    author_name VARCHAR(100),
+    image VARCHAR(255),
+    draft TINYINT(1) DEFAULT 0,
+    meta_description TEXT,
+    published_at DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
+
 echo "All tables created.\n\n";
 
 // ─────────────────────────────────────────────────────────────────────────────
