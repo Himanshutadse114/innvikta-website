@@ -46,19 +46,19 @@ if ($method === 'POST') {
     $title = $data['title'];
     $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $title));
     $slug = trim($slug, '-');
-    $filename = $data['filename'] ?? ($slug . '.md');
+    $filename = !empty($data['filename']) ? $data['filename'] : ($slug . '.md');
 
-    $categories = $data['categories'] ?? ['Security'];
+    $categories = !empty($data['categories']) ? $data['categories'] : ['Security'];
     if (!is_array($categories)) {
         $categories = [$categories];
     }
 
-    $authorName = $data['authorName'] ?? 'Admin';
-    $image = $data['image'] ?? '/images/blog/01.jpg';
+    $authorName = !empty($data['authorName']) ? $data['authorName'] : 'Admin';
+    $image = !empty($data['image']) ? $data['image'] : '/images/blog/01.jpg';
     $draft = isset($data['draft']) ? (int)$data['draft'] : 0;
     $metaDescription = $data['metaDescription'] ?? '';
     
-    $date = $data['date'] ?? date('Y-m-d H:i:s');
+    $date = !empty($data['date']) ? $data['date'] : date('Y-m-d H:i:s');
     $publishedAt = date('Y-m-d H:i:s', strtotime($date));
 
     $stmt = $db->prepare("
