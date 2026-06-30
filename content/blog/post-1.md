@@ -1,13 +1,14 @@
 ---
-title: "10 Phishing Trends to Watch in 2026"
-image: "/images/blog/01.jpg"
+title: 10 Phishing Trends to Watch in 2026
+image: /images/blog/01.jpg
 author:
-  name: "Abdullah Al Shifat"
-  avatar: "/images/author/abdullah.jpg"
-date: 2026-06-19T05:00:00Z
+  name: Abdullah Al Shifat
+  avatar: /images/author/derick.jpg
+date: '2026-06-18T23:30:00.000Z'
 draft: false
 categories:
   - Phishing
+metaDescription: ''
 ---
 
 Phishing attacks are becoming increasingly sophisticated. In 2026, attackers are leveraging advanced techniques like AI-driven message personalization, QR code manipulation, and multi-vector campaigns targeting WhatsApp and voice communications. Here is a breakdown of the top trends organizations must prepare for.
