@@ -6,7 +6,7 @@ import {
     AlertTriangle, Shield, CheckCircle2, Download, ExternalLink, RefreshCw
 } from 'lucide-react'
 
-const API_BASE = '/Helpline/server/api'
+const API_BASE = process.env.NEXT_PUBLIC_PHP_BACKEND_URL ? `${process.env.NEXT_PUBLIC_PHP_BACKEND_URL}/api` : "https://innvikta.co.in/Innvikta-Website/Cyberhelp_Innvikta/server/api";
 
 export default function AdminPortal() {
     const [complaints, setComplaints] = useState([])

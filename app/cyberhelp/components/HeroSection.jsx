@@ -10,8 +10,8 @@ export default function HeroSection() {
     useEffect(() => {
         const fetchNews = async () => {
             try {
-                // Using explicit subfolder path for maximum reliability on live server
-                const res = await fetch('/Helpline/server/api/get_news.php?limit=10')
+                const backendUrl = process.env.NEXT_PUBLIC_PHP_BACKEND_URL || "https://innvikta.co.in/Innvikta-Website/Cyberhelp_Innvikta/server";
+                const res = await fetch(`${backendUrl}/api/get_news.php?limit=10`)
                 if (res.ok) {
                     const data = await res.json()
                     // If response is the raw array (which get_news.php does)

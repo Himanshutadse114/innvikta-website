@@ -12,7 +12,7 @@ import {
 import { templates } from '../data/reportTemplates'
 
 // ── API base URL — points to PHP backend ─────────────────────────────────
-const API_BASE = '/Helpline/server/api'
+const API_BASE = process.env.NEXT_PUBLIC_PHP_BACKEND_URL ? `${process.env.NEXT_PUBLIC_PHP_BACKEND_URL}/api` : "https://innvikta.co.in/Innvikta-Website/Cyberhelp_Innvikta/server/api";
 
 // ── All 18 fraud types (populated from API, fallback to static JSON) ──────
 import fraudDataStatic from '../data/fraudTypes.json'
