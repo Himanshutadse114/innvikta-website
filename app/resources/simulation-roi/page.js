@@ -601,7 +601,7 @@ export default function SimulationRoiPage() {
                         </div>
                         <h4 className="text-lg font-bold text-slate-900 mb-2">Projections Ready to Generate</h4>
                         <p className="text-sm text-slate-500 max-w-sm">
-                          Please fill in all organization parameters above and click "Calculate ROI Projections" to generate your board-ready financial report.
+                          Please fill in all organization parameters above and click &quot;Calculate ROI Projections&quot; to generate your board-ready financial report.
                         </p>
                       </div>
                     )}
