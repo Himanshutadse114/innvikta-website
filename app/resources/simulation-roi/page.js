@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { FiInfo, FiChevronDown, FiTrendingDown, FiShield, FiPercent, FiClock, FiActivity, FiBriefcase, FiUsers, FiDollarSign } from "react-icons/fi";
+import { FiInfo, FiChevronDown, FiTrendingDown, FiShield, FiPercent, FiClock, FiActivity, FiBriefcase, FiUsers, FiDollarSign, FiArrowRight } from "react-icons/fi";
 import "../../../styles/insat.scss";
 import FreeTierCta from "@layouts/partials/FreeTierCta";
 
@@ -38,8 +38,22 @@ const CURRENCIES = {
   "GBP": { symbol: "£", label: "GBP (£)" }
 };
 
+const COUNTRIES = [
+  "India",
+  "United States",
+  "United Kingdom",
+  "Canada",
+  "Australia",
+  "Singapore",
+  "United Arab Emirates",
+  "Germany",
+  "France",
+  "Japan",
+  "Other"
+];
+
 // Custom Dropdown Component to guarantee it renders downwards
-function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip, activeTooltip, setActiveTooltip, tooltipKey }) {
+function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip, activeTooltip, setActiveTooltip, tooltipKey, placeholder, disabled }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -54,15 +68,16 @@ function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip
   }, []);
 
   return (
-    <div className={`relative text-left w-full ${isOpen ? "z-50" : "z-10"}`} ref={dropdownRef}>
-      <div className="flex items-center justify-between mb-2 w-full">
-        <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+    <div className={`relative text-left w-full ${isOpen ? "z-50" : "z-10"} ${disabled ? "opacity-60 pointer-events-none" : ""}`} ref={dropdownRef}>
+      <div className="flex items-center justify-between !mb-2 w-full">
+        <div className="text-sm font-bold text-slate-800 flex items-center !gap-1.5">
           <span>{label}</span>
           {tooltip && (
             <button
               type="button"
+              disabled={disabled}
               className="text-slate-400 hover:text-slate-600 focus:outline-none"
-              onMouseEnter={() => setActiveTooltip(tooltipKey)}
+              onMouseEnter={() => !disabled && setActiveTooltip(tooltipKey)}
               onMouseLeave={() => setActiveTooltip(null)}
               aria-label={`${label} Info`}
             >
@@ -70,7 +85,7 @@ function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip
             </button>
           )}
         </div>
-        {activeTooltip === tooltipKey && (
+        {activeTooltip === tooltipKey && !disabled && (
           <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
             {tooltip}
           </div>
@@ -80,15 +95,16 @@ function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip
       <div className="relative">
         <button
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between !px-5 !py-3.5 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-medium text-left cursor-pointer"
-          style={{ backgroundColor: "#f8fafc" }}
+          disabled={disabled}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          className={`w-full flex items-center justify-between !px-5 !py-3.5 border border-slate-100 rounded-xl focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-medium text-left ${disabled ? 'cursor-not-allowed bg-slate-100 text-slate-400' : 'cursor-pointer'} ${!value ? 'text-slate-400' : 'text-slate-800'}`}
+          style={{ backgroundColor: disabled ? "#e2e8f0" : "#f8fafc" }}
         >
-          <span>{optionLabels ? optionLabels[value] : value}</span>
+          <span>{value ? (optionLabels ? optionLabels[value] : value) : placeholder}</span>
           <FiChevronDown className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
-        {isOpen && (
+        {isOpen && !disabled && (
           <div 
             className="absolute left-0 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-60 overflow-y-auto no-scrollbar"
             style={{ top: "100%", padding: "6px" }}
@@ -115,22 +131,26 @@ function CustomDropdown({ label, value, options, optionLabels, onChange, tooltip
 }
 
 export default function SimulationRoiPage() {
-  // Input states matching the Excel model
-  const [companyName, setCompanyName] = useState("Example Manufacturing Ltd");
-  const [industry, setIndustry] = useState("Insurance");
-  const [country, setCountry] = useState("India");
-  const [employees, setEmployees] = useState(5000);
-  const [existingProgram, setExistingProgram] = useState("Mature Continuous Program");
-  const [programCostPerUser, setProgramCostPerUser] = useState(5.0);
-  const [currency, setCurrency] = useState("USD");
+  // Input states matching the Excel model (initially empty to show placeholders)
+  const [companyName, setCompanyName] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [country, setCountry] = useState("");
+  const [employees, setEmployees] = useState("");
+  const [existingProgram, setExistingProgram] = useState("");
+  const [programCostPerUser, setProgramCostPerUser] = useState("");
+  const [currency, setCurrency] = useState("");
 
   // UI state
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
+  const [isCalculating, setIsCalculating] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
+  const [calculationStep, setCalculationStep] = useState(0);
 
   const heroRef = useRef(null);
   const calculatorRef = useRef(null);
   const ctaRef = useRef(null);
+  const summaryRef = useRef(null);
 
   const scrollToCalculator = () => {
     calculatorRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -140,9 +160,45 @@ export default function SimulationRoiPage() {
     ctaRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Reset calculated status when inputs change so they must re-run calculations
+  useEffect(() => {
+    setIsCalculated(false);
+  }, [companyName, industry, country, employees, existingProgram, programCostPerUser, currency]);
+
+  const handleCalculate = () => {
+    if (isCalculating) return;
+    setIsCalculating(true);
+    setCalculationStep(0);
+
+    const steps = [
+      "Loading industry benchmarks...",
+      "Quantifying human cyber risk...",
+      "Generating board-ready report..."
+    ];
+
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      currentStep++;
+      if (currentStep < steps.length) {
+        setCalculationStep(currentStep);
+      } else {
+        clearInterval(interval);
+        setIsCalculating(false);
+        setIsCalculated(true);
+        setTimeout(() => {
+          summaryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+      }
+    }, 450);
+  };
+
   // Lookup benchmark and assumptions values
   const benchmark = BENCHMARKS[industry] || BENCHMARKS["Other"];
   const assumption = ASSUMPTIONS[existingProgram] || ASSUMPTIONS["None"];
+
+  // Handle empty state values for calculation safety
+  const employeesCount = employees === "" ? 0 : Number(employees);
+  const programCostPerUserVal = programCostPerUser === "" ? 0 : Number(programCostPerUser);
 
   // Excel Calculations
   const industryClickRate = benchmark.clickRate;
@@ -157,15 +213,15 @@ export default function SimulationRoiPage() {
   const reportingUplift = assumption.reportUplift;
 
   // Outputs
-  const estimatedPhishingEmailsPerYear = Math.round(employees * emailsPerUserYear);
+  const estimatedPhishingEmailsPerYear = Math.round(employeesCount * emailsPerUserYear);
   const estimatedRiskyClicksPerYear = Math.round(estimatedPhishingEmailsPerYear * industryClickRate);
   const estimatedCredentialSubmissionsPerYear = Math.round(estimatedRiskyClicksPerYear * credentialSubmissionRate);
 
-  const estimatedAnnualHumanRiskExposure = employees * annualRiskCostPerUser;
+  const estimatedAnnualHumanRiskExposure = employeesCount * annualRiskCostPerUser;
   const projectedRiskAfterAwareness = estimatedAnnualHumanRiskExposure * (1 - programEffectiveness);
   const estimatedAnnualRiskReduction = estimatedAnnualHumanRiskExposure - projectedRiskAfterAwareness;
 
-  const annualProgramInvestment = employees * programCostPerUser;
+  const annualProgramInvestment = employeesCount * programCostPerUserVal;
   const projectedRoiMultiple = annualProgramInvestment === 0 ? 0 : (estimatedAnnualRiskReduction / annualProgramInvestment);
   const paybackPeriodMonths = estimatedAnnualRiskReduction === 0 ? 0 : (annualProgramInvestment / estimatedAnnualRiskReduction * 12);
 
@@ -329,184 +385,232 @@ export default function SimulationRoiPage() {
                 {/* INPUTS COLUMN */}
                 <div className="col-12 lg:col-8">
                   <div className="relative w-full bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.06)] rounded-[24px] !p-8 md:!p-10 text-left">
-                    <h3 className="text-xl font-bold text-slate-950 mb-8 border-b border-slate-100 pb-4 text-left">Organization Parameters</h3>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left">
-                      
-                      {/* Company Name */}
-                      <div className="relative text-left">
-                        <div className="flex items-center justify-between mb-2 w-full">
-                          <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                            <label htmlFor="company-name-input">Company Name</label>
-                            <button
-                              type="button"
-                              className="text-slate-400 hover:text-slate-600 focus:outline-none"
-                              onMouseEnter={() => setActiveTooltip("companyName")}
-                              onMouseLeave={() => setActiveTooltip(null)}
-                              aria-label="Company Info"
-                            >
-                              <FiInfo className="text-xs" />
-                            </button>
-                          </div>
-                          {activeTooltip === "companyName" && (
-                            <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
-                              {tooltips.companyName}
-                            </div>
-                          )}
-                        </div>
-                        <input
-                          id="company-name-input"
-                          type="text"
-                          value={companyName}
-                          onChange={(e) => setCompanyName(e.target.value)}
-                          className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
-                        />
-                      </div>
-
-                      {/* Industry Selector - Custom dropdown to open downwards */}
-                      <CustomDropdown
-                        label="Industry"
-                        value={industry}
-                        options={Object.keys(BENCHMARKS)}
-                        onChange={setIndustry}
-                        tooltip={tooltips.industry}
-                        activeTooltip={activeTooltip}
-                        setActiveTooltip={setActiveTooltip}
-                        tooltipKey="industry"
-                      />
-
-                      {/* Country / Region */}
-                      <div className="relative text-left">
-                        <div className="flex items-center justify-between mb-2 w-full">
-                          <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                            <label htmlFor="country-input">Country / Region</label>
-                            <button
-                              type="button"
-                              className="text-slate-400 hover:text-slate-600 focus:outline-none"
-                              onMouseEnter={() => setActiveTooltip("country")}
-                              onMouseLeave={() => setActiveTooltip(null)}
-                              aria-label="Country Info"
-                            >
-                              <FiInfo className="text-xs" />
-                            </button>
-                          </div>
-                          {activeTooltip === "country" && (
-                            <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
-                              {tooltips.country}
-                            </div>
-                          )}
-                        </div>
-                        <input
-                          id="country-input"
-                          type="text"
-                          value={country}
-                          onChange={(e) => setCountry(e.target.value)}
-                          className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
-                        />
-                      </div>
-
-                      {/* Employees Count */}
-                      <div className="relative text-left">
-                        <div className="flex items-center justify-between mb-2 w-full">
-                          <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                            <label htmlFor="employees-input">Employee Count</label>
-                            <button
-                              type="button"
-                              className="text-slate-400 hover:text-slate-600 focus:outline-none"
-                              onMouseEnter={() => setActiveTooltip("employees")}
-                              onMouseLeave={() => setActiveTooltip(null)}
-                              aria-label="Employees Info"
-                            >
-                              <FiInfo className="text-xs" />
-                            </button>
-                          </div>
-                          {activeTooltip === "employees" && (
-                            <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
-                              {tooltips.employees}
-                            </div>
-                          )}
-                        </div>
-                        <input
-                          id="employees-input"
-                          type="number"
-                          min="1"
-                          max="1000000"
-                          value={employees}
-                          onChange={(e) => setEmployees(Math.max(1, parseInt(e.target.value) || 1))}
-                          className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
-                        />
-                      </div>
-
-                      {/* Existing Awareness Program - Custom dropdown */}
-                      <CustomDropdown
-                        label="Existing Awareness Program"
-                        value={existingProgram}
-                        options={Object.keys(ASSUMPTIONS)}
-                        onChange={setExistingProgram}
-                        tooltip={tooltips.existingProgram}
-                        activeTooltip={activeTooltip}
-                        setActiveTooltip={setActiveTooltip}
-                        tooltipKey="existingProgram"
-                      />
-
-                      {/* Annual Program Cost Per User */}
-                      <div className="relative text-left">
-                        <div className="flex items-center justify-between mb-2 w-full">
-                          <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                            <label htmlFor="program-cost-input">Annual Program Cost / User ({symbol})</label>
-                            <button
-                              type="button"
-                              className="text-slate-400 hover:text-slate-600 focus:outline-none"
-                              onMouseEnter={() => setActiveTooltip("programCostPerUser")}
-                              onMouseLeave={() => setActiveTooltip(null)}
-                              aria-label="Program Cost Info"
-                            >
-                              <FiInfo className="text-xs" />
-                            </button>
-                          </div>
-                          {activeTooltip === "programCostPerUser" && (
-                            <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
-                              {tooltips.programCostPerUser}
-                            </div>
-                          )}
-                        </div>
-                        <input
-                          id="program-cost-input"
-                          type="number"
-                          step="0.1"
-                          min="0"
-                          value={programCostPerUser}
-                          onChange={(e) => setProgramCostPerUser(Math.max(0, parseFloat(e.target.value) || 0))}
-                          className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
-                        />
-                      </div>
-
-                      {/* Currency Selector - Custom dropdown */}
-                      <div className="relative text-left md:col-span-2">
-                        <CustomDropdown
-                          label="Preferred Currency"
-                          value={currency}
-                          options={Object.keys(CURRENCIES)}
-                          optionLabels={currencyLabels}
-                          onChange={setCurrency}
-                          tooltip={tooltips.currency}
-                          activeTooltip={activeTooltip}
-                          setActiveTooltip={setActiveTooltip}
-                          tooltipKey="currency"
-                        />
-                      </div>
-
+                    <h3 className="text-xl font-bold text-slate-950 !mb-8 border-b border-slate-100 !pb-4 text-left">Organization Parameters</h3>
+ 
+                     <div className="grid grid-cols-1 md:grid-cols-2 !gap-6 md:!gap-8 text-left">
+                       
+                       {/* Company Name */}
+                       <div className="relative text-left">
+                         <div className="flex items-center justify-between !mb-2 w-full">
+                           <div className="text-sm font-bold text-slate-800 flex items-center !gap-1.5">
+                             <label htmlFor="company-name-input">Company Name</label>
+                             <button
+                               type="button"
+                               className="text-slate-400 hover:text-slate-600 focus:outline-none"
+                               onMouseEnter={() => setActiveTooltip("companyName")}
+                               onMouseLeave={() => setActiveTooltip(null)}
+                               aria-label="Company Info"
+                             >
+                               <FiInfo className="text-xs" />
+                             </button>
+                           </div>
+                           {activeTooltip === "companyName" && (
+                             <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
+                               {tooltips.companyName}
+                             </div>
+                           )}
+                         </div>
+                         <input
+                           id="company-name-input"
+                           type="text"
+                           value={companyName}
+                           onChange={(e) => setCompanyName(e.target.value)}
+                           placeholder="Enter company name"
+                           className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
+                         />
+                       </div>
+ 
+                       {/* Industry Selector - Custom dropdown to open downwards */}
+                       <CustomDropdown
+                         label="Industry"
+                         value={industry}
+                         options={Object.keys(BENCHMARKS)}
+                         onChange={setIndustry}
+                         tooltip={tooltips.industry}
+                         activeTooltip={activeTooltip}
+                         setActiveTooltip={setActiveTooltip}
+                         tooltipKey="industry"
+                         placeholder="Choose industry"
+                       />
+ 
+                       {/* Country / Region - Custom dropdown */}
+                       <CustomDropdown
+                         label="Country / Region"
+                         value={country}
+                         options={COUNTRIES}
+                         onChange={setCountry}
+                         tooltip={tooltips.country}
+                         activeTooltip={activeTooltip}
+                         setActiveTooltip={setActiveTooltip}
+                         tooltipKey="country"
+                         placeholder="Choose region"
+                       />
+ 
+                       {/* Employees Count */}
+                       <div className="relative text-left">
+                         <div className="flex items-center justify-between !mb-2 w-full">
+                           <div className="text-sm font-bold text-slate-800 flex items-center !gap-1.5">
+                             <label htmlFor="employees-input">Employee Count</label>
+                             <button
+                               type="button"
+                               className="text-slate-400 hover:text-slate-600 focus:outline-none"
+                               onMouseEnter={() => setActiveTooltip("employees")}
+                               onMouseLeave={() => setActiveTooltip(null)}
+                               aria-label="Employees Info"
+                             >
+                               <FiInfo className="text-xs" />
+                             </button>
+                           </div>
+                           {activeTooltip === "employees" && (
+                             <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
+                               {tooltips.employees}
+                             </div>
+                           )}
+                         </div>
+                         <input
+                           id="employees-input"
+                           type="number"
+                           min="1"
+                           max="1000000"
+                           value={employees}
+                           onChange={(e) => {
+                             const val = e.target.value;
+                             setEmployees(val === "" ? "" : Math.max(1, parseInt(val, 10) || 1));
+                           }}
+                           placeholder="Enter employee count"
+                           className="w-full !px-5 !py-3.5 bg-slate-50 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold"
+                         />
+                       </div>
+ 
+                       {/* Currency Selector - Custom dropdown */}
+                       <div className="relative text-left md:col-span-2">
+                         <CustomDropdown
+                           label="Preferred Currency"
+                           value={currency}
+                           options={Object.keys(CURRENCIES)}
+                           optionLabels={currencyLabels}
+                           onChange={setCurrency}
+                           tooltip={tooltips.currency}
+                           activeTooltip={activeTooltip}
+                           setActiveTooltip={setActiveTooltip}
+                           tooltipKey="currency"
+                           placeholder="Choose currency"
+                         />
+                       </div>
+ 
+                       {/* Existing Awareness Program - Custom dropdown */}
+                       <CustomDropdown
+                         label="Existing Awareness Program"
+                         value={existingProgram}
+                         options={Object.keys(ASSUMPTIONS)}
+                         onChange={(val) => {
+                           setExistingProgram(val);
+                           const defaultCosts = {
+                             "None": 0.0,
+                             "Annual Training": 4.0,
+                             "Quarterly Training": 8.0,
+                             "Monthly Training": 12.0,
+                             "Mature Continuous Program": 15.0
+                           };
+                           setProgramCostPerUser(defaultCosts[val] !== undefined ? defaultCosts[val] : "");
+                         }}
+                         tooltip={tooltips.existingProgram}
+                         activeTooltip={activeTooltip}
+                         setActiveTooltip={setActiveTooltip}
+                         tooltipKey="existingProgram"
+                         placeholder={currency ? "Choose existing program" : "Please choose currency first"}
+                         disabled={!currency}
+                       />
+ 
+                       {/* Annual Program Cost Per User */}
+                       <div className="relative text-left">
+                         <div className="flex items-center justify-between !mb-2 w-full">
+                           <div className="text-sm font-bold text-slate-800 flex items-center !gap-1.5">
+                             <label htmlFor="program-cost-input">Annual Program Cost / User ({symbol})</label>
+                             <button
+                               type="button"
+                               disabled={!currency}
+                               className="text-slate-400 hover:text-slate-600 focus:outline-none"
+                               onMouseEnter={() => currency && setActiveTooltip("programCostPerUser")}
+                               onMouseLeave={() => setActiveTooltip(null)}
+                               aria-label="Program Cost Info"
+                             >
+                               <FiInfo className="text-xs" />
+                             </button>
+                           </div>
+                           {activeTooltip === "programCostPerUser" && currency && (
+                             <div className="absolute z-20 top-8 left-0 right-0 bg-slate-900 text-white text-xs p-3 rounded-xl shadow-lg leading-relaxed">
+                               {tooltips.programCostPerUser}
+                             </div>
+                           )}
+                         </div>
+                         <input
+                           id="program-cost-input"
+                           type="number"
+                           step="0.1"
+                           min="0"
+                           value={programCostPerUser}
+                           onChange={(e) => {
+                             const val = e.target.value;
+                             setProgramCostPerUser(val === "" ? "" : Math.max(0, parseFloat(val) || 0));
+                           }}
+                           placeholder={currency ? "Enter cost per user" : "Please choose currency first"}
+                           disabled={!currency}
+                           className={`w-full !px-5 !py-3.5 border border-slate-100 rounded-xl text-slate-800 focus:outline-none focus:border-[#f15a24] focus:bg-white focus:ring-4 focus:ring-[#f15a24]/5 transition-all font-semibold ${!currency ? 'cursor-not-allowed bg-slate-100 text-slate-400 opacity-60' : 'bg-slate-50'}`}
+                         />
+                       </div>
+ 
+                     </div>
+ 
+                     {/* Calculate Button */}
+                     <div className="!mt-8 !pt-6 border-t border-slate-100 flex justify-center">
+                       <button
+                         type="button"
+                         onClick={handleCalculate}
+                         disabled={!companyName || !industry || !country || !employees || !existingProgram || !programCostPerUser || !currency || isCalculating}
+                         className={`w-full md:w-auto !px-10 !py-4 rounded-xl font-bold text-white shadow-lg transition-all flex items-center justify-center !gap-2 cursor-pointer ${
+                           (!companyName || !industry || !country || !employees || !existingProgram || !programCostPerUser || !currency || isCalculating)
+                             ? 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                             : 'bg-[#f15a24] hover:bg-orange-600 hover:scale-[1.02]'
+                         }`}
+                       >
+                        {isCalculating ? (
+                          <>
+                            <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                            <span>{["Loading industry benchmarks...", "Quantifying human cyber risk...", "Generating board-ready report..."][calculationStep]}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Calculate ROI Projections</span>
+                            <FiArrowRight />
+                          </>
+                        )}
+                      </button>
                     </div>
+
                   </div>
                 </div>
 
                 {/* RESULTS PANEL COLUMN */}
-                <div className="col-12 lg:col-8" style={{ marginTop: "2rem" }}>
-                  <main className="summary-card rounded-2xl !p-8 md:!p-12 pb-12 text-left" style={{ backgroundColor: "#ffffff", isolation: "isolate", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)", border: "1px solid #f1f5f9" }} data-purpose="main-dashboard-container">
+                <div className="col-12 lg:col-8" style={{ marginTop: "2rem" }} ref={summaryRef}>
+                  <div className="relative">
+                    {!isCalculated && (
+                      <div className="absolute inset-0 bg-white/70 backdrop-blur-[6px] z-20 rounded-2xl flex flex-col items-center justify-center p-6 text-center border border-slate-100 shadow-[0_10px_25px_rgba(0,0,0,0.05)]">
+                        <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-4 text-[#f15a24] border border-orange-100">
+                          <FiActivity className="text-2xl animate-pulse" />
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900 mb-2">Projections Ready to Generate</h4>
+                        <p className="text-sm text-slate-500 max-w-sm">
+                          Please fill in all organization parameters above and click "Calculate ROI Projections" to generate your board-ready financial report.
+                        </p>
+                      </div>
+                    )}
+                    
+                    <main className={`summary-card rounded-2xl !p-8 md:!p-12 pb-12 text-left transition-all duration-500 ${!isCalculated ? 'select-none pointer-events-none opacity-40' : ''}`} style={{ backgroundColor: "#ffffff", isolation: "isolate", boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)", border: "1px solid #f1f5f9" }} data-purpose="main-dashboard-container">
                     
                     <header style={{ marginBottom: "1.75rem" }}>
                       <h2 className="text-3xl font-extrabold text-slate-950" style={{ marginBottom: "0.35rem" }}>Executive ROI Summary</h2>
-                      <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Board-Ready Projections for {companyName} ({industry} Industry)</p>
+                      <p className="text-xs font-semibold text-slate-600 uppercase tracking-wider">Board-Ready Projections for {companyName || "[Company Name]"} ({industry || "[Selected Industry]"} Industry)</p>
                     </header>
 
                     {/* Narrative Summary */}
@@ -517,14 +621,10 @@ export default function SimulationRoiPage() {
                     </div>
 
                     {/* Primary Metrics Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6" style={{ marginBottom: "2.5rem" }} data-purpose="top-metrics-grid">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ marginBottom: "2.5rem" }} data-purpose="top-metrics-grid">
                       <div className="bg-slate-50/50 border border-slate-200/60 rounded-xl shadow-sm transition-all hover:shadow-md" style={{ padding: "1.25rem 1.5rem" }}>
                         <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider" style={{ marginBottom: "0.5rem" }}>Annual Risk Exposure</span>
                         <span className="text-xl font-extrabold text-slate-950">{formatCurrency(estimatedAnnualHumanRiskExposure)}</span>
-                      </div>
-                      <div className="bg-slate-50/50 border border-slate-200/60 rounded-xl shadow-sm transition-all hover:shadow-md" style={{ padding: "1.25rem 1.5rem" }}>
-                        <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider" style={{ marginBottom: "0.5rem" }}>Risk After Awareness</span>
-                        <span className="text-xl font-extrabold text-slate-950">{formatCurrency(projectedRiskAfterAwareness)}</span>
                       </div>
                       <div className="bg-orange-50/40 border border-orange-100 rounded-xl shadow-sm transition-all hover:shadow-md" style={{ padding: "1.25rem 1.5rem" }}>
                         <span className="block text-[10px] font-bold text-[#f15a24] uppercase tracking-wider" style={{ marginBottom: "0.5rem" }}>Annual Risk Reduction</span>
@@ -548,61 +648,7 @@ export default function SimulationRoiPage() {
                       </div>
                     </div>
 
-                    {/* Detailed Comparison Table */}
-                    <div className="overflow-x-auto" style={{ marginBottom: "2.5rem" }} data-purpose="comparison-table-section">
-                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest" style={{ marginBottom: "1rem" }}>Detailed Exposure Comparison</h3>
-                      <table className="w-full text-left text-sm border-collapse">
-                        <thead>
-                          <tr className="border-b border-slate-200">
-                            <th className="pb-3 font-semibold text-xs text-slate-500 uppercase tracking-wider">Metric</th>
-                            <th className="pb-3 font-semibold text-xs text-slate-500 uppercase tracking-wider">Baseline State</th>
-                            <th className="pb-3 font-semibold text-xs text-[#f15a24] uppercase tracking-wider">Projected Future State</th>
-                          </tr>
-                        </thead>
-                        <tbody className="text-slate-800">
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Phishing Penetration Rate</td>
-                            <td className="py-3 font-bold text-slate-900">{(industryClickRate * 100).toFixed(1)}%</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{(industryClickRate * (1 - clickReduction) * 100).toFixed(1)}%</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Credential Submission Rate</td>
-                            <td className="py-3 font-bold text-slate-900">{(credentialSubmissionRate * 100).toFixed(1)}%</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{(credentialSubmissionRate * (1 - credReduction) * 100).toFixed(1)}%</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Estimated Phishing Emails / Year</td>
-                            <td className="py-3 font-bold text-slate-900">{estimatedPhishingEmailsPerYear.toLocaleString()}</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{estimatedPhishingEmailsPerYear.toLocaleString()}</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Estimated Risky Clicks / Year</td>
-                            <td className="py-3 font-bold text-slate-900">{estimatedRiskyClicksPerYear.toLocaleString()}</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{Math.round(estimatedPhishingEmailsPerYear * industryClickRate * (1 - clickReduction)).toLocaleString()}</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Estimated Credential Submissions / Year</td>
-                            <td className="py-3 font-bold text-slate-900">{estimatedCredentialSubmissionsPerYear.toLocaleString()}</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{Math.round(estimatedPhishingEmailsPerYear * industryClickRate * (1 - clickReduction) * credentialSubmissionRate * (1 - credReduction)).toLocaleString()}</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Baseline Reporting Rate / Uplift</td>
-                            <td className="py-3 font-bold text-slate-900">{(baselineReportingRate * 100).toFixed(0)}%</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{(baselineReportingRate * reportingUplift * 100).toFixed(0)}%</td>
-                          </tr>
-                          <tr className="border-b border-slate-100 hover:bg-slate-50/30 transition-colors">
-                            <td className="py-3 text-slate-700">Risk Score</td>
-                            <td className="py-3 font-bold text-slate-900">{riskScoreBefore} / 100</td>
-                            <td className="py-3 font-bold text-[#f15a24]">{riskScoreAfter} / 100</td>
-                          </tr>
-                          <tr className="font-bold text-slate-900 bg-slate-50/70">
-                            <td className="py-3 px-3">Total Annual Risk Cost Exposure</td>
-                            <td className="py-3 px-3 font-extrabold text-slate-950">{formatCurrency(estimatedAnnualHumanRiskExposure)}</td>
-                            <td className="py-3 px-3 font-extrabold text-[#f15a24]">{formatCurrency(projectedRiskAfterAwareness)}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+
 
                     {/* Disclaimer from Executive Report tab */}
                     <footer style={{ borderTop: "1px solid #f1f5f9", paddingTop: "1.5rem", color: "#64748b", fontSize: "0.75rem", lineHeight: "1.5" }}>
@@ -617,6 +663,7 @@ export default function SimulationRoiPage() {
               </div>
             </div>
           </div>
+        </div>
 
           {/* FAQ SECTION */}
           <div style={{ backgroundColor: "#FFF6E9", paddingTop: "5rem", paddingBottom: "5rem" }}>

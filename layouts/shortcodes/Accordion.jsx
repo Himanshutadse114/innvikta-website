@@ -1,35 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId, useContext } from "react";
+import { FiPlus, FiMinus } from "react-icons/fi";
+import { FAQContext } from "./FAQ";
 
 const Accordion = ({ title, children, className }) => {
-  const [show, setShow] = useState(false);
+  const [localShow, setLocalShow] = useState(false);
+  const faqContext = useContext(FAQContext);
+  const localId = useId();
+  const buttonId = useId();
+  const panelId = useId();
+
+  const isControlled = !!faqContext;
+  const show = isControlled ? faqContext.activeId === localId : localShow;
+
+  const handleToggle = () => {
+    if (isControlled) {
+      faqContext.setActiveId(show ? null : localId);
+    } else {
+      setLocalShow(!show);
+    }
+  };
 
   return (
     <div
-      className={`mb-2 overflow-hidden rounded-xl border border-border ${className}`}
+      className={`mb-0 overflow-hidden rounded-2xl border transition-all duration-300 bg-[#f8fafc] ${
+        show 
+          ? "border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.02)]" 
+          : "border-slate-100 hover:border-slate-200"
+      } ${className}`}
     >
       <button
-        className="relative block w-full bg-theme-light px-4 py-3 text-left text-dark"
-        onClick={() => setShow(!show)}
+        type="button"
+        id={buttonId}
+        aria-expanded={show}
+        aria-controls={panelId}
+        className={`w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-sm md:text-base focus:outline-none transition-all duration-350 cursor-pointer ${
+          show ? "text-[#f15a24]" : "text-slate-800"
+        }`}
+        onClick={handleToggle}
       >
-        {title}
-        <svg
-          className={`absolute right-4 top-1/2 m-0 h-4 w-4 -translate-y-1/2 ${
-            show && "rotate-180"
+        <span className="leading-snug">{title}</span>
+        <div
+          className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${
+            show ? "bg-[#f15a24] text-white rotate-180" : "bg-slate-100 text-slate-500"
           }`}
-          x="0px"
-          y="0px"
-          viewBox="0 0 512.011 512.011"
-          xmlSpace="preserve"
         >
-          <path
-            fill="currentColor"
-            d="M505.755,123.592c-8.341-8.341-21.824-8.341-30.165,0L256.005,343.176L36.421,123.592c-8.341-8.341-21.824-8.341-30.165,0 s-8.341,21.824,0,30.165l234.667,234.667c4.16,4.16,9.621,6.251,15.083,6.251c5.462,0,10.923-2.091,15.083-6.251l234.667-234.667 C514.096,145.416,514.096,131.933,505.755,123.592z"
-          />
-        </svg>
+          {show ? <FiMinus className="text-xs" /> : <FiPlus className="text-xs" />}
+        </div>
       </button>
-      <div className={`px-4 py-3 ${!show && "hidden"}`}>{children}</div>
+      
+      {/* Smooth height transition panel */}
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        className={`grid transition-all duration-300 ease-in-out ${
+          show ? "grid-rows-[1fr] opacity-100 border-t border-slate-200/80" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 py-4 text-xs md:text-sm text-slate-600 leading-relaxed font-medium">
+            {children}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

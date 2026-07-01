@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "the-most-common-tactic",
+    "title": "The most common tactic ",
+    "image": "/images/blog/02.jpg",
+    "author": {
+      "name": "Derick C.",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-06-30T08:49:34.865Z",
+    "draft": false,
+    "categories": [
+      "Phishing"
+    ],
+    "metaDescription": "",
+    "content": "## Phishing: Think Before You Click\n\nPhishing is one of the most common cyberattacks used to steal sensitive information such as passwords, banking details, and personal data. Attackers often disguise themselves as trusted organizations by sending fake emails, text messages, or creating fraudulent websites that appear legitimate.\n\nThese messages usually create a sense of urgency, asking you to verify an account, claim a reward, or resolve a security issue. Clicking on malicious links or downloading infected attachments can lead to data theft, financial loss, or malware infection.\n\nTo stay protected, always verify the sender's email address, avoid clicking on suspicious links, enable multi-factor authentication (MFA), and report suspicious messages to your IT or security team. If you're unsure whether a message is genuine, contact the organization directly through its official channels instead of using the information provided in the message.\n\nCybercriminals constantly evolve their tactics, but staying alert and practicing safe online habits can significantly reduce the risk of falling victim to phishing attacks. A few extra seconds of verification can save you from major security incidents."
+  },
+  {
+    "slug": "post-1",
+    "title": "10 Phishing Trends to Watch in 2026",
+    "image": "/images/blog/01.jpg",
+    "author": {
+      "name": "Abdullah Al Shifat",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-06-18T23:30:00.000Z",
+    "draft": false,
+    "categories": [
+      "Phishing"
+    ],
+    "metaDescription": "",
+    "content": "Phishing attacks are becoming increasingly sophisticated. In 2026, attackers are leveraging advanced techniques like AI-driven message personalization, QR code manipulation, and multi-vector campaigns targeting WhatsApp and voice communications. Here is a breakdown of the top trends organizations must prepare for.\n\n## 1. AI-Powered Social Engineering\n\nGenerative AI tools have made it incredibly simple for attackers to generate highly convincing, grammatically perfect emails in seconds. \n\n### Automated Personalization\nAttackers use public data scrapes and social profiles to feed prompts to custom LLMs, generating millions of highly personalized phishing messages customized to each target's job role, recent activities, and communication style.\n\n### Deepfake Audio and Video (Vishing 2.0)\nThreat actors are combining traditional phishing with voice cloning and real-time video deepfakes. A target might receive a phishing email followed by a voice mail or instant call from their \"CFO\" using a cloned voice to rush them into approving an urgent wire transfer.\n\n## 2. The Rise of Quishing (QR Code Phishing)\n\nAs organizations have strengthened their email filters to strip out malicious URLs and attachments, attackers have adapted by using QR codes.\n\n### Bypassing Secure Email Gateways (SEGs)\nBecause QR codes are embedded inside images, standard email filters often fail to scan the destination link. Employees scan the QR code using their personal mobile devices, taking them completely outside the company's protected network sandbox.\n\n### Fake Billing and MFA Prompts\nA common quishing vector is sending fake invoices or urgent multi-factor authentication (MFA) reset alerts requiring the user to scan the QR code to \"re-verify\" their corporate login credentials.\n\n## 3. Multi-Channel Campaigns\n\nModern phishing is no longer restricted to corporate email. Attackers now initiate conversations across multiple channels.\n\n### Collaboration Tools Targets\nAttackers increasingly target enterprise chat platforms like Slack, Microsoft Teams, and WhatsApp. By compromising a partner company's credentials, they enter internal channels and send files disguised as urgent spreadsheets or reports.\n\n### Smishing and MFA Fatigue\nSmishing (SMS phishing) is paired with MFA fatigue attacks, where attackers bombard users with login approval prompts, accompanied by text messages pretending to be IT support instructing them to click \"approve\" to resolve a system glitch.\n\n## 4. Modern Defensive Strategies\n\nTraditional static training is no longer enough to counter these evolving threats. \n\n### Adaptive Security Awareness Training\nOrganizations need adaptive learning paths tailored to each employee's role, risk level, and department. An employee in finance needs deep training on vishing and invoice fraud, while developers need focus on API key leaks and supply chain attacks.\n\n### High-Fidelity Phishing Simulations\nRunning automated phishing simulations mimicking real-world threats (including QR codes and Smishing patterns) is essential to build defensive muscle memory across the workforce."
+  },
+  {
+    "slug": "post-2",
+    "title": "Why Security Awareness Training is Critical for Regulatory Compliance",
+    "image": "/images/blog/02.jpg",
+    "author": {
+      "name": "Derick Barker",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-06-14T18:00:00.000Z",
+    "draft": false,
+    "categories": [
+      "Security Awareness Training"
+    ],
+    "metaDescription": "",
+    "content": "## The security awareness training is important\n\n\nMeeting global regulatory mandates like GDPR, HIPAA, and India's DPDP Act requires more than just policy documents. It requires defensible evidence of security awareness. Interactive, role-based courses and tracking policy acknowledgements ensure audit-ready compliance while building genuine defensive behavior\n."
+  },
+  {
+    "slug": "post-3",
+    "title": "How Social Engineering Exploits Remote Employees",
+    "image": "/images/blog/03.jpg",
+    "author": {
+      "name": "Abdullah Al Shifat",
+      "avatar": "/images/author/abdullah.jpg"
+    },
+    "date": "2026-06-10T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "Social Engineering"
+    ],
+    "metaDescription": "",
+    "content": "Remote and hybrid workforces are highly vulnerable to social engineering. Attackers impersonate IT support, executives, or service providers, exploiting the lack of physical verification. Implementing clear communication guidelines and regular susceptibility testing reduces remote workforce risk scores significantly."
+  },
+  {
+    "slug": "post-4",
+    "title": "The Threat of Deepfakes in Corporate Communications",
+    "image": "/images/blog/04.jpg",
+    "author": {
+      "name": "Derick Barker",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-06-05T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "Deepfake"
+    ],
+    "metaDescription": "",
+    "content": "Deepfake technology has advanced to the point where voice and video clones can mimic executives with near-perfect accuracy. Organizations must establish strict multi-party authentication policies for financial transactions and sensitive data sharing, while training teams to identify subtle visual and auditory tells."
+  },
+  {
+    "slug": "post-5",
+    "title": "Leveraging AI to Prevent Credential Harvesting",
+    "image": "/images/blog/05.jpg",
+    "author": {
+      "name": "Abdullah Al Shifat",
+      "avatar": "/images/author/abdullah.jpg"
+    },
+    "date": "2026-05-28T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "AI"
+    ],
+    "metaDescription": "",
+    "content": "AI is a double-edged sword. While attackers use it to generate highly convincing lures, security teams leverage AI adaptive learning to tailor awareness training dynamically. By analyzing employee susceptibility and adjusting campaign difficulty, organizations build a personalized human firewall."
+  },
+  {
+    "slug": "post-6",
+    "title": "Spear Phishing vs. Phishing: Understanding the Differences",
+    "image": "/images/blog/06.jpg",
+    "author": {
+      "name": "Derick Barker",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-05-20T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "Phishing",
+      "Social Engineering"
+    ],
+    "metaDescription": "",
+    "content": "Generic phishing campaigns cast a wide net, but spear phishing is laser-focused on specific individuals. Attackers research targets on LinkedIn and social media to craft highly customized messages. Training employees to recognize public data exposure and verify unusual internal requests is vital."
+  },
+  {
+    "slug": "post-7",
+    "title": "Why Microlearning is the Future of Security Awareness",
+    "image": "/images/blog/07.jpg",
+    "author": {
+      "name": "Abdullah Al Shifat",
+      "avatar": "/images/author/abdullah.jpg"
+    },
+    "date": "2026-05-12T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "Security Awareness Training"
+    ],
+    "metaDescription": "",
+    "content": "Long, annual security training sessions are largely ineffective because employees suffer from information overload. Microlearning - bite-sized, targeted modules delivered frequently - replaces lecturing with reinforcement. Gamified learning and quiz arcade challenges drive long-term secure habit formation."
+  },
+  {
+    "slug": "post-8",
+    "title": "Combating AI-Generated Social Engineering Attacks",
+    "image": "/images/blog/08.jpg",
+    "author": {
+      "name": "Derick Barker",
+      "avatar": "/images/author/derick.jpg"
+    },
+    "date": "2026-05-01T05:00:00+00:00",
+    "draft": false,
+    "categories": [
+      "Social Engineering",
+      "AI"
+    ],
+    "metaDescription": "",
+    "content": "AI allows attackers to scale personalized social engineering campaigns at near-zero cost. From drafting flawless emails to automating phone calls, AI-led variants are rapidly proliferating. Building awareness about automated vishing and smishing campaigns is the first line of defense."
+  }
+]

@@ -9,9 +9,12 @@ const TableOfContents = ({ content }) => {
 
   useEffect(() => {
     const slugger = new GithubSlugger();
+    // Preprocess content to ensure headings without spaces (e.g., ##Heading) are parsed properly
+    const normalizedContent = content ? content.replace(/^(#{2,3})([^\s#].*)$/gm, "$1 $2") : "";
+    
     // Match h2 and h3 headings in markdown
     const headingRegex = /^(#{2,3})\s+(.*)$/gm;
-    const matches = content.match(headingRegex) || [];
+    const matches = normalizedContent.match(headingRegex) || [];
     
     const parsedHeadings = matches.map((match) => {
       const level = match.startsWith("###") ? 3 : 2;

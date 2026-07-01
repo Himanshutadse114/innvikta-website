@@ -7,6 +7,8 @@ import Tab from "./Tab";
 import Tabs from "./Tabs";
 import Video from "./Video";
 import Youtube from "./Youtube";
+import BookDemo from "./BookDemo";
+import FAQ from "./FAQ";
 
 const shortcodes = {
   Button,
@@ -18,6 +20,8 @@ const shortcodes = {
   Code,
   Youtube,
   Blockquote,
+  BookDemo,
+  FAQ,
 };
 
 export default shortcodes;

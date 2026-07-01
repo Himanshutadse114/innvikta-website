@@ -1378,7 +1378,9 @@ const Header = () => {
         {/* =========================================================
             LAYER 2: MAIN NAVIGATION BAR (Logo, Navigation & CTA Buttons)
             ========================================================= */}
-        <div className="w-full transition-all duration-300 bg-transparent border-b border-slate-200/10 h-[80px] relative z-40">
+        <div className={`w-full transition-all duration-300 border-b border-slate-200/10 h-[80px] relative z-40 ${
+          showMenu || sticky ? "bg-white" : "bg-transparent"
+        }`}>
           {/* Search Overlay Container */}
           <AnimatePresence>
             {isSearchOpen && (
@@ -1991,7 +1993,7 @@ const Header = () => {
           {/* Bottom Mobile Sticky CTAs */}
           <div className="flex flex-col gap-3.5 border-t border-slate-100 pt-6 mt-6 relative min-h-[60px]">
             {/* Partner CTA */}
-            <div className={`transition-all duration-300 w-full ${pathname === "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none translate-y-2 absolute inset-x-0"}`}>
+            <div className={`transition-all duration-300 w-full max-w-[320px] mx-auto ${pathname === "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none translate-y-2 absolute inset-x-0"}`}>
               <Link 
                 href="#form" 
                 onClick={() => setShowMenu(false)}
@@ -2002,7 +2004,7 @@ const Header = () => {
             </div>
 
             {/* Standard CTA */}
-            <div className={`transition-all duration-300 w-full flex flex-col gap-3 ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2 absolute inset-x-0"}`}>
+            <div className={`transition-all duration-300 w-full max-w-[320px] mx-auto flex flex-col gap-3 ${pathname !== "/partners" ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2 absolute inset-x-0"}`}>
               <Link 
                 href="/start-free" 
                 onClick={() => setShowMenu(false)}
