@@ -1,5 +1,5 @@
-INSERT INTO blogs (slug, title, image, author_name, author_avatar, created_at, draft, categories, content) VALUES 
-('the-most-common-tactic', 'The most common tactic ', '/images/blog/02.jpg', 'Derick C.', '/images/author/derick.jpg', '2026-06-30 08:49:34', 0, '["Phishing"]', '## Phishing: Think Before You Click
+INSERT INTO blogs (filename, title, image, author_name, published_at, draft, categories, meta_description, content) VALUES 
+('the-most-common-tactic', 'The most common tactic ', '/images/blog/02.jpg', 'Derick C.', '2026-06-30 08:49:34', 0, '["Phishing"]', '', '## Phishing: Think Before You Click
 
 Phishing is one of the most common cyberattacks used to steal sensitive information such as passwords, banking details, and personal data. Attackers often disguise themselves as trusted organizations by sending fake emails, text messages, or creating fraudulent websites that appear legitimate.
 
@@ -8,7 +8,7 @@ These messages usually create a sense of urgency, asking you to verify an accoun
 To stay protected, always verify the sender''s email address, avoid clicking on suspicious links, enable multi-factor authentication (MFA), and report suspicious messages to your IT or security team. If you''re unsure whether a message is genuine, contact the organization directly through its official channels instead of using the information provided in the message.
 
 Cybercriminals constantly evolve their tactics, but staying alert and practicing safe online habits can significantly reduce the risk of falling victim to phishing attacks. A few extra seconds of verification can save you from major security incidents.'),
-('post-1', '10 Phishing Trends to Watch in 2026', '/images/blog/01.jpg', 'Abdullah Al Shifat', '/images/author/derick.jpg', '2026-06-18 23:30:00', 0, '["Phishing"]', 'Phishing attacks are becoming increasingly sophisticated. In 2026, attackers are leveraging advanced techniques like AI-driven message personalization, QR code manipulation, and multi-vector campaigns targeting WhatsApp and voice communications. Here is a breakdown of the top trends organizations must prepare for.
+('post-1', '10 Phishing Trends to Watch in 2026', '/images/blog/01.jpg', 'Abdullah Al Shifat', '2026-06-18 23:30:00', 0, '["Phishing"]', '', 'Phishing attacks are becoming increasingly sophisticated. In 2026, attackers are leveraging advanced techniques like AI-driven message personalization, QR code manipulation, and multi-vector campaigns targeting WhatsApp and voice communications. Here is a breakdown of the top trends organizations must prepare for.
 
 ## 1. AI-Powered Social Engineering
 
@@ -49,7 +49,7 @@ Organizations need adaptive learning paths tailored to each employee''s role, ri
 
 ### High-Fidelity Phishing Simulations
 Running automated phishing simulations mimicking real-world threats (including QR codes and Smishing patterns) is essential to build defensive muscle memory across the workforce.'),
-('post-2', 'Why Security Awareness Training is Critical for Regulatory Compliance', '/images/blog/02.jpg', 'Derick Barker', '/images/author/derick.jpg', '2026-06-14 18:00:00', 0, '["Security Awareness Training"]', 'Regulatory compliance is no longer just about IT controls; it is about employee behavior. Global standards like HIPAA, GDPR, PCI-DSS, and SOC 2 mandate that organizations provide documented proof of regular security awareness training. Let''s look at how training aligns with key security frameworks.
+('post-2', 'Why Security Awareness Training is Critical for Regulatory Compliance', '/images/blog/02.jpg', 'Derick Barker', '2026-06-14 18:00:00', 0, '["Security Awareness Training"]', '', 'Regulatory compliance is no longer just about IT controls; it is about employee behavior. Global standards like HIPAA, GDPR, PCI-DSS, and SOC 2 mandate that organizations provide documented proof of regular security awareness training. Let''s look at how training aligns with key security frameworks.
 
 ## 1. Meeting Framework Requirements
 
@@ -62,7 +62,7 @@ Mandates an ongoing security awareness and training program for all members of t
 ## 2. Reducing Legal and Financial Liability
 
 In the event of a security breach, regulatory bodies assess whether the organization took ''reasonable steps'' to protect data. Having a continuous, active security awareness program demonstrates due diligence, significantly reducing potential regulatory fines.'),
-('post-3', 'How Social Engineering Exploits Remote Employees', '/images/blog/03.jpg', 'Abdullah Al Shifat', '/images/author/abdullah.jpg', '2026-06-10 05:00:00', 0, '["Social Engineering"]', 'Remote and hybrid work structures have expanded the organization''s threat surface. Attackers focus on exploiting the isolation of remote employees, relying on specific social engineering tactics to compromise credentials and gain access to corporate networks.
+('post-3', 'How Social Engineering Exploits Remote Employees', '/images/blog/03.jpg', 'Abdullah Al Shifat', '2026-06-10 05:00:00', 0, '["Social Engineering"]', '', 'Remote and hybrid work structures have expanded the organization''s threat surface. Attackers focus on exploiting the isolation of remote employees, relying on specific social engineering tactics to compromise credentials and gain access to corporate networks.
 
 ## 1. Distraction and Isolation
 
@@ -71,7 +71,7 @@ Remote employees work outside the physical security perimeter and cannot easily 
 ## 2. Exploiting Shared Home Networks
 
 Attackers target unsecured home Wi-Fi routers and smart home devices. Once inside the local network, they launch man-in-the-middle (MitM) attacks or compromise connected corporate laptops to harvest system credentials.'),
-('post-4', 'The Threat of Deepfakes in Corporate Communications', '/images/blog/04.jpg', 'Derick Barker', '/images/author/derick.jpg', '2026-06-05 05:00:00', 0, '["Deepfake"]', 'Deepfake audio and video clones have transitioned from theory to major threat vectors. Using easily accessible software, attackers can clone an executive''s voice with under a minute of public audio, using it to commit wire transfer fraud and data theft.
+('post-4', 'The Threat of Deepfakes in Corporate Communications', '/images/blog/04.jpg', 'Derick Barker', '2026-06-05 05:00:00', 0, '["Deepfake"]', '', 'Deepfake audio and video clones have transitioned from theory to major threat vectors. Using easily accessible software, attackers can clone an executive''s voice with under a minute of public audio, using it to commit wire transfer fraud and data theft.
 
 ## 1. Executive Voice Cloning (Vishing)
 
@@ -80,7 +80,7 @@ Attackers clone the voice of a CEO or CFO to call a finance manager, requesting 
 ## 2. Fake Video Conferences
 
 In advanced campaigns, attackers run multi-person video calls using real-time AI filters to look and sound like company executives, instructing team members to share sensitive corporate database credentials.'),
-('post-5', 'Leveraging AI to Prevent Credential Harvesting', '/images/blog/05.jpg', 'Abdullah Al Shifat', '/images/author/abdullah.jpg', '2026-05-28 05:00:00', 0, '["AI"]', 'Credential harvesting remains the primary goal of phishing campaigns. By using advanced security tools powered by artificial intelligence, organizations can detect and block these attacks before they reach employee inboxes.
+('post-5', 'Leveraging AI to Prevent Credential Harvesting', '/images/blog/05.jpg', 'Abdullah Al Shifat', '2026-05-28 05:00:00', 0, '["AI"]', '', 'Credential harvesting remains the primary goal of phishing campaigns. By using advanced security tools powered by artificial intelligence, organizations can detect and block these attacks before they reach employee inboxes.
 
 ## 1. Natural Language Processing (NLP)
 
@@ -89,7 +89,7 @@ AI filters use NLP to analyze email text structures, identifying patterns of urg
 ## 2. Dynamic Link Sandbox Scans
 
 AI security systems scan and click links inside sandbox environments in real time, detecting redirect paths and spoofed login forms before the email is delivered to the user.'),
-('post-6', 'Spear Phishing vs. Phishing: Understanding the Differences', '/images/blog/06.jpg', 'Derick Barker', '/images/author/derick.jpg', '2026-05-20 05:00:00', 0, '["Phishing","Social Engineering"]', 'Understanding the difference between mass phishing and targeted spear phishing is critical to configuring appropriate security defenses and training programs.
+('post-6', 'Spear Phishing vs. Phishing: Understanding the Differences', '/images/blog/06.jpg', 'Derick Barker', '2026-05-20 05:00:00', 0, '["Phishing","Social Engineering"]', '', 'Understanding the difference between mass phishing and targeted spear phishing is critical to configuring appropriate security defenses and training programs.
 
 ## 1. Mass Phishing (Bulk Attacks)
 
@@ -98,7 +98,7 @@ Phishing is a numbers game. Attackers send millions of generic emails pretending
 ## 2. Spear Phishing (Targeted Attacks)
 
 Spear phishing targets a specific individual or team. Attackers research their target on social networks, customizing the message with accurate names, project details, and colleague references to maximize trust.'),
-('post-7', 'Why Microlearning is the Future of Security Awareness', '/images/blog/07.jpg', 'Abdullah Al Shifat', '/images/author/abdullah.jpg', '2026-05-12 05:00:00', 0, '["Security Awareness Training"]', 'Long, annual compliance courses are ineffective at changing employee habits. Modern security awareness relies on microlearning—short, focused lessons delivered continuously.
+('post-7', 'Why Microlearning is the Future of Security Awareness', '/images/blog/07.jpg', 'Abdullah Al Shifat', '2026-05-12 05:00:00', 0, '["Security Awareness Training"]', '', 'Long, annual compliance courses are ineffective at changing employee habits. Modern security awareness relies on microlearning—short, focused lessons delivered continuously.
 
 ## 1. Overcoming Information Overload
 
@@ -107,7 +107,7 @@ Microlearning modules are under 3 minutes long, focusing on a single topic (like
 ## 2. Just-In-Time Training Delivery
 
 If an employee clicks a simulated phishing email, a micro-learning tip is delivered immediately, providing immediate corrective training when the experience is fresh.'),
-('post-8', 'Combating AI-Generated Social Engineering Attacks', '/images/blog/08.jpg', 'Derick Barker', '/images/author/derick.jpg', '2026-05-01 05:00:00', 0, '["Social Engineering","AI"]', 'As attackers use generative AI to scale their operations, security teams must deploy advanced behavioral tools to train workforces and defend systems.
+('post-8', 'Combating AI-Generated Social Engineering Attacks', '/images/blog/08.jpg', 'Derick Barker', '2026-05-01 05:00:00', 0, '["Social Engineering","AI"]', '', 'As attackers use generative AI to scale their operations, security teams must deploy advanced behavioral tools to train workforces and defend systems.
 
 ## 1. Smarter Phishing Simulations
 
@@ -115,4 +115,5 @@ Using AI to generate simulated phishing scenarios helps security teams mimic rea
 
 ## 2. Promoting a Strong Security Culture
 
-Technology alone cannot block every attack. Building a culture where employees feel supported in reporting suspicious messages is the strongest defense against AI-driven threats.');
+Technology alone cannot block every attack. Building a culture where employees feel supported in reporting suspicious messages is the strongest defense against AI-driven threats.')
+ON DUPLICATE KEY UPDATE title=VALUES(title), image=VALUES(image), author_name=VALUES(author_name), published_at=VALUES(published_at), draft=VALUES(draft), categories=VALUES(categories), meta_description=VALUES(meta_description), content=VALUES(content);
