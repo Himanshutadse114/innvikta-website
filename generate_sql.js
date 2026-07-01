@@ -1,31 +1,33 @@
 const fs = require('fs');
 const blogs = JSON.parse(fs.readFileSync('blogs.json', 'utf8'));
 
-let sql = "INSERT INTO blogs (filename, title, image, author_name, published_at, draft, categories, meta_description, content) VALUES \n";
+// The schema is: filename, title, content, categories, author_name, image, draft, meta_description, published_at
+let sql = "INSERT INTO blogs (filename, title, content, categories, author_name, image, draft, meta_description, published_at) VALUES \n";
 
 const escape = (str) => {
-    if (str === null || str === undefined) return 'NULL';
+    if (str === null || str === undefined || str === "") return 'NULL';
     return "'" + str.replace(/'/g, "''").replace(/\\/g, '\\\\') + "'";
 };
 
 const values = blogs.map(blog => {
     const filename = escape(blog.slug);
     const title = escape(blog.title);
+    const content = escape(blog.content);
+    const categories = escape(JSON.stringify(blog.categories));
+    const author_name = escape(blog.author.name);
     const image = escape(blog.image);
-    const author_name = escape(blog.author?.name || '');
-    // Convert to MySQL timestamp format and map to published_at
-    const dateStr = blog.date ? new Date(blog.date).toISOString().slice(0, 19).replace('T', ' ') : null;
-    const published_at = dateStr ? escape(dateStr) : 'NULL';
     const draft = blog.draft ? '1' : '0';
-    const categories = escape(JSON.stringify(blog.categories || []));
-    const meta_description = escape(blog.metaDescription || '');
-    const content = escape(blog.content || '');
+    const meta_description = escape(blog.metaDescription);
     
-    return `(${filename}, ${title}, ${image}, ${author_name}, ${published_at}, ${draft}, ${categories}, ${meta_description}, ${content})`;
+    // Convert to MySQL timestamp format
+    const dateStr = new Date(blog.date).toISOString().slice(0, 19).replace('T', ' ');
+    const published_at = escape(dateStr);
+    
+    return `(${filename}, ${title}, ${content}, ${categories}, ${author_name}, ${image}, ${draft}, ${meta_description}, ${published_at})`;
 });
 
-// Use ON DUPLICATE KEY UPDATE so it can safely be re-run on the server without failing on UNIQUE constraints
-sql += values.join(",\n") + "\nON DUPLICATE KEY UPDATE title=VALUES(title), image=VALUES(image), author_name=VALUES(author_name), published_at=VALUES(published_at), draft=VALUES(draft), categories=VALUES(categories), meta_description=VALUES(meta_description), content=VALUES(content);";
+// Use ON DUPLICATE KEY UPDATE to avoid errors if re-importing the same posts
+sql += values.join(",\n") + "\nON DUPLICATE KEY UPDATE\n  title=VALUES(title),\n  content=VALUES(content),\n  categories=VALUES(categories),\n  author_name=VALUES(author_name),\n  image=VALUES(image),\n  draft=VALUES(draft),\n  meta_description=VALUES(meta_description),\n  published_at=VALUES(published_at);";
 
 fs.writeFileSync('blogs.sql', sql);
-console.log("SQL generated successfully with the correct schema.");
+console.log("SQL generated successfully with updated schema.");
