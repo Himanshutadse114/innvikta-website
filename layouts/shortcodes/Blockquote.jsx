@@ -1,15 +1,20 @@
-import { TfiQuoteLeft } from "react-icons/tfi";
+import { FaQuoteLeft } from "react-icons/fa";
 
 const Blockquote = ({ name, children }) => {
   return (
-    <blockquote className="rounded-xl border border-border-secondary bg-body px-8 py-3  not-italic">
-      <span className="text-5xl text-gray-400">
-        <TfiQuoteLeft />
-      </span>
-      {children}
-      <span className="m-0 block border-t border-border-secondary pt-3 text-base font-normal text-text after:hidden">
-        {name}
-      </span>
+    <blockquote className="my-6 relative border-l-[5px] border-l-[#f15a24] bg-slate-50/70 p-6 md:p-8 rounded-r-2xl shadow-sm not-italic text-left overflow-hidden">
+      {/* Decorative quotes background icon */}
+      <FaQuoteLeft className="absolute -right-4 -bottom-4 text-slate-200/40 text-7xl pointer-events-none" />
+      
+      <div className="text-slate-700 font-medium leading-relaxed text-sm md:text-base mb-4 relative z-10 font-secondary italic">
+        {children}
+      </div>
+      
+      {name && (
+        <cite className="block border-t border-slate-200/60 pt-3 text-xs md:text-sm font-bold uppercase tracking-wider text-slate-500 not-italic relative z-10">
+          — {name}
+        </cite>
+      )}
     </blockquote>
   );
 };

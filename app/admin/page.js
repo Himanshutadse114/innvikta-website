@@ -40,6 +40,12 @@ export default function AdminBlogPanel() {
   const [inlineImageAlt, setInlineImageAlt] = useState("");
   const [isUploadingInline, setIsUploadingInline] = useState(false);
 
+  // FAQ Modal States
+  const [showFaqModal, setShowFaqModal] = useState(false);
+  const [faqPasteText, setFaqPasteText] = useState("");
+  const [faqTitle, setFaqTitle] = useState("Frequently Asked Questions");
+  const [faqSubtitle, setFaqSubtitle] = useState("");
+
   const [focusKeyphrase, setFocusKeyphrase] = useState("");
   const [seoReport, setSeoReport] = useState([]);
   const [notification, setNotification] = useState(null);
@@ -198,6 +204,15 @@ export default function AdminBlogPanel() {
       if (url === null) return;
       replacement = `[${selectedText}](${url})`;
     }
+    else if (syntax === "demo") {
+      replacement = `\n<BookDemo />\n`;
+    }
+    else if (syntax === "faq") {
+      replacement = `\n<FAQ title="Frequently Asked Questions" subtitle="Find answers to common questions about the platform.">\n  <Accordion title="Enter FAQ Question 1 Here">\n    Enter FAQ Answer 1 here...\n  </Accordion>\n  <Accordion title="Enter FAQ Question 2 Here">\n    Enter FAQ Answer 2 here...\n  </Accordion>\n</FAQ>\n`;
+    }
+    else if (syntax === "quote") {
+      replacement = `\n<Blockquote name="Author/Speaker Name">\nEnter quote content here...\n</Blockquote>\n`;
+    }
 
     const newText = originalText.substring(0, startPos) + replacement + originalText.substring(endPos);
     setFormData((prev) => ({ ...prev, content: newText }));
@@ -206,6 +221,84 @@ export default function AdminBlogPanel() {
       textarea.focus();
       textarea.setSelectionRange(startPos + replacement.length, startPos + replacement.length);
     }, 50);
+  };
+
+  // Convert pasted Q&As into structured FAQ and Accordion shortcodes
+  const handleInsertParsedFaq = () => {
+    if (!faqPasteText.trim()) return;
+    
+    const lines = faqPasteText.split("\n");
+    const items = [];
+    let currentQuestion = "";
+    let currentAnswerLines = [];
+
+    const saveCurrentItem = () => {
+      if (currentQuestion.trim()) {
+        items.push({
+          question: currentQuestion.trim(),
+          answer: currentAnswerLines.join("\n").trim()
+        });
+      }
+    };
+
+    for (let line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      // Smart check if line is a question:
+      // - Starts with Q: / Q. / Question: / Question 1:
+      // - Starts with list number like 1. / 2)
+      // - Ends with a question mark "?"
+      const isQuestionMarker = /^(?:Q|q|Question|question)\s*[:\.]/i.test(trimmed) || 
+                               /^\d+[\.\)]\s+/i.test(trimmed) || 
+                               trimmed.endsWith("?");
+
+      if (isQuestionMarker) {
+        saveCurrentItem();
+        
+        let cleanQuestion = trimmed
+          .replace(/^(?:Q|q|Question|question)\s*[:\.]\s*/i, "")
+          .replace(/^\d+[\.\)]\s*/i, "");
+        
+        currentQuestion = cleanQuestion;
+        currentAnswerLines = [];
+      } else {
+        if (currentQuestion) {
+          let cleanAnswer = trimmed.replace(/^(?:A|a|Answer|answer)\s*[:\.]\s*/i, "");
+          currentAnswerLines.push(cleanAnswer);
+        } else {
+          currentQuestion = trimmed;
+        }
+      }
+    }
+    saveCurrentItem();
+
+    // Construct shortcode structure
+    let mdx = `\n<FAQ title="${faqTitle}"${faqSubtitle ? ` subtitle="${faqSubtitle}"` : ""}>\n`;
+    items.forEach(item => {
+      mdx += `  <Accordion title="${item.question}">\n    ${item.answer.replace(/\n/g, "\n    ")}\n  </Accordion>\n`;
+    });
+    mdx += `</FAQ>\n`;
+
+    const textarea = textareaRef.current;
+    if (textarea) {
+      const startPos = textarea.selectionStart;
+      const endPos = textarea.selectionEnd;
+      const originalText = textarea.value;
+      const newText = originalText.substring(0, startPos) + mdx + originalText.substring(endPos);
+      setFormData((prev) => ({ ...prev, content: newText }));
+      
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(startPos + mdx.length, startPos + mdx.length);
+      }, 50);
+    }
+
+    // Reset and close modal
+    setFaqPasteText("");
+    setFaqTitle("Frequently Asked Questions");
+    setFaqSubtitle("");
+    setShowFaqModal(false);
   };
 
   // Real-time Yoast SEO auditor
@@ -332,6 +425,108 @@ export default function AdminBlogPanel() {
       }
       return `<p class="text-slate-700 leading-relaxed text-sm mb-4">${p.replace(/\n/g, "<br/>")}</p>`;
     }).join("");
+
+    // Render mockup for <BookDemo /> shortcode inside Live Preview
+    html = html.replace(/&lt;BookDemo\s*\/?&gt;/g, `
+      <div class="my-8 bg-white border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-[24px] overflow-hidden max-w-4xl mx-auto flex flex-col md:flex-row text-left">
+        <!-- Left panel -->
+        <div class="md:w-[40%] bg-gradient-to-br from-[#f15a24] to-[#c2410c] text-white p-6 md:p-8 flex flex-col justify-between shrink-0">
+          <div>
+            <div class="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-wider bg-white/10 rounded-full uppercase border border-white/15">
+              HUMAN RISK MANAGEMENT
+            </div>
+            <h4 class="text-2xl font-extrabold text-white leading-tight mb-4">See Innvikta InSAT in Action</h4>
+            <p class="text-xs text-white/90 leading-relaxed font-medium">Explore how our interactive games, realistic phishing simulations, and gamified training modules dramatically reduce organizational human cyber risk.</p>
+          </div>
+          <div class="mt-8 text-[10px] text-white/70 font-semibold tracking-wider uppercase">© INNVIKTA SECURITY</div>
+        </div>
+
+        <!-- Right panel -->
+        <div class="md:w-[60%] p-6 md:p-8 bg-white flex-1">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">YOUR DETAILS</span>
+            <div class="h-px bg-slate-100 flex-1"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">FULL NAME</label>
+                <input type="text" disabled placeholder="Jane Smith" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 opacity-75 text-sm font-medium" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">CORPORATE EMAIL</label>
+                <input type="email" disabled placeholder="jane@yourcompany.com" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 opacity-75 text-sm font-medium" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">COMPANY NAME</label>
+                <input type="text" disabled placeholder="Acme Corp" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 opacity-75 text-sm font-medium" />
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">PHONE NUMBER</label>
+                <input type="text" disabled placeholder="98765 43210" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 opacity-75 text-sm font-medium" />
+              </div>
+            </div>
+            <div class="pt-4 flex justify-start">
+              <button type="button" disabled class="px-10 py-3.5 bg-[#f15a24] text-white font-bold rounded-full shadow-lg shadow-[#f15a24]/20 text-xs uppercase tracking-wider cursor-not-allowed flex items-center gap-2">
+                <span>Book a Demo</span>
+                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+
+    // Render mockup for <FAQ> wrapper shortcode inside Live Preview
+    html = html.replace(/&lt;FAQ\s+title="([^"]+)"\s+subtitle="([^"]+)"&gt;([\s\S]*?)&lt;\/FAQ&gt;/g, `
+      <div class="my-8 p-6 md:p-8 bg-transparent border border-slate-100/80 rounded-[20px] shadow-sm max-w-3xl mx-auto text-left">
+        <div class="mb-6">
+          <h3 class="text-xl md:text-2xl font-extrabold text-slate-900 m-0 leading-tight">$1</h3>
+          <p class="text-xs md:text-sm text-slate-500 mt-2 m-0 leading-relaxed">$2</p>
+          <div class="h-[3px] w-12 bg-[#f15a24] rounded-full mt-4"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          $3
+        </div>
+      </div>
+    `);
+
+    html = html.replace(/&lt;FAQ\s+title="([^"]+)"\s*&gt;([\s\S]*?)&lt;\/FAQ&gt;/g, `
+      <div class="my-8 p-6 md:p-8 bg-transparent border border-slate-100/80 rounded-[20px] shadow-sm max-w-3xl mx-auto text-left">
+        <div class="mb-6">
+          <h3 class="text-xl md:text-2xl font-extrabold text-slate-900 m-0 leading-tight">$1</h3>
+          <div class="h-[3px] w-12 bg-[#f15a24] rounded-full mt-4"></div>
+        </div>
+        <div class="flex flex-col gap-3">
+          $2
+        </div>
+      </div>
+    `);
+
+    // Render mockup for <Accordion> shortcode inside Live Preview
+    html = html.replace(/&lt;Accordion\s+title="([^"]+)"&gt;([\s\S]*?)&lt;\/Accordion&gt;/g, `
+      <div class="mb-4 overflow-hidden rounded-xl border border-slate-100 bg-[#f8fafc] text-left">
+        <div class="px-5 py-4 flex items-center justify-between gap-4 font-bold text-slate-800 text-sm md:text-base">
+          <span>$1</span>
+          <div class="w-7 h-7 rounded-full bg-[#f15a24]/10 text-[#f15a24] flex items-center justify-center font-bold text-base">+</div>
+        </div>
+        <div class="px-5 py-3 text-xs md:text-sm text-slate-600 border-t border-slate-200/80">
+          $2
+        </div>
+      </div>
+    `);
+
+    // Render mockup for <Blockquote> shortcode inside Live Preview
+    html = html.replace(/&lt;Blockquote\s+name="([^"]+)"&gt;([\s\S]*?)&lt;\/Blockquote&gt;/g, `
+      <blockquote class="my-6 relative border-l-[5px] border-l-[#f15a24] bg-slate-50/70 p-6 md:p-8 rounded-r-2xl text-left not-italic">
+        <div class="text-slate-700 font-medium leading-relaxed text-sm md:text-base mb-4 italic">
+          $2
+        </div>
+        <cite class="block border-t border-slate-200/60 pt-3 text-xs md:text-sm font-bold uppercase tracking-wider text-slate-500 not-italic">
+          — $1
+        </cite>
+      </blockquote>
+    `);
 
     return html;
   };
@@ -481,7 +676,7 @@ export default function AdminBlogPanel() {
 
         {/* Inline Image Modal */}
         {showImageModal && (
-          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl w-full max-w-md p-6 text-left shadow-2xl border border-slate-100">
               <div className="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
                 <h4 className="text-base font-bold text-slate-900">Upload & Insert Image</h4>
@@ -533,6 +728,81 @@ export default function AdminBlogPanel() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* FAQ Conversion Modal */}
+        {showFaqModal && (
+          <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl w-full max-w-lg p-6 text-left shadow-2xl border border-slate-100">
+              <div className="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                <h4 className="text-base font-bold text-slate-900">Bulk Convert to FAQ</h4>
+                <button 
+                  onClick={() => {
+                    setShowFaqModal(false);
+                    setFaqPasteText("");
+                  }}
+                  className="text-slate-400 hover:text-slate-600 cursor-pointer"
+                >
+                  <FiX className="text-lg" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">FAQ Container Title</label>
+                  <input
+                    type="text"
+                    value={faqTitle}
+                    onChange={(e) => setFaqTitle(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:outline-none focus:border-[#f15a24] focus:bg-white font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">FAQ Subtitle (Optional)</label>
+                  <input
+                    type="text"
+                    value={faqSubtitle}
+                    onChange={(e) => setFaqSubtitle(e.target.value)}
+                    placeholder="Find answers to common questions about this topic."
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-xs focus:outline-none focus:border-[#f15a24] focus:bg-white font-semibold"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Paste Raw Questions & Answers</label>
+                  <textarea
+                    rows="8"
+                    value={faqPasteText}
+                    onChange={(e) => setFaqPasteText(e.target.value)}
+                    placeholder={`Paste Q&As here. For example:\n\nQ: What is Innvikta InSAT?\nA: InSAT is an enterprise platform...\n\nQ: How to prevent phishing?\nA: Always verify sender emails and enable MFA.`}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-850 placeholder-slate-400 text-xs focus:outline-none focus:border-[#f15a24] focus:bg-white font-mono leading-relaxed"
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1.5">Our smart parser automatically identifies questions starting with Q:, numbers, or ending with a question mark (?).</p>
+                </div>
+
+                <div className="flex gap-3 pt-3 border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowFaqModal(false);
+                      setFaqPasteText("");
+                    }}
+                    className="flex-1 border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-50 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleInsertParsedFaq}
+                    className="flex-1 bg-[#f15a24] hover:bg-orange-600 text-white py-2.5 rounded-xl text-xs font-bold shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    Convert & Insert
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -763,6 +1033,33 @@ export default function AdminBlogPanel() {
                             title="Upload & Insert Image"
                           >
                             <FiImage className="text-sm" />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => insertMarkdown("demo")}
+                            className="px-2.5 py-1.5 hover:bg-[#f15a24]/10 text-slate-600 hover:text-[#f15a24] rounded-lg transition-colors flex items-center gap-1 cursor-pointer text-xs font-bold border border-dashed border-slate-300 hover:border-[#f15a24]"
+                            title="Insert Reusable Demo Form"
+                          >
+                            <span>+ Demo Form</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => setShowFaqModal(true)}
+                            className="px-2.5 py-1.5 hover:bg-[#f15a24]/10 text-slate-600 hover:text-[#f15a24] rounded-lg transition-colors flex items-center gap-1 cursor-pointer text-xs font-bold border border-dashed border-slate-300 hover:border-[#f15a24]"
+                            title="Bulk Convert & Insert FAQ"
+                          >
+                            <span>+ FAQ Accordion</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => insertMarkdown("quote")}
+                            className="px-2.5 py-1.5 hover:bg-[#f15a24]/10 text-slate-600 hover:text-[#f15a24] rounded-lg transition-colors flex items-center gap-1 cursor-pointer text-xs font-bold border border-dashed border-slate-300 hover:border-[#f15a24]"
+                            title="Insert Styled Blockquote"
+                          >
+                            <span>+ Quote</span>
                           </button>
                         </div>
 

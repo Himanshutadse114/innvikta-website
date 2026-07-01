@@ -11,11 +11,14 @@ const MDXContent = ({ content }) => {
     rehypePlugins: [rehypeHighlight, rehypeSlug],
   };
 
+  // Preprocess content to ensure headings without spaces (e.g., ##Heading) are parsed properly
+  const processedContent = content ? content.replace(/^(#{1,6})([^\s#].*)$/gm, "$1 $2") : "";
+
   return (
     <>
       {/* @ts-ignore */}
       <MDXRemote
-        source={content}
+        source={processedContent}
         components={shortcodes}
         options={{ mdxOptions }}
       />

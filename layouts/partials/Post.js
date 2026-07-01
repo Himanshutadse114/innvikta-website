@@ -4,8 +4,28 @@ import dateFormat from "@lib/utils/dateFormat";
 import readingTime from "@lib/utils/readingTime";
 import Link from "next/link";
 
+const stripMarkdown = (content) => {
+  if (!content) return "";
+  return content
+    // Normalize headings without space first so we can parse/strip them
+    .replace(/^(#{1,6})([^\s#].*)$/gm, "$1 $2")
+    // Remove HTML/JSX tags like <BookDemo /> or <Notice>...</Notice>
+    .replace(/<[^>]*>/g, "")
+    // Remove markdown headers: e.g. ## heading
+    .replace(/^#+\s*(.*)$/gm, "$1")
+    // Remove markdown links: [text](url) -> text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    // Remove bold/italic/code-block/inline-code markup
+    .replace(/[\*_~`]/g, "")
+    // Normalize white spaces
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
 const Post = ({ post, i }) => {
   const { summary_length, blog_folder } = config.settings;
+  const cleanSummary = stripMarkdown(post.content);
+  
   return (
     <div className="overflow-hidden rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,.05)]">
       {post.frontmatter.image && (
@@ -29,7 +49,7 @@ const Post = ({ post, i }) => {
           </Link>
         </h2>
         <p className="mt-4">
-          {post.content.slice(0, Number(summary_length))}...
+          {cleanSummary.slice(0, Number(summary_length))}...
         </p>
         <div className="mt-6 text-sm text-slate-500 font-medium">
           <p>

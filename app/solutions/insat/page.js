@@ -509,8 +509,8 @@ const InsatPage = () => {
                             <span>Explore Adaptive Learning</span>
                         </a>
                     </div>
-                    <div className="two-col-visual-block aspect-628-517 bg-grey animate from-right">
-                        <img alt="AI adaptive learning routes" loading="lazy" src="/insat/images/Transfers.jpg" />
+                    <div className="two-col-visual-block bg-white animate from-right">
+                        <img alt="AI adaptive learning routes" loading="lazy" src="/insat/images/adaptive_learning.png" style={{ width: "100%", height: "auto", display: "block" }} />
                     </div>
                 </div>
 
